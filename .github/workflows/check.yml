@@ -2,7 +2,7 @@ name: Check IPTV channels
 
 on:
   schedule:
-    - cron: "0 3 * * *"   # запуск каждый день в 03:00 UTC
+    - cron: "0 21 * * *"   # запуск каждый день в 00:00 МСК
   workflow_dispatch:       # возможность вручную запускать
 
 jobs:
