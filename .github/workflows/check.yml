@@ -5,6 +5,13 @@ on:
     - cron: "0 21 * * *"   # запуск каждый день в 00:00 МСК
   workflow_dispatch:       # возможность вручную запускать
 
+env:
+  PAGES_ORIGIN:  https://nelabuzov.github.io
+  PAGES_REFERER: https://nelabuzov.github.io/iptv/
+  TIMEOUT_MS: 3000
+  RETRIES: 1
+  CONCURRENCY: 100
+
 jobs:
   check:
     runs-on: ubuntu-latest
