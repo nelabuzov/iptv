@@ -107,26 +107,18 @@ async function checkChannelOnce(ch) {
 }
 
 async function checkChannel(ch) {
-  for (let i = 0; i <= RETRIES; i++) {
-    try {
-      const ok = await checkChannelOnce(ch);
-      ch.working = !!ok;
-      console.log(`✅ ${ch.name}`);
-      return ch;
-    } catch (e) {
-      // если это именно отсутствие CORS — повторять смысла нет
-      if (String(e?.message || "").startsWith("no-cors")) {
-        ch.working = false;
-        console.log(`❌ ${ch.name} (${e.message})`);
-        return ch;
-      }
-      // сетевые/таймаут — можно ретраить
-      if (i < RETRIES) continue;
+  try {
+    const ok = await checkChannelOnce(ch);
+    ch.working = true;
+    console.log(`✅ ${ch.name}`);
+  } catch (e) {
+    // если ошибка CORS — считаем канал нерабочим
+    if (String(e?.message || "").startsWith("no-cors")) {
       ch.working = false;
-      console.log(`❌ ${ch.name} (network)`);
-      return ch;
+      console.log(`❌ ${ch.name}`);
     }
   }
+  return ch;
 }
 
 // === Параллельная очередь ===
