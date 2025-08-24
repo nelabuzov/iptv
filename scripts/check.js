@@ -1,34 +1,70 @@
 import fs from "fs";
 
-// URL плейлиста
+// === Настройки ===
 const playlistUrl = "https://iptv-org.github.io/iptv/index.m3u";
+const TIMEOUT_MS = 3000;    // таймаут на один запрос
+const RETRIES = 1;          // повторы при сетевой ошибке
+const CONCURRENCY = 100;    // параллельных воркеров
 
-// Настройки
-const TIMEOUT = 3000;        // Таймаут на один канал
-const RETRIES = 1;           // Кол-во повторов
-const CONCURRENT = 50;       // Сколько fetch одновременно
+// === Утилиты ===
+function hasCorsHeader(res) {
+  const v = res.headers.get("access-control-allow-origin");
+  return v && v.trim() !== "";
+}
 
-// Загрузка плейлиста
+function looksLikeM3U8(url, res) {
+  const u = url.toLowerCase();
+  if (u.endsWith(".m3u8")) return true;
+  const ct = (res.headers.get("content-type") || "").toLowerCase();
+  return ct.includes("application/vnd.apple.mpegurl") || ct.includes("application/x-mpegurl");
+}
+
+function firstUriFromM3U8(text) {
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  // master?
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith("#EXT-X-STREAM-INF")) {
+      for (let j = i + 1; j < lines.length; j++) {
+        if (!lines[j].startsWith("#")) return lines[j];
+      }
+    }
+  }
+  // media: первая строка без '#'
+  for (const l of lines) if (!l.startsWith("#")) return l;
+  return null;
+}
+
+async function fetchWithTimeout(url, opts = {}, timeout = TIMEOUT_MS) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeout);
+  try {
+    return await fetch(url, { ...opts, signal: ctrl.signal, redirect: "follow" });
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+// === Загрузка и парсинг плейлиста iptv-org ===
 async function loadPlaylist(url) {
   const res = await fetch(url);
-  if (!res.ok) throw new Error("Failed to fetch playlist");
+  if (!res.ok) throw new Error(`Failed to fetch playlist: ${res.status}`);
   return await res.text();
 }
 
-// Парсинг плейлиста
 function parsePlaylist(m3uText) {
   const channels = [];
   let currentName = "";
   let currentTvgId = "";
 
-  for (const line of m3uText.split("\n")) {
+  for (const raw of m3uText.split(/\r?\n/)) {
+    const line = raw.trim();
     if (line.startsWith("#EXTINF")) {
       currentName = line.split(",").slice(1).join(",").trim();
       const mId = line.match(/tvg-id="([^"]+)"/i);
       currentTvgId = mId ? mId[1] : "";
     } else if (line.startsWith("http") && currentName) {
-      if (currentTvgId) {  // оставляем только с tvg-id
-        channels.push({ name: currentName, url: line.trim(), tvgId: currentTvgId });
+      if (currentTvgId) {
+        channels.push({ name: currentName, url: line, tvgId: currentTvgId });
       }
       currentName = "";
       currentTvgId = "";
@@ -37,79 +73,87 @@ function parsePlaylist(m3uText) {
   return channels;
 }
 
-// fetch с таймаутом
-async function fetchWithTimeout(url, timeout = TIMEOUT) {
-  return Promise.race([
-    fetch(url, { 
-      method: "GET",
-      headers: { Range: "bytes=0-1" } // запросим только первые 2 байта
-    }),
-    new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), timeout))
-  ]);
+// === Проверка канала: НЕрабочий только если нет CORS ===
+async function checkChannelOnce(ch) {
+  // 1) сам плейлист/ресурс
+  const res = await fetchWithTimeout(ch.url, {
+    method: "GET",
+    headers: {
+      "User-Agent": "Mozilla/5.0",
+      "Range": "bytes=0-1"
+    }
+  });
+
+  if (!hasCorsHeader(res)) throw new Error("no-cors:playlist");
+
+  // 2) если это m3u8 — проверяем первую «дочку» (вариант/сегмент)
+  if (looksLikeM3U8(ch.url, res)) {
+    const text = await res.text();
+    const ref = firstUriFromM3U8(text);
+    if (ref) {
+      const childUrl = new URL(ref, ch.url).href;
+      const childRes = await fetchWithTimeout(childUrl, {
+        method: "GET",
+        headers: {
+          "User-Agent": "Mozilla/5.0",
+          "Range": "bytes=0-1"
+        }
+      });
+      if (!hasCorsHeader(childRes)) throw new Error("no-cors:child");
+    }
+  }
+
+  return true; // CORS есть — ок
 }
 
-// Проверка одного канала
 async function checkChannel(ch) {
-  try {
-    const res = await fetchWithTimeout(ch.url, TIMEOUT);
-
-    // если fetch вернул ответ без ошибки сети
-    if (res.ok || res.type === "opaque") {
-      // Проверка CORS
-      if (res.type === "cors" && !res.headers.has("access-control-allow-origin")) {
+  for (let i = 0; i <= RETRIES; i++) {
+    try {
+      const ok = await checkChannelOnce(ch);
+      ch.working = !!ok;
+      console.log(`✅ ${ch.name}`);
+      return ch;
+    } catch (e) {
+      // если это именно отсутствие CORS — повторять смысла нет
+      if (String(e?.message || "").startsWith("no-cors")) {
         ch.working = false;
-        console.log(`❌ ${ch.name} (CORS)`);
-      } else {
-        ch.working = true;
-        console.log(`✅ ${ch.name}`);
+        console.log(`❌ ${ch.name} (${e.message})`);
+        return ch;
       }
+      // сетевые/таймаут — можно ретраить
+      if (i < RETRIES) continue;
+      ch.working = false;
+      console.log(`❌ ${ch.name} (network)`);
       return ch;
     }
-  } catch (err) {
-    // Любая ошибка кроме CORS – игнор, считаем рабочим
-    ch.working = true;
-    console.log(`✅ ${ch.name}`);
-    return ch;
   }
-
-  // fallback – рабочий
-  ch.working = true;
-  console.log(`✅ ${ch.name}`);
-  return ch;
 }
 
-// Асинхронная очередь
+// === Параллельная очередь ===
 async function checkAllChannels(channels) {
-  let index = 0;
+  let i = 0;
   const total = channels.length;
-  const results = [];
+  const out = new Array(total);
 
   async function worker() {
-    while (index < total) {
-      const i = index++;
-      const ch = channels[i];
-      await checkChannel(ch);
-      results[i] = ch;
+    while (true) {
+      const idx = i++;
+      if (idx >= total) break;
+      out[idx] = await checkChannel(channels[idx]);
     }
   }
 
-  const workers = [];
-  for (let i = 0; i < CONCURRENT; i++) {
-    workers.push(worker());
-  }
-
-  await Promise.all(workers);
-  return results;
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+  return out;
 }
 
-// Основная функция
+// === main ===
 async function main() {
   console.log("Loading playlist...");
-  const m3uText = await loadPlaylist(playlistUrl);
-  let channels = parsePlaylist(m3uText);
-  console.log(`Total channels to check: ${channels.length}`);
+  const m3u = await loadPlaylist(playlistUrl);
+  let channels = parsePlaylist(m3u);
+  console.log(`Total channels with tvg-id: ${channels.length}`);
 
-  console.log("Checking channels...");
   channels = await checkAllChannels(channels);
 
   fs.mkdirSync("data", { recursive: true });
@@ -118,6 +162,6 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error("Error:", err);
+  console.error(err);
   process.exit(1);
 });
