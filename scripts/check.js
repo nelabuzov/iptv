@@ -38,12 +38,13 @@ function parsePlaylist(m3uText) {
 }
 
 // fetch с таймаутом
-function fetchWithTimeout(url, timeout = TIMEOUT) {
+async function fetchWithTimeout(url, timeout = TIMEOUT) {
   return Promise.race([
-    fetch(url, { method: "HEAD" }),
-    new Promise((_, rej) =>
-      setTimeout(() => rej(new Error("timeout")), timeout)
-    ),
+    fetch(url, { 
+      method: "GET",
+      headers: { Range: "bytes=0-1" } // запросим только первые 2 байта
+    }),
+    new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), timeout))
   ]);
 }
 
