@@ -3,11 +3,10 @@ import fs from "fs";
 // URL плейлиста
 const playlistUrl = "https://iptv-org.github.io/iptv/index.m3u";
 
-// Таймаут для каждого запроса (мс)
-const TIMEOUT = 3000;
-
-// Размер пакета каналов, проверяемых одновременно
-const BATCH_SIZE = 200;
+// Настройки
+const TIMEOUT = 3000;        // Таймаут на один канал
+const RETRIES = 1;           // Кол-во повторов
+const CONCURRENT = 50;       // Сколько fetch одновременно
 
 // Загрузка плейлиста
 async function loadPlaylist(url) {
@@ -38,7 +37,7 @@ function parsePlaylist(m3uText) {
   return channels;
 }
 
-// Функция fetch с таймаутом
+// fetch с таймаутом
 function fetchWithTimeout(url, timeout = TIMEOUT) {
   return Promise.race([
     fetch(url, { method: "HEAD" }),
@@ -48,32 +47,46 @@ function fetchWithTimeout(url, timeout = TIMEOUT) {
   ]);
 }
 
-// Проверка одного канала
-async function checkChannel(ch, retries = 1) {
-  for (let i = 0; i <= retries; i++) {
+// Проверка одного канала с retry и выводом статуса
+async function checkChannel(ch) {
+  for (let i = 0; i <= RETRIES; i++) {
     try {
       const res = await fetchWithTimeout(ch.url, TIMEOUT);
       if (res.ok || res.type === "opaque") {
-        ch.working = true; // канал рабочий
+        ch.working = true;
+        console.log(`✅ ${ch.name}`);
         return ch;
       }
     } catch {}
-    if (i < retries) await new Promise(r => setTimeout(r, 1000)); // пауза перед повтором
+    if (i < RETRIES) await new Promise(r => setTimeout(r, 500));
   }
-  ch.working = false; // если все попытки провалились
+  ch.working = false;
+  console.log(`❌ ${ch.name}`);
   return ch;
 }
 
-// Проверка всех каналов пакетами
+// Асинхронная очередь
 async function checkAllChannels(channels) {
-  const result = [];
-  for (let i = 0; i < channels.length; i += BATCH_SIZE) {
-    const batch = channels.slice(i, i + BATCH_SIZE).map(checkChannel);
-    const checked = await Promise.all(batch);
-    result.push(...checked);
-    console.log(`Checked ${Math.min(i + BATCH_SIZE, channels.length)} / ${channels.length}`);
+  let index = 0;
+  const total = channels.length;
+  const results = [];
+
+  async function worker() {
+    while (index < total) {
+      const i = index++;
+      const ch = channels[i];
+      await checkChannel(ch);
+      results[i] = ch;
+    }
   }
-  return result;
+
+  const workers = [];
+  for (let i = 0; i < CONCURRENT; i++) {
+    workers.push(worker());
+  }
+
+  await Promise.all(workers);
+  return results;
 }
 
 // Основная функция
@@ -81,7 +94,7 @@ async function main() {
   console.log("Loading playlist...");
   const m3uText = await loadPlaylist(playlistUrl);
   let channels = parsePlaylist(m3uText);
-  console.log(`Total channels found: ${channels.length}`);
+  console.log(`Total channels to check: ${channels.length}`);
 
   console.log("Checking channels...");
   channels = await checkAllChannels(channels);
