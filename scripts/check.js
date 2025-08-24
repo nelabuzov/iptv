@@ -4,10 +4,10 @@ import fs from "fs";
 const playlistUrl = "https://iptv-org.github.io/iptv/index.m3u";
 
 // Таймаут для каждого запроса (мс)
-const TIMEOUT = 5000;
+const TIMEOUT = 3000;
 
 // Размер пакета каналов, проверяемых одновременно
-const BATCH_SIZE = 20;
+const BATCH_SIZE = 200;
 
 // Загрузка плейлиста
 async function loadPlaylist(url) {
@@ -20,16 +20,21 @@ async function loadPlaylist(url) {
 function parsePlaylist(m3uText) {
   const channels = [];
   let currentName = "";
+  let currentTvgId = "";
 
   for (const line of m3uText.split("\n")) {
     if (line.startsWith("#EXTINF")) {
       currentName = line.split(",").slice(1).join(",").trim();
+      const mId = line.match(/tvg-id="([^"]+)"/i);
+      currentTvgId = mId ? mId[1] : "";
     } else if (line.startsWith("http") && currentName) {
-      channels.push({ name: currentName, url: line.trim() });
+      if (currentTvgId) {  // оставляем только с tvg-id
+        channels.push({ name: currentName, url: line.trim(), tvgId: currentTvgId });
+      }
       currentName = "";
+      currentTvgId = "";
     }
   }
-
   return channels;
 }
 
@@ -44,7 +49,7 @@ function fetchWithTimeout(url, timeout = TIMEOUT) {
 }
 
 // Проверка одного канала
-async function checkChannel(ch, retries = 2) {
+async function checkChannel(ch, retries = 1) {
   for (let i = 0; i <= retries; i++) {
     try {
       const res = await fetchWithTimeout(ch.url, TIMEOUT);
