@@ -183,8 +183,7 @@
   {
     "name": "4 Fun TV (288p) [Not 24/7]",
     "url": "https://stream.4fun.tv:8888/hls/4f.m3u8",
-    "tvgId": "4FunTV.pl@SD",
-    "working": true
+    "tvgId": "4FunTV.pl@SD"
   },
   {
     "name": "4Kids TV",
@@ -200,8 +199,7 @@
   {
     "name": "4U TV (720p)",
     "url": "https://hls.4utv.live/hls/stream.m3u8",
-    "tvgId": "4UTV.tr",
-    "working": true
+    "tvgId": "4UTV.tr"
   },
   {
     "name": "5AAB TV (720p) [Not 24/7]",
@@ -212,14 +210,12 @@
   {
     "name": "5TV",
     "url": "https://live20.bozztv.com/gin-trn09/gt-amtv5/index.m3u8",
-    "tvgId": "5TV.am@SD",
-    "working": false
+    "tvgId": "5TV.am@SD"
   },
   {
     "name": "5TV Corrientes (480p) [Not 24/7]",
     "url": "http://www.coninfo.net:1935/tvcinco/live1/playlist.m3u8",
-    "tvgId": "5tv.ar",
-    "working": true
+    "tvgId": "5tv.ar"
   },
   {
     "name": "5 канал",
@@ -1585,8 +1581,7 @@
   {
     "name": "Adom TV",
     "url": "https://live20.bozztv.com/dvrfl06/astv/astv-adom/index.m3u8",
-    "tvgId": "AdomTV.gh@SD",
-    "working": false
+    "tvgId": "AdomTV.gh@SD"
   },
   {
     "name": "Adoram TV (720p)",
@@ -38003,7 +37998,7 @@
     "name": "TV Paraná Turismo (720p) [Not 24/7]",
     "url": "http://200.189.113.201/hls/tve.m3u8",
     "tvgId": "TVParanaTurismo.br",
-    "working": true
+    "working": false
   },
   {
     "name": "TV Passo Fundo (720p)",
@@ -40686,8 +40681,7 @@
   {
     "name": "VoxAfrica",
     "url": "http://69.64.57.208/voxafrica/playlist.m3u8",
-    "tvgId": "VoxAfrica.uk",
-    "working": true
+    "tvgId": "VoxAfrica.uk"
   },
   {
     "name": "Voyager Documentaries",
@@ -40963,7 +40957,7 @@
     "name": "Walf TV (360p)",
     "url": "http://69.64.57.208/walftv/playlist.m3u8",
     "tvgId": "WalfTV.sn",
-    "working": true
+    "working": false
   },
   {
     "name": "Walker Texas Ranger",
@@ -42738,7 +42732,8 @@
   {
     "name": "Домашний",
     "url": "http://178.217.72.66:8080/Domashniy/index.m3u8",
-    "tvgId": "Domashniy.ru@SD"
+    "tvgId": "Domashniy.ru@SD",
+    "working": true
   },
   {
     "name": "Домашний International",
@@ -44148,7 +44143,8 @@
   {
     "name": "江苏城市 (576p)",
     "url": "http://183.207.248.71/gitv/live1/G_JSCS/G_JSCS",
-    "tvgId": "JiangsuCityChannel.cn@SD"
+    "tvgId": "JiangsuCityChannel.cn@SD",
+    "working": false
   },
   {
     "name": "江苏影视 (576p)",
@@ -44163,7 +44159,8 @@
   {
     "name": "江苏综艺 (576p) [Not 24/7]",
     "url": "http://183.207.248.71/gitv/live1/G_JSZY/G_JSZY",
-    "tvgId": "JiangsuVarietyChannel.cn@SD"
+    "tvgId": "JiangsuVarietyChannel.cn@SD",
+    "working": false
   },
   {
     "name": "江西卫视 (1080p)",
