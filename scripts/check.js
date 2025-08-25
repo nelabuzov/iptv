@@ -1,77 +1,90 @@
-const fs = require("fs");
-const util = require("util");
+// check.js
 const { exec } = require("child_process");
+const util = require("util");
+const https = require("https");
 
 const execAsync = util.promisify(exec);
+const PLAYLIST_URL = "https://iptv-org.github.io/iptv/index.m3u";
 
-const playlistUrl = "https://iptv-org.github.io/iptv/index.m3u";
-const TIMEOUT_MS = 10000;
-const CONCURRENT = 20;
-
-async function loadPlaylist(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to fetch playlist: ${res.status}`);
-  return await res.text();
+// скачать m3u по https
+function fetchPlaylist(url) {
+  return new Promise((resolve, reject) => {
+    https
+      .get(url, (res) => {
+        if (res.statusCode !== 200) {
+          reject(new Error(`HTTP ${res.statusCode}`));
+          return;
+        }
+        let data = "";
+        res.on("data", (chunk) => (data += chunk));
+        res.on("end", () => resolve(data));
+      })
+      .on("error", reject);
+  });
 }
 
-function parsePlaylist(m3uText) {
+// парсер m3u
+function parseM3U(data) {
+  const lines = data.split("\n");
   const channels = [];
-  let currentName = "";
-  let currentTvgId = "";
-  for (const line of m3uText.split(/\r?\n/)) {
-    const l = line.trim();
-    if (l.startsWith("#EXTINF")) {
-      currentName = l.split(",").slice(1).join(",").trim();
-      const mId = l.match(/tvg-id="([^"]+)"/i);
-      currentTvgId = mId ? mId[1] : "";
-    } else if (l.startsWith("http") && currentName) {
-      channels.push({ name: currentName, url: l, tvgId: currentTvgId });
-      currentName = "";
-      currentTvgId = "";
+  let name = "";
+
+  for (const line of lines) {
+    if (line.startsWith("#EXTINF")) {
+      // достаём имя канала
+      const match = line.match(/,(.*)$/);
+      if (match) {
+        name = match[1].trim();
+      }
+    } else if (line.trim() && !line.startsWith("#")) {
+      // сама ссылка
+      channels.push({ name, url: line.trim() });
+      name = "";
     }
   }
   return channels;
 }
 
-// проверка через ffmpeg, скачиваем 3 сегмента
-async function checkChannel(ch) {
+// проверка канала
+async function checkChannel(url, name) {
   try {
-    const cmd = `ffmpeg -loglevel error -timeout 5000000 -i "${ch.url}" -t 1 -f null -`;
-    await execAsync(cmd, { timeout: TIMEOUT_MS });
-    ch.working = true;
-    console.log(`✅ ${ch.name}`);
+    await execAsync(
+      `ffmpeg -loglevel error -i "${url}" -t 3 -c copy -f null -`,
+      { timeout: 20000 }
+    );
+    console.log(`✅ ${name}`);
+  } catch (err) {
+    let reason = "Неизвестная ошибка";
+
+    if (err.killed) {
+      reason = "Превышен таймаут";
+    } else if (err.signal) {
+      reason = `Сигнал ${err.signal}`;
+    } else if (err.stderr && err.stderr.trim()) {
+      const lines = err.stderr.trim().split("\n");
+      reason = lines[lines.length - 1] || reason;
+      console.log(`❌ ${name} {${reason}}`);
+      return;
+    } else {
+      console.log(`✅ ${name} (⚠️ stderr пустой, может быть ложная ошибка)`);
+      return;
+    }
+  }
+}
+
+(async () => {
+  console.log("📥 Загружаю плейлист...");
+  try {
+    const data = await fetchPlaylist(PLAYLIST_URL);
+    const channels = parseM3U(data);
+
+    console.log(`📺 Найдено каналов: ${channels.length}`);
+
+    // ограничим первые 20 чтобы быстро проверить
+    for (const ch of channels.slice(0, 20)) {
+      await checkChannel(ch.url, ch.name);
+    }
   } catch (e) {
-    ch.working = false;
-    console.log(`❌ ${ch.name} (${e.message})`);
+    console.error("Ошибка загрузки плейлиста:", e.message);
   }
-  return ch;
-}
-
-async function checkAllChannels(channels) {
-  const results = [];
-  for (let i = 0; i < channels.length; i += CONCURRENT) {
-    const batch = channels.slice(i, i + CONCURRENT);
-    const checked = await Promise.all(batch.map(ch => checkChannel(ch)));
-    results.push(...checked);
-  }
-  return results;
-}
-
-async function main() {
-  console.log("Loading playlist...");
-  const m3uText = await loadPlaylist(playlistUrl);
-  const channels = parsePlaylist(m3uText);
-  console.log(`Total channels: ${channels.length}`);
-
-  const results = await checkAllChannels(channels);
-
-  fs.mkdirSync("data", { recursive: true });
-  fs.writeFileSync("data/channels.json", JSON.stringify(results, null, 2));
-  console.log("✅ Done! data/channels.json updated");
-}
-
-main().catch(e => {
-  console.error(e);
-  process.exit(1);
-});
-
+})();
