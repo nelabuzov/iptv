@@ -1,37 +1,31 @@
-name: Check IPTV channels
+name: Check Channels
 
 on:
   schedule:
-    - cron: "0 21 * * *"   # запуск каждый день в 00:00 МСК
-  workflow_dispatch:       # возможность вручную запускать
-
-env:
-  PAGES_ORIGIN: "https://nelabuzov.github.io"
-  TIMEOUT_MS: 3000
-  CONCURRENT: 50
+    - cron: "0 21 * * *" # каждый день в 00:00 МСК
+  workflow_dispatch: # запуск вручную
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18
 
-      - name: Install deps
-        run: npm install node-fetch@3
+      - name: Install dependencies
+        run: npm install puppeteer
 
       - name: Run check script
-        run: node scripts/check.js
+        run: node check.js
 
-      - name: Commit result
+      - name: Commit results
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add data/channels.json
-          git commit -m "Auto-update channel status" || echo "No changes"
+          git commit -m "Update checked channels"
           git push
