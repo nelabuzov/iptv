@@ -1,12 +1,42 @@
 const fs = require("fs");
+const fetch = require("node-fetch");
 const puppeteer = require("puppeteer");
 
+// === Настройки ===
+const PLAYLIST_URL = "https://iptv-org.github.io/iptv/index.m3u";
 const BATCH_SIZE = 20;   // сколько вкладок одновременно
 const TIMEOUT = 15000;   // таймаут на один канал
 
-// читаем список каналов из channels.json
-const channels = JSON.parse(fs.readFileSync("channels.json", "utf-8"));
+// === Утилиты ===
+// Парсим M3U и возвращаем массив каналов {name, url, tvgId}
+async function loadPlaylist(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch playlist: ${res.status}`);
+  const text = await res.text();
 
+  const channels = [];
+  let currentName = "";
+  let currentTvgId = "";
+
+  for (const line of text.split(/\r?\n/)) {
+    const l = line.trim();
+    if (l.startsWith("#EXTINF")) {
+      currentName = l.split(",").slice(1).join(",").trim();
+      const mId = l.match(/tvg-id="([^"]+)"/i);
+      currentTvgId = mId ? mId[1] : "";
+    } else if (l.startsWith("http") && currentName) {
+      if (currentTvgId) {
+        channels.push({ name: currentName, url: l, tvgId: currentTvgId });
+      }
+      currentName = "";
+      currentTvgId = "";
+    }
+  }
+
+  return channels;
+}
+
+// Проверка одного канала через Puppeteer
 async function checkChannel(page, ch) {
   try {
     const response = await page.goto(ch.url, {
@@ -28,10 +58,12 @@ async function checkChannel(page, ch) {
     ch.working = false;
     console.log(`❌ ${ch.name} (${e.message})`);
   }
+
   return ch;
 }
 
-async function checkAllChannels() {
+// Проверка всех каналов пачками
+async function checkAllChannels(channels) {
   const browser = await puppeteer.launch({
     headless: "new",
     args: ["--no-sandbox", "--disable-setuid-sandbox"]
@@ -41,8 +73,8 @@ async function checkAllChannels() {
 
   for (let i = 0; i < channels.length; i += BATCH_SIZE) {
     const batch = channels.slice(i, i + BATCH_SIZE);
-
     const pages = await Promise.all(batch.map(() => browser.newPage()));
+
     const checked = await Promise.all(
       batch.map((ch, idx) => checkChannel(pages[idx], ch))
     );
@@ -52,9 +84,24 @@ async function checkAllChannels() {
   }
 
   await browser.close();
-
-  fs.writeFileSync("data/channels.json", JSON.stringify(results, null, 2));
-  console.log("✅ Done! data/channels.json updated");
+  return results;
 }
 
-checkAllChannels();
+// === Main ===
+(async () => {
+  try {
+    console.log("Loading playlist...");
+    const channels = await loadPlaylist(PLAYLIST_URL);
+    console.log(`Total channels to check: ${channels.length}`);
+
+    console.log("Checking channels...");
+    const results = await checkAllChannels(channels);
+
+    fs.mkdirSync("data", { recursive: true });
+    fs.writeFileSync("data/channels.json", JSON.stringify(results, null, 2));
+    console.log("✅ Done! data/channels.json updated");
+  } catch (err) {
+    console.error("Error:", err);
+    process.exit(1);
+  }
+})();
