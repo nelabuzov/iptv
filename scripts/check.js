@@ -1,67 +1,102 @@
-const fs = require("fs");
-const puppeteer = require("puppeteer");
+import fs from "fs";
+import puppeteer from "puppeteer";
 
-// === Настройки ===
-const PLAYLIST_URL = "https://iptv-org.github.io/iptv/index.m3u";
-const BATCH_SIZE = 20;   // сколько вкладок одновременно
-const TIMEOUT = 15000;   // таймаут на один канал
+const playlistUrl = "https://iptv-org.github.io/iptv/index.m3u";
+const BATCH_SIZE = 20;
+const TIMEOUT = 15000;
 
 // === Утилиты ===
-// Парсим M3U и возвращаем массив каналов {name, url, tvgId}
+function firstUriFromM3U8(text) {
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith("#EXT-X-STREAM-INF")) {
+      for (let j = i + 1; j < lines.length; j++) {
+        if (!lines[j].startsWith("#")) return lines[j];
+      }
+    }
+  }
+  for (const l of lines) if (!l.startsWith("#")) return l;
+  return null;
+}
+
+// === Загрузка плейлиста ===
 async function loadPlaylist(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch playlist: ${res.status}`);
-  const text = await res.text();
+  return await res.text();
+}
 
+function parsePlaylist(m3uText) {
   const channels = [];
   let currentName = "";
   let currentTvgId = "";
 
-  for (const line of text.split(/\r?\n/)) {
+  for (const line of m3uText.split(/\r?\n/)) {
     const l = line.trim();
     if (l.startsWith("#EXTINF")) {
       currentName = l.split(",").slice(1).join(",").trim();
       const mId = l.match(/tvg-id="([^"]+)"/i);
       currentTvgId = mId ? mId[1] : "";
     } else if (l.startsWith("http") && currentName) {
-      if (currentTvgId) {
-        channels.push({ name: currentName, url: l, tvgId: currentTvgId });
-      }
+      if (currentTvgId) channels.push({ name: currentName, url: l, tvgId: currentTvgId });
       currentName = "";
       currentTvgId = "";
     }
   }
-
   return channels;
 }
 
-// Проверка одного канала через Puppeteer
+// === Проверка одного канала ===
 async function checkChannel(page, ch) {
   try {
-    const response = await page.goto(ch.url, {
-      waitUntil: "domcontentloaded",
-      timeout: TIMEOUT
-    });
+    const response = await page.goto(ch.url, { waitUntil: "domcontentloaded", timeout: TIMEOUT });
 
     if (!response) {
       ch.working = false;
       console.log(`❌ ${ch.name} (no response)`);
-    } else if (!response.ok()) {
-      ch.working = false;
-      console.log(`❌ ${ch.name} (status ${response.status()})`);
-    } else {
-      ch.working = true;
-      console.log(`✅ ${ch.name}`);
+      return ch;
     }
+
+    const status = response.status();
+
+    // Если HTTP-ошибка или редирект — считаем нерабочим
+    if (![200, 0].includes(status)) {
+      ch.working = false;
+      console.log(`❌ ${ch.name} (status ${status})`);
+      return ch;
+    }
+
+    // Проверяем m3u8: первый сегмент
+    if (ch.url.toLowerCase().endsWith(".m3u8")) {
+      const m3uText = await response.text();
+      const firstSeg = firstUriFromM3U8(m3uText);
+      if (firstSeg) {
+        const segUrl = new URL(firstSeg, ch.url).href;
+        try {
+          const segResp = await page.goto(segUrl, { waitUntil: "domcontentloaded", timeout: TIMEOUT });
+          if (!segResp || ![200, 0].includes(segResp.status())) {
+            ch.working = false;
+            console.log(`❌ ${ch.name} (first segment failed)`);
+            return ch;
+          }
+        } catch {
+          ch.working = false;
+          console.log(`❌ ${ch.name} (first segment error)`);
+          return ch;
+        }
+      }
+    }
+
+    ch.working = true;
+    console.log(`✅ ${ch.name}`);
   } catch (e) {
     ch.working = false;
     console.log(`❌ ${ch.name} (${e.message})`);
   }
-
   return ch;
 }
 
-// Проверка всех каналов пачками
+// === Параллельная проверка ===
 async function checkAllChannels(channels) {
   const browser = await puppeteer.launch({
     headless: "new",
@@ -69,15 +104,10 @@ async function checkAllChannels(channels) {
   });
 
   const results = [];
-
   for (let i = 0; i < channels.length; i += BATCH_SIZE) {
     const batch = channels.slice(i, i + BATCH_SIZE);
     const pages = await Promise.all(batch.map(() => browser.newPage()));
-
-    const checked = await Promise.all(
-      batch.map((ch, idx) => checkChannel(pages[idx], ch))
-    );
-
+    const checked = await Promise.all(batch.map((ch, idx) => checkChannel(pages[idx], ch)));
     await Promise.all(pages.map(p => p.close()));
     results.push(...checked);
   }
@@ -86,22 +116,21 @@ async function checkAllChannels(channels) {
   return results;
 }
 
-// === Main ===
-(async () => {
-  try {
-    console.log("Loading playlist...");
-    const channels = await loadPlaylist(PLAYLIST_URL);
-    console.log(`Total channels to check: ${channels.length}`);
+// === main ===
+async function main() {
+  console.log("Loading playlist...");
+  const m3uText = await loadPlaylist(playlistUrl);
+  const channels = parsePlaylist(m3uText);
+  console.log(`Total channels: ${channels.length}`);
 
-    console.log("Checking channels...");
-    const results = await checkAllChannels(channels);
+  const results = await checkAllChannels(channels);
 
-    fs.mkdirSync("data", { recursive: true });
-    fs.writeFileSync("data/channels.json", JSON.stringify(results, null, 2));
-    console.log("✅ Done! data/channels.json updated");
-  } catch (err) {
-    console.error("Error:", err);
-    process.exit(1);
-  }
-})();
+  fs.mkdirSync("data", { recursive: true });
+  fs.writeFileSync("data/channels.json", JSON.stringify(results, null, 2));
+  console.log("✅ Done! data/channels.json updated");
+}
 
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
