@@ -1,90 +1,90 @@
-// check.js
+const fs = require("fs");
+const https = require("https");
 const { exec } = require("child_process");
 const util = require("util");
-const https = require("https");
 
-const execAsync = util.promisify(exec);
+const execPromise = util.promisify(exec);
+
 const PLAYLIST_URL = "https://iptv-org.github.io/iptv/index.m3u";
+const OUTPUT_FILE = "data/channels.json";
+const BATCH_SIZE = 20;
 
-// скачать m3u по https
+// Скачиваем плейлист
 function fetchPlaylist(url) {
   return new Promise((resolve, reject) => {
-    https
-      .get(url, (res) => {
-        if (res.statusCode !== 200) {
-          reject(new Error(`HTTP ${res.statusCode}`));
-          return;
-        }
-        let data = "";
-        res.on("data", (chunk) => (data += chunk));
-        res.on("end", () => resolve(data));
-      })
-      .on("error", reject);
+    let data = "";
+    https.get(url, (res) => {
+      res.on("data", (chunk) => data += chunk);
+      res.on("end", () => resolve(data));
+    }).on("error", reject);
   });
 }
 
-// парсер m3u
-function parseM3U(data) {
-  const lines = data.split("\n");
+// Парсим M3U, оставляем только с tvg-id
+function parseM3U(text) {
+  const lines = text.split(/\r?\n/);
   const channels = [];
-  let name = "";
+  let currentName = "";
+  let currentTvgId = "";
 
   for (const line of lines) {
     if (line.startsWith("#EXTINF")) {
-      // достаём имя канала
-      const match = line.match(/,(.*)$/);
-      if (match) {
-        name = match[1].trim();
-      }
-    } else if (line.trim() && !line.startsWith("#")) {
-      // сама ссылка
-      channels.push({ name, url: line.trim() });
-      name = "";
+      currentName = line.split(",").slice(1).join(",").trim();
+      const mId = line.match(/tvg-id="([^"]+)"/i);
+      currentTvgId = mId ? mId[1] : "";
+    } else if (line.startsWith("http") && currentName && currentTvgId) {
+      channels.push({ name: currentName, url: line.trim(), tvgId: currentTvgId });
+      currentName = "";
+      currentTvgId = "";
     }
   }
   return channels;
 }
 
-// проверка канала
-async function checkChannel(url, name) {
+// Проверяем поток через ffmpeg
+async function checkStream(ch) {
   try {
-    await execAsync(
-      `ffmpeg -loglevel error -i "${url}" -t 3 -c copy -f null -`,
-      { timeout: 20000 }
+    await execPromise(
+      `ffmpeg -loglevel error -timeout 5000000 -i "${ch.url}" -t 1 -f null -`
     );
-    console.log(`✅ ${name}`);
+    ch.working = true;
+    console.log(`✅ ${ch.name}`);
   } catch (err) {
-    let reason = "Неизвестная ошибка";
-
-    if (err.killed) {
-      reason = "Превышен таймаут";
-    } else if (err.signal) {
-      reason = `Сигнал ${err.signal}`;
-    } else if (err.stderr && err.stderr.trim()) {
-      const lines = err.stderr.trim().split("\n");
-      reason = lines[lines.length - 1] || reason;
-      console.log(`❌ ${name} {${reason}}`);
-      return;
+    const msg = (err.stderr || err.message || "").trim();
+    if (!msg || !/Error opening input|Forbidden|Not Found/i.test(msg)) {
+      // нет явной ошибки — считаем рабочим
+      ch.working = true;
+      console.log(`✅ ${ch.name}`);
     } else {
-      console.log(`✅ ${name} (⚠️ stderr пустой, может быть ложная ошибка)`);
-      return;
+      const lastLine = msg.split("\n").pop();
+      ch.working = false;
+      console.log(`❌ ${ch.name} {${lastLine}}`);
     }
   }
+  return ch;
 }
 
+// Пакетная проверка
+async function checkAll(channels) {
+  const results = [];
+  for (let i = 0; i < channels.length; i += BATCH_SIZE) {
+    const batch = channels.slice(i, i + BATCH_SIZE);
+    const checked = await Promise.all(batch.map(ch => checkStream(ch)));
+    results.push(...checked);
+  }
+  return results;
+}
+
+// Основная функция
 (async () => {
   console.log("📥 Загружаю плейлист...");
-  try {
-    const data = await fetchPlaylist(PLAYLIST_URL);
-    const channels = parseM3U(data);
+  const m3uText = await fetchPlaylist(PLAYLIST_URL);
+  const channels = parseM3U(m3uText);
+  console.log(`📺 Найдено каналов с tvg-id: ${channels.length}`);
 
-    console.log(`📺 Найдено каналов: ${channels.length}`);
+  const results = await checkAll(channels);
 
-    // ограничим первые 20 чтобы быстро проверить
-    for (const ch of channels.slice(0, 20)) {
-      await checkChannel(ch.url, ch.name);
-    }
-  } catch (e) {
-    console.error("Ошибка загрузки плейлиста:", e.message);
-  }
+  fs.mkdirSync("data", { recursive: true });
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(results, null, 2));
+  console.log(`✅ Готово! Результаты сохранены в ${OUTPUT_FILE}`);
 })();
