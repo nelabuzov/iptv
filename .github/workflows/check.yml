@@ -20,7 +20,7 @@ jobs:
         run: npm install puppeteer
 
       - name: Run check script
-        run: node check.js
+        run: node scripts/check.js
 
       - name: Commit results
         run: |
