@@ -1,14 +1,14 @@
 // scripts/check.js
 import fs from "fs";
 
-// === Настройки (редактируй при необходимости) ===
+// === Настройки ===
 const playlistUrl = "https://iptv-org.github.io/iptv/index.m3u";
 const TIMEOUT = Number(process.env.TIMEOUT_MS || 3000);
 const CONCURRENT = Number(process.env.CONCURRENT || 50);
-// без ретраев — проверяем один раз (по твоей просьбе)
+// без ретраев — один проход
 const RETRIES = 0;
 
-// Имитиуем Origin браузера — укажи свой (важно для проверки CORS)
+// Укажи origin твоего фронта (HTTPS без пути)
 const PAGES_ORIGIN = process.env.PAGES_ORIGIN || "https://nelabuzov.github.io";
 
 // === Вспомогательные функции ===
@@ -20,6 +20,7 @@ function corsAllows(res) {
   const v = (res.headers.get("access-control-allow-origin") || "").trim();
   if (!v) return false;
   if (v === "*") return true;
+  // разрешаем, если точно совпадает или содержит наш origin
   return v === PAGES_ORIGIN || v.includes(PAGES_ORIGIN);
 }
 function looksLikeM3U8(url, res) {
@@ -45,13 +46,14 @@ async function fetchWithTimeout(url, opts = {}, timeout = TIMEOUT) {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), timeout);
   try {
-    return await fetch(url, { ...opts, signal: ctrl.signal, redirect: "follow" });
+    // redirect: "manual" — чтобы отловить 302
+    return await fetch(url, { redirect: "manual", ...opts, signal: ctrl.signal });
   } finally {
     clearTimeout(t);
   }
 }
 
-// === Парсер плейлиста (как в твоём коде) ===
+// === Парсер плейлиста (как у тебя) ===
 function parsePlaylist(m3uText) {
   const channels = [];
   let currentName = "";
@@ -74,10 +76,9 @@ function parsePlaylist(m3uText) {
   return channels;
 }
 
-// === Основная проверка плейлиста + первой "дочки" ===
-// Бросаем ошибку с префиксом, если обнаружили именно CORS/matching/status
+// === Основная проверка: только перечисленные ошибки => нерабочий ===
 async function checkChannelOnce(ch) {
-  // делаем GET с Origin — чтобы сервер вернул ACAO если он намерен это делать
+  // GET с Origin — чтобы сервер мог вернуть ACAO
   const plRes = await fetchWithTimeout(ch.url, {
     method: "GET",
     headers: {
@@ -89,18 +90,18 @@ async function checkChannelOnce(ch) {
     }
   });
 
-  // Если статус — один из явных кейсов, которые ты перечислил, считаем нерабочим
+  // статусы, которые ты указал считать нерабочими
   const badStatuses = new Set([302, 403, 404, 503]);
   if (badStatuses.has(plRes.status)) {
     throw new Error(`blocked:status:${plRes.status}`);
   }
 
-  // Если отсутствует ACAO или ACAO не разрешает наш origin — это CORS-падение
+  // отсутствие заголовка CORS или несоответствие — считаем CORS-падением
   if (!hasCorsHeader(plRes) || !corsAllows(plRes)) {
     throw new Error("no-cors:playlist");
   }
 
-  // Если это m3u8 — проверим первую дочернюю ссылку (вариант/сегмент)
+  // если это m3u8 — проверяем первую "дочку"
   if (looksLikeM3U8(ch.url, plRes)) {
     const text = await plRes.text();
     const ref = firstUriFromM3U8(text);
@@ -126,10 +127,10 @@ async function checkChannelOnce(ch) {
     }
   }
 
-  return true; // если дошли сюда — CORS есть и статусы не из списка «явных проблем»
+  return true;
 }
 
-// === Обёртка: только перечисленные ошибки => нерабочий; остальные — рабочий ===
+// === Обёртка: ловим специфичные маркеры ошибок в catch ===
 async function checkChannel(ch) {
   try {
     await checkChannelOnce(ch);
@@ -139,19 +140,26 @@ async function checkChannel(ch) {
   } catch (err) {
     const msg = String(err?.message || "").toLowerCase();
 
-    // Если это CORS-падение или один из «явных проблемных» статусов или специфические строки
-    const isCors = msg.startsWith("no-cors");
+    // маркеры, которые ты просил считать НЕ рабочими:
+    const isNoCors = msg.startsWith("no-cors");
     const isBlockedStatus = msg.startsWith("blocked:status");
-    const explicitNetworkMarkers = ["ns_binding_aborted", "не удалось выполнить запрос cors", "cors"]; // включаем те строки, которые ты перечислил
-    const isExplicitNetworkMarker = explicitNetworkMarkers.some(s => msg.includes(s));
+    const explicitMarkers = [
+      "ns_binding_aborted",
+      "ns_binding_aborted".toLowerCase(),
+      "failed to perform",
+      "не удалось выполнить запрос cors",
+      "(null)"
+    ];
+    const hasExplicit = explicitMarkers.some(m => msg.includes(m));
 
-    if (isCors || isBlockedStatus || isExplicitNetworkMarker) {
+    if (isNoCors || isBlockedStatus || hasExplicit) {
       ch.working = false;
       console.log(`❌ ${ch.name}`);
       return ch;
     }
 
-    // Иначе: сетевые таймауты/ошибки/прочее — считаем рабочим (по твоему требованию)
+    // все прочие ошибки (таймауты, временные сетевые фэйл/abort и т.п.)
+    // считаем рабочими по твоей политике
     ch.working = true;
     console.log(`✅ ${ch.name}`);
     return ch;
@@ -168,8 +176,7 @@ async function checkAllChannels(channels) {
     while (true) {
       const i = idx++;
       if (i >= total) break;
-      const ch = channels[i];
-      out[i] = await checkChannel(ch);
+      out[i] = await checkChannel(channels[i]);
       if ((i + 1) % 100 === 0) console.log(`Progress: ${i + 1}/${total}`);
     }
   }
