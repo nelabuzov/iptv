@@ -45,7 +45,7 @@
     "name": "002 Radio TV (720p)",
     "url": "https://cdn.002radio.com:3909/live/radio002live.m3u8",
     "tvgId": "002RadioTV.do",
-    "working": true
+    "working": false
   },
   {
     "name": "2GB Sydney (1080p)",
@@ -69,7 +69,7 @@
     "name": "2M Monde +1 (1080p)",
     "url": "https://d2qh3gh0k5vp3v.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-n6pess5lwbghr/2M_ES.m3u8",
     "tvgId": "2MMonde.ma@Plus1",
-    "working": false
+    "working": true
   },
   {
     "name": "2STV",
@@ -165,7 +165,7 @@
     "name": "3sat (720p) [Geo-blocked]",
     "url": "https://zdf-hls-18.akamaized.net/hls/live/2016501/dach/high/master.m3u8",
     "tvgId": "3sat.de",
-    "working": true
+    "working": false
   },
   {
     "name": "3sat HD (1080p)",
@@ -177,7 +177,7 @@
     "name": "3 Stones TV (240p) [Not 24/7]",
     "url": "https://goliveafrica.media:9998/live/64d21e682fd26/index.m3u8",
     "tvgId": "3StonesTV.ke",
-    "working": true
+    "working": false
   },
   {
     "name": "4DmásNoticias TV (1080p) [Not 24/7]",
@@ -261,7 +261,7 @@
     "name": "7/8 TV (1080p)",
     "url": "https://ms4.sedemosmi.tv/live/M3E5ajhtdjJkaXBscmZubmUxMmh1cjN1bjZrbm5wZW8/index.m3u8",
     "tvgId": "78TV.bg",
-    "working": true
+    "working": false
   },
   {
     "name": "7 RadioVisione (720p)",
@@ -321,25 +321,25 @@
     "name": "9Gem (720p) [Geo-blocked]",
     "url": "https://9now-livestreams.akamaized.net/hls/live/2008311/gem-syd/master.m3u8",
     "tvgId": "9Gem.au@Sydney",
-    "working": true
+    "working": false
   },
   {
     "name": "9Go! (720p) [Geo-blocked]",
     "url": "https://9now-livestreams.akamaized.net/hls/live/2008312/go-syd/master.m3u8",
     "tvgId": "9Go.au@Sydney",
-    "working": true
+    "working": false
   },
   {
     "name": "9 la Loma TV (1080p) [Geo-blocked]",
     "url": "https://9laloma.tv/live.m3u8",
     "tvgId": "9laLomaTV.es",
-    "working": true
+    "working": false
   },
   {
     "name": "9Life (720p) [Geo-blocked]",
     "url": "https://9now-livestreams.akamaized.net/hls/live/2008313/life-syd/master.m3u8",
     "tvgId": "9Life.au@Sydney",
-    "working": true
+    "working": false
   },
   {
     "name": "9X Jalwa (1080p)",
@@ -477,13 +477,13 @@
     "name": "15tv Sabinas (XHSDD-TDT) (360p)",
     "url": "https://hls.gvstream.live/telesistemas/15tv.stream/playlist.m3u8",
     "tvgId": "XHSDDTDT.mx",
-    "working": true
+    "working": false
   },
   {
     "name": "16 Anni e Incinta Italy (720p)",
     "url": "https://stitcher-ipv4.pluto.tv/v1/stitch/embed/hls/channel/60940a07d88ba90007b9cb71/master.m3u8?advertisingId={PSID}&appVersion=unknown&deviceDNT={TARGETOPT}&deviceId={PSID}&deviceLat=0&deviceLon=0&deviceMake=samsung&deviceModel=samsung&deviceType=samsung-tvplus&deviceVersion=unknown&embedPartner=samsung-tvplus&profileFloor=&profileLimit=&samsung_app_domain={APP_DOMAIN}&samsung_app_name={APP_NAME}&us_privacy=1YNY",
     "tvgId": "16AnnieIncinta.us@Italy",
-    "working": true
+    "working": false
   },
   {
     "name": "16tv Budapest (360p)",
@@ -1059,7 +1059,7 @@
     "name": "Aathavan TV (720p) [Not 24/7]",
     "url": "http://45.77.66.224:1935/athavantv/live/playlist.m3u8",
     "tvgId": "AathavanTV.uk",
-    "working": true
+    "working": false
   },
   {
     "name": "AB1",
@@ -8529,7 +8529,7 @@
     "name": "Canal Dos Yopal (720p)",
     "url": "http://131.221.41.94/hls/canal2.m3u8",
     "tvgId": "CanalDos.co",
-    "working": true
+    "working": false
   },
   {
     "name": "Canal DTV (720p)",
@@ -8733,7 +8733,7 @@
     "name": "Canal Sete (1080p)",
     "url": "http://189.51.193.70:1935/canalsete/xpl-c7/playlist.m3u8",
     "tvgId": "CanalSete.br",
-    "working": true
+    "working": false
   },
   {
     "name": "Canal Sierra de Cádiz (1080p) [Not 24/7]",
@@ -14451,13 +14451,13 @@
     "name": "ERT1",
     "url": "http://88.99.254.101/ert1/mono.m3u8",
     "tvgId": "ERT1.gr",
-    "working": true
+    "working": false
   },
   {
     "name": "ERT2",
     "url": "http://88.99.254.101/ert2/mono.m3u8",
     "tvgId": "ERT2.gr",
-    "working": true
+    "working": false
   },
   {
     "name": "ERT2 HD (1080p)",
@@ -14469,7 +14469,7 @@
     "name": "ERT3",
     "url": "http://88.99.254.101/ert3/mono.m3u8",
     "tvgId": "ERT3.gr",
-    "working": true
+    "working": false
   },
   {
     "name": "ERT3 HD (1080p)",
@@ -16689,7 +16689,7 @@
     "name": "GHtv Holland (720p)",
     "url": "http://37.48.120.77:8080/hls/ghtvonline.m3u8",
     "tvgId": "GHtvHolland.nl",
-    "working": true
+    "working": false
   },
   {
     "name": "Gi Television (720p)",
@@ -18165,7 +18165,7 @@
     "name": "Hope4Life TV (720p)",
     "url": "http://144.217.14.88/hls/hope4life.m3u8",
     "tvgId": "Hope4LifeTV.us",
-    "working": true
+    "working": false
   },
   {
     "name": "Hope Channel Africa (1080p)",
@@ -26721,7 +26721,7 @@
     "name": "Nabaa TV (720p) [Not 24/7]",
     "url": "http://31.14.40.237:1935/live/Nabaa/playlist.m3u8",
     "tvgId": "NabaaTV.lb",
-    "working": false
+    "working": true
   },
   {
     "name": "Nablus TV (1080p)",
@@ -28515,7 +28515,7 @@
     "name": "NTV",
     "url": "http://43.252.18.195:5080/LiveApp/streams/ntvhd.m3u8",
     "tvgId": "NTV.kh",
-    "working": false
+    "working": true
   },
   {
     "name": "NTV (1080p)",
@@ -30375,7 +30375,7 @@
     "name": "Peace TV Albanian (360p) [Not 24/7]",
     "url": "http://82.114.67.178:8081/hls/PeaceTV.m3u8",
     "tvgId": "PeaceTVAlbanian.xk",
-    "working": true
+    "working": false
   },
   {
     "name": "Peace TV Bangla (1080p)",
@@ -33399,7 +33399,7 @@
     "name": "Quince UCR (720p) [Not 24/7]",
     "url": "http://163.178.170.127:1935/quinceucr/quinceucr/playlist.m3u8",
     "tvgId": "QuinceUCR.cr",
-    "working": true
+    "working": false
   },
   {
     "name": "Quo Vadis Ministry TV (720p)",
@@ -33579,7 +33579,7 @@
     "name": "Radar Tasikmalaya TV (720p) [Not 24/7]",
     "url": "http://103.140.188.211:1935/radartv/myStream/playlist.m3u8",
     "tvgId": "RadarTasikmalayaTV.id",
-    "working": true
+    "working": false
   },
   {
     "name": "Radar TV 71 (480p) [Not 24/7]",
@@ -36549,7 +36549,7 @@
     "name": "RTV Rwanda (480p) [Not 24/7]",
     "url": "http://197.243.19.131:1935/rtv/rtv/chunklist.m3u8",
     "tvgId": "RwandaTV.rw",
-    "working": true
+    "working": false
   },
   {
     "name": "RTV SLOS (720p)",
@@ -37683,13 +37683,13 @@
     "name": "SET Televisión Canal 26.1 (720p) [Not 24/7]",
     "url": "http://189.240.210.28:1935/envivo/puecom/playlist.m3u8",
     "tvgId": "XHPBZCTDT1.mx",
-    "working": true
+    "working": false
   },
   {
     "name": "SET Televisión Canal 26.2 (720p) [Not 24/7]",
     "url": "http://189.240.210.28:1935/live/setpuebla/playlist.m3u8",
     "tvgId": "XHPBZCTDT2.mx",
-    "working": true
+    "working": false
   },
   {
     "name": "Sevilla FC TV (360p) [Not 24/7]",
@@ -38229,7 +38229,7 @@
     "name": "Sitel (480p)",
     "url": "http://51.178.133.43:8081/tvstanici/s1/playlist.m3u8",
     "tvgId": "Sitel.mk",
-    "working": true
+    "working": false
   },
   {
     "name": "Sivan TV (1080p)",
@@ -42603,7 +42603,7 @@
     "name": "TM1 (360p) [Not 24/7]",
     "url": "http://69.64.57.208/tm1/playlist.m3u8",
     "tvgId": "TM1TV.ml",
-    "working": false
+    "working": true
   },
   {
     "name": "TM TV (720p)",
@@ -43635,7 +43635,7 @@
     "name": "TV1 KG (1080p)",
     "url": "http://212.2.225.30:1935/live/site.stream/playlist.m3u8",
     "tvgId": "TV1KG.kg",
-    "working": true
+    "working": false
   },
   {
     "name": "TV 1 Oberösterreich (1080p)",
@@ -44001,7 +44001,7 @@
     "name": "TV15 (720p)",
     "url": "http://198.255.80.170/FTX9_SXM-TV/index.m3u8",
     "tvgId": "TV15.sx",
-    "working": true
+    "working": false
   },
   {
     "name": "TV 16 Toronto (720p) [Not 24/7]",
@@ -44133,7 +44133,7 @@
     "name": "TV Al Bayane (360p)",
     "url": "http://69.64.57.208/albayanetv/index.m3u8",
     "tvgId": "TVAlBayane.ci",
-    "working": false
+    "working": true
   },
   {
     "name": "TV Aldeia (720p)",
@@ -45513,7 +45513,7 @@
     "name": "TV Sei (576p) [Not 24/7]",
     "url": "http://185.202.128.1:1935/Tv6Stream/tv6TV.stream/playlist.m3u8",
     "tvgId": "TVSei.it",
-    "working": true
+    "working": false
   },
   {
     "name": "TV Sen (540p)",
@@ -45537,7 +45537,7 @@
     "name": "TV Severka (576p) [Not 24/7]",
     "url": "http://88.212.7.11/live/test_severka_web_player/playlist.m3u8",
     "tvgId": "TVSeverka.sk",
-    "working": true
+    "working": false
   },
   {
     "name": "TV Shenja [Geo-blocked]",
@@ -45747,7 +45747,7 @@
     "name": "TV Vega (576p) [Not 24/7]",
     "url": "http://88.212.7.11/live/test_tv_vega_web_player/playlist.m3u8",
     "tvgId": "TVVega.sk",
-    "working": true
+    "working": false
   },
   {
     "name": "TV Vendée (480p)",
