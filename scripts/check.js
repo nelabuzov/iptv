@@ -1,6 +1,5 @@
-import fs from "fs";
-import puppeteer from "puppeteer";
-
+const fs = require("fs");
+const puppeteer = require("puppeteer");
 const playlistUrl = "https://iptv-org.github.io/iptv/index.m3u";
 const BATCH_SIZE = 20;
 const TIMEOUT = 15000;
@@ -134,3 +133,4 @@ main().catch(err => {
   console.error(err);
   process.exit(1);
 });
+
