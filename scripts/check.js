@@ -1,5 +1,4 @@
 const fs = require("fs");
-const fetch = require("node-fetch");
 const puppeteer = require("puppeteer");
 
 // === Настройки ===
@@ -105,3 +104,4 @@ async function checkAllChannels(channels) {
     process.exit(1);
   }
 })();
+
