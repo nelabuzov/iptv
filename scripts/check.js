@@ -1,6 +1,6 @@
 const fs = require("fs");
 const util = require("util");
-const exec = require("child_process");
+const { exec } = require("child_process");
 
 const execAsync = util.promisify(exec);
 
@@ -74,3 +74,4 @@ main().catch(e => {
   console.error(e);
   process.exit(1);
 });
+
