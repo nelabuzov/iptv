@@ -73,8 +73,8 @@ function parseM3U(text) {
 async function checkStream(ch) {
   try {
 	await execPromise(
-	  `ffmpeg -v error -stimeout 5000000 -i "${ch.url}" -c copy -t 0.1 -f null -`,
-	  { timeout: 10000, maxBuffer: 10 * 1024 }
+	  `ffmpeg -v error -stimeout 5000000 -i "${ch.url}" -c copy -t 1 -f null -`,
+	  { timeout: 15000, maxBuffer: 10 * 1024 } // 15 сек на команду
 	);
     ch.working = true;
     console.log(`✅ ${ch.name}`);
