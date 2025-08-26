@@ -38,6 +38,8 @@ function parseM3U(text) {
       }
       // удаляем скобки и содержимое
       currentName = currentName.replace(/\(.*?\)/g, "").trim();
+      // нормализуем пробелы
+      currentName = currentName.replace(/\s+/g, " ");
 
       // tvg-id
       const mId = line.match(/tvg-id="([^"]*)"/i);
@@ -71,19 +73,20 @@ function parseM3U(text) {
 async function checkStream(ch) {
   try {
     await execPromise(
-      `ffmpeg -loglevel error -timeout 5000000 -i "${ch.url}" -t 1 -f null -`
-    );
+	  `ffmpeg -loglevel error -timeout 5000000 -i "${ch.url}" -t 1 -f null -`,
+	  { timeout: 15000, maxBuffer: 10 * 1024 } // 15 сек таймаут, 10Кб буфер
+	);
     ch.working = true;
     console.log(`✅ ${ch.name}`);
   } catch (err) {
     const msg = (err.stderr || err.message || "").trim();
     let shortMsg = "";
-    if (!msg || !/Error opening input|Forbidden|Not Found/i.test(msg)) {
+    if (!msg || !/(Error opening input|Forbidden|Not Found)/i.test(msg)) {
       ch.working = true;
       console.log(`✅ ${ch.name}`);
     } else {
-      // берём последнюю строку ошибки для краткости
-      shortMsg = msg.split("\n").pop();
+      // убираем "Error opening input files:" если оно есть
+      shortMsg = msg.split("\n").pop().replace(/.*Error opening input files:\s*/, "").trim();
       ch.working = false;
       console.log(`❌ ${ch.name} {${shortMsg}}`);
     }
@@ -91,20 +94,27 @@ async function checkStream(ch) {
   return ch;
 }
 
-// Пакетная проверка
+// Пакетная проверка с лимитом параллельности
 async function checkAll(channels) {
   const results = [];
+  let checkedCount = 0;
+
   for (let i = 0; i < channels.length; i += BATCH_SIZE) {
     const batch = channels.slice(i, i + BATCH_SIZE);
-    try {
-      const checked = await Promise.all(batch.map(ch => checkStream(ch)));
-      results.push(...checked);
-    } catch (e) {
-      console.error("Ошибка в батче:", e.message);
-      // продолжаем следующий батч
-      results.push(...batch.map(ch => ({ ...ch, working: false })));
+
+    // запускаем с ограничением (например, по 5 одновременно)
+    const checked = [];
+    for (let j = 0; j < batch.length; j += 5) {
+      const smallBatch = batch.slice(j, j + 5);
+      const res = await Promise.all(smallBatch.map(ch => checkStream(ch)));
+      checked.push(...res);
     }
+
+    results.push(...checked);
+    checkedCount += batch.length;
+    console.log(`📊 Прогресс: ${checkedCount}/${channels.length}`);
   }
+
   return results;
 }
 
