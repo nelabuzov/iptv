@@ -1,395 +1,50 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-<meta charset="UTF-8">
-<title>IPTV Player</title>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
-<style>
-  body { margin: 0; font-family: sans-serif; background: #121212; color: #fff; display: flex; flex-direction: column; height: 100vh; }
-  header { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; background: #1e1e1e; gap: 10px; }
-  #nowPlaying { display: flex; align-items: center; min-width: 0; margin-left: -10px; }
-  #currentLogo { display: block; height: 50px; width: auto; margin: 0; padding: 0; }
-  /* обновлено */
-  #currentTitle {
-    margin-left: 10px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 50vw;
-    color: #1e1e1e; background: #444; padding: 6px; border-radius: 12px; text-transform: uppercase;
-  }
-  #emojiDescription { font-size: 14px; opacity: 0.8; white-space: nowrap; }
-  main { display: flex; flex: 1; overflow: hidden; }
-  #playerContainer { flex: 3; display: flex; align-items: center; justify-content: center; background: black; }
-  video { width: 100%; height: 100%; background: black; }
-  video::-webkit-media-controls-timeline,
-  video::-webkit-media-controls-time-remaining-display,
-  video::-webkit-media-controls-current-time-display { display: none !important; }
-  #rightPanel { flex: 1; background: #181818; display: flex; flex-direction: column; overflow: hidden; }
-  #tools { display: flex; gap: 8px; padding: 10px; background: #1e1e1e; align-items: center; }
-  #searchInput { flex: 1; padding: 6px; border-radius: 12px; border: none; outline: none; background: #2a2a2a; color: white; }
-  #randomBtn, #backBtn { padding: 6px 10px; border: none; border-radius: 12px; background: #333; color: white; cursor: pointer; }
-  #backBtn { display: none; }
-  #channelList { flex: 1; overflow-y: auto; padding: 0 10px; }
-  .channel { display: flex; align-items: center; padding: 12px; border-radius: 12px; cursor: pointer; gap: 8px; margin: 0; }
-  .channel:hover { background: #333; }
-  .channel.active { background: #444; }
-  .channel-flag { flex-shrink: 0; font-size: 16px; line-height: 1; width: 30px; display: flex; align-items: center; justify-content: center; }
-  .channel-flag img { width: 18px; height: 18px; display: block; }
-  .channel-text { flex: 1; word-break: break-word; }
-  .channel-emoji { flex-shrink: 0; font-size: 16px; margin-left: 8px; display: flex; align-items: center; }
-  .channel-emoji img { width: 16px; height: 16px; display: block; }
-  #channelList::-webkit-scrollbar { width: 8px; }
-  #channelList::-webkit-scrollbar-thumb { background: #444; border-radius: 8px; }
-  #channelList::-webkit-scrollbar-track { background: transparent; }
-</style>
-</head>
-<body>
-  <header>
-    <div id="nowPlaying">
-      <img id="currentLogo" alt="" src="" />
-      <div id="currentTitle"></div>
-    </div>
-    <div id="emojiDescription">
-      🕛 — Not 24/7 &nbsp;&nbsp; 🌐 — Geo-blocked
-    </div>
-  </header>
-  <main>
-    <div id="playerContainer">
-      <video id="videoPlayer" controls autoplay></video>
-    </div>
-    <div id="rightPanel">
-      <div id="tools">
-        <button id="backBtn">◀</button>
-        <input id="searchInput" type="text" placeholder="Filter Countries">
-        <button id="randomBtn">🎲</button>
-      </div>
-      <div id="channelList"></div>
-    </div>
-  </main>
+	<head>
+		<meta charset="UTF-8">
+		<title>Internet Protocol TV</title>
+		<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+		<script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
 
-<script>
-const list = document.getElementById('channelList');
-const player = document.getElementById('videoPlayer');
-const searchInput = document.getElementById('searchInput');
-const randomBtn = document.getElementById('randomBtn');
-const backBtn = document.getElementById('backBtn');
-const currentLogo = document.getElementById('currentLogo');
-const currentTitle = document.getElementById('currentTitle');
+		<link rel="icon" href="logo.svg" type="image/x-icon">
+		<link rel="stylesheet" href="styles/index.css">
+	</head>
 
-let channels = [];
-let hls = null;
-let currentCountry = undefined; // undefined => показываем список стран, иначе показываем каналы этой страны
+	<body>
+		<header>
+			<div id="nowPlaying">
+				<img id="currentLogo" alt="logo" src="logo.svg">
 
-/* === countryMap (минифицировано для использования в JS) === */
-const countryMap={"🇦🇫":{domain:"af",name:"Afghanistan"},"🇦🇽":{domain:"ax",name:"Åland Islands"},"🇦🇱":{domain:"al",name:"Albania"},"🇩🇿":{domain:"dz",name:"Algeria"},"🇦🇸":{domain:"as",name:"American Samoa"},"🇦🇩":{domain:"ad",name:"Andorra"},"🇦🇴":{domain:"ao",name:"Angola"},"🇦🇮":{domain:"ai",name:"Anguilla"},"🇦🇶":{domain:"aq",name:"Antarctica"},"🇦🇬":{domain:"ag",name:"Antigua & Barbuda"},"🇦🇷":{domain:"ar",name:"Argentina"},"🇦🇲":{domain:"am",name:"Armenia"},"🇦🇼":{domain:"aw",name:"Aruba"},"🇦🇨":{domain:"ac",name:"Ascension Island"},"🇦🇺":{domain:"au",name:"Australia"},"🇦🇹":{domain:"at",name:"Austria"},"🇦🇿":{domain:"az",name:"Azerbaijan"},"🇧🇸":{domain:"bs",name:"Bahamas"},"🇧🇭":{domain:"bh",name:"Bahrain"},"🇧🇩":{domain:"bd",name:"Bangladesh"},"🇧🇧":{domain:"bb",name:"Barbados"},"🇧🇾":{domain:"by",name:"Belarus"},"🇧🇪":{domain:"be",name:"Belgium"},"🇧🇿":{domain:"bz",name:"Belize"},"🇧🇯":{domain:"bj",name:"Benin"},"🇧🇲":{domain:"bm",name:"Bermuda"},"🇧🇹":{domain:"bt",name:"Bhutan"},"🇧🇴":{domain:"bo",name:"Bolivia"},"🇧🇦":{domain:"ba",name:"Bosnia & Herzegovina"},"🇧🇼":{domain:"bw",name:"Botswana"},"🇧🇻":{domain:"bv",name:"Bouvet Island"},"🇧🇷":{domain:"br",name:"Brazil"},"🇮🇴":{domain:"io",name:"British Indian Ocean Territory"},"🇻🇬":{domain:"vg",name:"British Virgin Islands"},"🇧🇳":{domain:"bn",name:"Brunei"},"🇧🇬":{domain:"bg",name:"Bulgaria"},"🇧🇫":{domain:"bf",name:"Burkina Faso"},"🇧🇮":{domain:"bi",name:"Burundi"},"🇰🇭":{domain:"kh",name:"Cambodia"},"🇨🇲":{domain:"cm",name:"Cameroon"},"🇨🇦":{domain:"ca",name:"Canada"},"🇮🇨":{domain:"ic",name:"Canary Islands"},"🇨🇻":{domain:"cv",name:"Cape Verde"},"🇧🇶":{domain:"bq",name:"Caribbean Netherlands"},"🇰🇾":{domain:"ky",name:"Cayman Islands"},"🇨🇫":{domain:"cf",name:"Central African Republic"},"🇪🇦":{domain:"ea",name:"Ceuta & Melilla"},"🇹🇩":{domain:"td",name:"Chad"},"🇨🇱":{domain:"cl",name:"Chile"},"🇨🇳":{domain:"cn",name:"China"},"🇨🇽":{domain:"cx",name:"Christmas Island"},"🇨🇵":{domain:"cp",name:"Clipperton Island"},"🇨🇨":{domain:"cc",name:"Cocos (Keeling) Islands"},"🇨🇴":{domain:"co",name:"Colombia"},"🇰🇲":{domain:"km",name:"Comoros"},"🇨🇬":{domain:"cg",name:"Congo - Brazzaville"},"🇨🇩":{domain:"cd",name:"Congo - Kinshasa"},"🇨🇰":{domain:"ck",name:"Cook Islands"},"🇨🇷":{domain:"cr",name:"Costa Rica"},"🇨🇮":{domain:"ci",name:"Côte d’Ivoire"},"🇭🇷":{domain:"hr",name:"Croatia"},"🇨🇺":{domain:"cu",name:"Cuba"},"🇨🇼":{domain:"cw",name:"Curaçao"},"🇨🇾":{domain:"cy",name:"Cyprus"},"🇨🇿":{domain:"cz",name:"Czechia"},"🇩🇰":{domain:"dk",name:"Denmark"},"🇩🇯":{domain:"dj",name:"Djibouti"},"🇩🇲":{domain:"dm",name:"Dominica"},"🇩🇴":{domain:"do",name:"Dominican Republic"},"🇪🇨":{domain:"ec",name:"Ecuador"},"🇪🇬":{domain:"eg",name:"Egypt"},"🇸🇻":{domain:"sv",name:"El Salvador"},"🇬🇶":{domain:"gq",name:"Equatorial Guinea"},"🇪🇷":{domain:"er",name:"Eritrea"},"🇪🇪":{domain:"ee",name:"Estonia"},"🇸🇿":{domain:"sz",name:"Eswatini"},"🇪🇹":{domain:"et",name:"Ethiopia"},"🇪🇺":{domain:"eu",name:"Europe"},"🇫🇰":{domain:"fk",name:"Falkland Islands"},"🇫🇴":{domain:"fo",name:"Faroe Islands"},"🇫🇯":{domain:"fj",name:"Fiji"},"🇫🇮":{domain:"fi",name:"Finland"},"🇫🇷":{domain:"fr",name:"France"},"🇬🇫":{domain:"gf",name:"French Guiana"},"🇵🇫":{domain:"pf",name:"French Polynesia"},"🇹🇫":{domain:"tf",name:"French Southern Territories"},"🇬🇦":{domain:"ga",name:"Gabon"},"🇬🇲":{domain:"gm",name:"Gambia"},"🇬🇪":{domain:"ge",name:"Georgia"},"🇩🇪":{domain:"de",name:"Germany"},"🇬🇭":{domain:"gh",name:"Ghana"},"🇬🇮":{domain:"gi",name:"Gibraltar"},"🇬🇷":{domain:"gr",name:"Greece"},"🇬🇱":{domain:"gl",name:"Greenland"},"🇬🇩":{domain:"gd",name:"Grenada"},"🇬🇵":{domain:"gp",name:"Guadeloupe"},"🇬🇺":{domain:"gu",name:"Guam"},"🇬🇹":{domain:"gt",name:"Guatemala"},"🇬🇬":{domain:"gg",name:"Guernsey"},"🇬🇳":{domain:"gn",name:"Guinea"},"🇬🇼":{domain:"gw",name:"Guinea-Bissau"},"🇬🇾":{domain:"gy",name:"Guyana"},"🇭🇹":{domain:"ht",name:"Haiti"},"🇭🇲":{domain:"hm",name:"Heard & McDonald Islands"},"🇭🇳":{domain:"hn",name:"Honduras"},"🇭🇰":{domain:"hk",name:"Hong Kong"},"🇭🇺":{domain:"hu",name:"Hungary"},"🇮🇸":{domain:"is",name:"Iceland"},"🇮🇳":{domain:"in",name:"India"},"🇮🇩":{domain:"id",name:"Indonesia"},"🇮🇷":{domain:"ir",name:"Iran"},"🇮🇶":{domain:"iq",name:"Iraq"},"🇮🇪":{domain:"ie",name:"Ireland"},"🇮🇲":{domain:"im",name:"Isle of Man"},"🇮🇱":{domain:"il",name:"Israel"},"🇮🇹":{domain:"it",name:"Italy"},"🇯🇲":{domain:"jm",name:"Jamaica"},"🇯🇵":{domain:"jp",name:"Japan"},"🇯🇪":{domain:"je",name:"Jersey"},"🇯🇴":{domain:"jo",name:"Jordan"},"🇰🇿":{domain:"kz",name:"Kazakhstan"},"🇰🇪":{domain:"ke",name:"Kenya"},"🇰🇮":{domain:"ki",name:"Kiribati"},"🇽🇰":{domain:"xk",name:"Kosovo"},"🇰🇼":{domain:"kw",name:"Kuwait"},"🇰🇬":{domain:"kg",name:"Kyrgyzstan"},"🇱🇦":{domain:"la",name:"Laos"},"🇱🇻":{domain:"lv",name:"Latvia"},"🇱🇧":{domain:"lb",name:"Lebanon"},"🇱🇸":{domain:"ls",name:"Lesotho"},"🇱🇷":{domain:"lr",name:"Liberia"},"🇱🇾":{domain:"ly",name:"Libya"},"🇱🇮":{domain:"li",name:"Liechtenstein"},"🇱🇹":{domain:"lt",name:"Lithuania"},"🇱🇺":{domain:"lu",name:"Luxembourg"},"🇲🇴":{domain:"mo",name:"Macau"},"🇲🇬":{domain:"mg",name:"Madagascar"},"🇲🇼":{domain:"mw",name:"Malawi"},"🇲🇾":{domain:"my",name:"Malaysia"},"🇲🇻":{domain:"mv",name:"Maldives"},"🇲🇱":{domain:"ml",name:"Mali"},"🇲🇹":{domain:"mt",name:"Malta"},"🇲🇭":{domain:"mh",name:"Marshall Islands"},"🇲🇶":{domain:"mq",name:"Martinique"},"🇲🇷":{domain:"mr",name:"Mauritania"},"🇲🇺":{domain:"mu",name:"Mauritius"},"🇾🇹":{domain:"yt",name:"Mayotte"},"🇲🇽":{domain:"mx",name:"Mexico"},"🇫🇲":{domain:"fm",name:"Micronesia"},"🇲🇩":{domain:"md",name:"Moldova"},"🇲🇨":{domain:"mc",name:"Monaco"},"🇲🇳":{domain:"mn",name:"Mongolia"},"🇲🇪":{domain:"me",name:"Montenegro"},"🇲🇸":{domain:"ms",name:"Montserrat"},"🇲🇦":{domain:"ma",name:"Morocco"},"🇲🇿":{domain:"mz",name:"Mozambique"},"🇲🇲":{domain:"mm",name:"Myanmar"},"🇳🇦":{domain:"na",name:"Namibia"},"🇳🇷":{domain:"nr",name:"Nauru"},"🇳🇵":{domain:"np",name:"Nepal"},"🇳🇱":{domain:"nl",name:"Netherlands"},"🇳🇨":{domain:"nc",name:"New Caledonia"},"🇳🇿":{domain:"nz",name:"New Zealand"},"🇳🇮":{domain:"ni",name:"Nicaragua"},"🇳🇪":{domain:"ne",name:"Niger"},"🇳🇬":{domain:"ng",name:"Nigeria"},"🇳🇺":{domain:"nu",name:"Niue"},"🇳🇫":{domain:"nf",name:"Norfolk Island"},"🇰🇵":{domain:"kp",name:"North Korea"},"🇲🇰":{domain:"mk",name:"North Macedonia"},"🇲🇵":{domain:"mp",name:"Northern Mariana Islands"},"🇳🇴":{domain:"no",name:"Norway"},"🇴🇲":{domain:"om",name:"Oman"},"🇵🇰":{domain:"pk",name:"Pakistan"},"🇵🇼":{domain:"pw",name:"Palau"},"🇵🇸":{domain:"ps",name:"Palestine"},"🇵🇦":{domain:"pa",name:"Panama"},"🇵🇬":{domain:"pg",name:"Papua New Guinea"},"🇵🇾":{domain:"py",name:"Paraguay"},"🇵🇪":{domain:"pe",name:"Peru"},"🇵🇭":{domain:"ph",name:"Philippines"},"🇵🇳":{domain:"pn",name:"Pitcairn Islands"},"🇵🇱":{domain:"pl",name:"Poland"},"🇵🇹":{domain:"pt",name:"Portugal"},"🇵🇷":{domain:"pr",name:"Puerto Rico"},"🇶🇦":{domain:"qa",name:"Qatar"},"🇷🇪":{domain:"re",name:"Réunion"},"🇷🇴":{domain:"ro",name:"Romania"},"🇷🇺":{domain:"ru",name:"Russia"},"🇷🇼":{domain:"rw",name:"Rwanda"},"🇼🇸":{domain:"ws",name:"Samoa"},"🇸🇲":{domain:"sm",name:"San Marino"},"🇸🇹":{domain:"st",name:"Sao Tome & Principe"},"🇸🇦":{domain:"sa",name:"Saudi Arabia"},"🇸🇳":{domain:"sn",name:"Senegal"},"🇷🇸":{domain:"rs",name:"Serbia"},"🇸🇨":{domain:"sc",name:"Seychelles"},"🇸🇱":{domain:"sl",name:"Sierra Leone"},"🇸🇬":{domain:"sg",name:"Singapore"},"🇸🇽":{domain:"sx",name:"Sint Maarten"},"🇸🇰":{domain:"sk",name:"Slovakia"},"🇸🇮":{domain:"si",name:"Slovenia"},"🇸🇧":{domain:"sb",name:"Solomon Islands"},"🇸🇴":{domain:"so",name:"Somalia"},"🇿🇦":{domain:"za",name:"South Africa"},"🇰🇷":{domain:"kr",name:"South Korea"},"🇪🇸":{domain:"es",name:"Spain"},"🇱🇰":{domain:"lk",name:"Sri Lanka"},"🇸🇩":{domain:"sd",name:"Sudan"},"🇸🇷":{domain:"sr",name:"Suriname"},"🇸🇪":{domain:"se",name:"Sweden"},"🇨🇭":{domain:"ch",name:"Switzerland"},"🇸🇾":{domain:"sy",name:"Syria"},"🇹🇼":{domain:"tw",name:"Taiwan"},"🇹🇯":{domain:"tj",name:"Tajikistan"},"🇹🇿":{domain:"tz",name:"Tanzania"},"🇹🇭":{domain:"th",name:"Thailand"},"🇹🇱":{domain:"tl",name:"Timor-Leste"},"🇹🇬":{domain:"tg",name:"Togo"},"🇹🇰":{domain:"tk",name:"Tokelau"},"🇹🇴":{domain:"to",name:"Tonga"},"🇹🇹":{domain:"tt",name:"Trinidad & Tobago"},"🇹🇳":{domain:"tn",name:"Tunisia"},"🇹🇷":{domain:"tr",name:"Turkey"},"🇹🇲":{domain:"tm",name:"Turkmenistan"},"🇹🇨":{domain:"tc",name:"Turks & Caicos Islands"},"🇹🇻":{domain:"tv",name:"Tuvalu"},"🇺🇬":{domain:"ug",name:"Uganda"},"🇺🇦":{domain:"ua",name:"Ukraine"},"🇦🇪":{domain:"ae",name:"United Arab Emirates"},"🇬🇧":{domain:"uk",name:"United Kingdom"},"🇺🇸":{domain:"us",name:"United States"},"🇺🇾":{domain:"uy",name:"Uruguay"},"🇺🇿":{domain:"uz",name:"Uzbekistan"},"🇻🇺":{domain:"vu",name:"Vanuatu"},"🇻🇦":{domain:"va",name:"Vatican City"},"🇻🇪":{domain:"ve",name:"Venezuela"},"🇻🇳":{domain:"vn",name:"Vietnam"},"🇼🇫":{domain:"wf",name:"Wallis & Futuna"},"🇾🇪":{domain:"ye",name:"Yemen"},"🇿🇲":{domain:"zm",name:"Zambia"},"🇿🇼":{domain:"zw",name:"Zimbabwe"}};
+				<div id="currentInfo">
+					<div id="nowExplore">
+						<span id="currentCapital">TV Around</span>
+						<span id="currentTime">The World</span>
+					</div>
 
-/* Очистка имени канала */
-function cleanName(name) {
-  return name
-    .replace(/\[Not 24\/7\]/gi, '🕛')
-    .replace(/\[Geo-blocked\]/gi, '🌐')
-    .replace(/Mozilla\/.*|like Gecko.*|Chrome\/.*|Safari\/\S+|CrKey\/\S+/gi, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
+					<span id="currentTitle">Internet Protocol TV</span>
+				</div>
+			</div>
+		</header>
 
-/* Удаление всего содержимого в круглых скобках */
-function stripQuality(name) {
-  return name.replace(/\(.*?\)/g, '').replace(/\s+/g, ' ').trim();
-}
+		<main>
+			<div id="leftPanel">
+				<div id="tools">
+					<input id="searchInput" type="text" placeholder="Filter Countries">
 
-/* Определение флага по tvg-id: возвращаем undefined если флага нет */
-function getFlagByTvgId(tvgId) {
-  if (!tvgId) return undefined;
-  const m = tvgId.toLowerCase().match(/\.([a-z]{2,})/);
-  if (!m) return undefined;
-  const code = m[1].replace(/[^a-z]/g, '');
-  const flag = Object.keys(countryMap).find(e => countryMap[e].domain === code);
-  return flag; // undefined если флага нет
-}
+					<button id="backBtn">◀</button>
+					<button id="randomBtn">🎲</button>
+					
+					<div>
+						<button id="allChannelsBtn">All Channels</button>
+					</div>
+				</div>
+				<div id="channelList"></div>
+			</div>
+			<div id="playerContainer">
+				<video id="videoPlayer" controls autoplay></video>
+			</div>
+		</main>
 
-/* Загрузка плейлиста */
-async function loadPlaylist(url) {
-  try {
-    const res = await fetch(url);
-    const text = await res.text();
-    parsePlaylist(text);
-  } catch (e) {
-    alert("Playlist Loading Error");
-    console.error(e);
-  }
-}
-
-/* Парсинг m3u */
-function parsePlaylist(text) {
-  const lines = text.split(/\r?\n/);
-  channels = [];
-  let currentName = '';
-  let currentTvgId = '';
-  let currentLogoUrl = '';
-
-  for (let line of lines) {
-    if (line.startsWith('#EXTINF')) {
-      let name = line.split(',').slice(1).join(',');
-      currentName = cleanName(name);
-      const mId = line.match(/tvg-id="([^"]+)"/i);
-      currentTvgId = mId ? mId[1] : '';
-      const mLogo = line.match(/tvg-logo="([^"]+)"/i);
-      currentLogoUrl = mLogo ? mLogo[1] : '';
-    } else if (line && !line.startsWith('#')) {
-      if (currentName) {
-        const flag = getFlagByTvgId(currentTvgId);
-        if (!flag) { // пропускаем каналы без флага
-          currentName = '';
-          currentTvgId = '';
-          currentLogoUrl = '';
-          continue;
-        }
-        const displayName = stripQuality(currentName);
-        channels.push({
-          name: currentName,
-          displayName,
-          url: line,
-          tvgId: currentTvgId,
-          logo: currentLogoUrl,
-          flag
-        });
-      }
-      currentName = '';
-      currentTvgId = '';
-      currentLogoUrl = '';
-    }
-  }
-
-  // Показываем список стран первым (а не каналы)
-  renderCountries();
-  searchInput.focus();
-}
-
-/* Рендер списка стран (только те страны, для которых есть каналы) */
-function renderCountries(filter = '') {
-  currentCountry = undefined;
-  backBtn.style.display = 'none';
-  searchInput.placeholder = "Filter Countries";
-  list.innerHTML = '';
-  list.scrollTop = 0;
-
-  // Уникальные флаги из channels
-  const flagSet = new Set(channels.map(c => c.flag).filter(Boolean));
-  let flags = Array.from(flagSet).map(f => ({ flag: f, name: countryMap[f] ? countryMap[f].name : f }));
-
-  // алфавитная сортировка стран
-  flags.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
-
-  const filtered = flags.filter(fObj => fObj.name.toLowerCase().includes(filter.toLowerCase()));
-
-  filtered.forEach((fObj) => {
-    const div = document.createElement('div');
-    div.className = 'channel';
-    div.dataset.type = 'country';
-    div.dataset.flag = fObj.flag;
-
-    const spanFlag = document.createElement('span');
-    spanFlag.className = 'channel-flag';
-    spanFlag.textContent = fObj.flag;
-
-    const spanText = document.createElement('span');
-    spanText.className = 'channel-text';
-    spanText.textContent = fObj.name;
-
-    div.appendChild(spanFlag);
-    div.appendChild(spanText);
-
-    div.onclick = () => {
-      // очищаем поиск стран, открываем каналы страны
-      searchInput.value = '';
-      renderChannels(fObj.flag);
-
-      // автозапуск первого канала списка
-      const firstChannelEl = list.querySelector('.channel[data-type="channel"]');
-      if (firstChannelEl) {
-        const idx = parseInt(firstChannelEl.dataset.index, 10);
-        const ch = channels[idx];
-        if (ch) playChannel(idx, firstChannelEl, ch);
-      }
-
-      // ставим фокус в поиск каналов
-      searchInput.focus();
-    };
-
-    list.appendChild(div);
-  });
-
-  if (window.twemoji) {
-    try { twemoji.parse(list, {folder: 'svg', ext: '.svg'}); } 
-    catch (e) { console.warn("twemoji parse error", e); }
-  }
-}
-
-/* Рендер списка каналов, опционально для конкретной страны */
-function renderChannels(countryFlag = undefined, filter = '') {
-  currentCountry = countryFlag;
-  backBtn.style.display = countryFlag ? 'inline-block' : 'none';
-  searchInput.placeholder = countryFlag ? "Filter Channels" : "Filter Channels";
-  list.innerHTML = '';
-  list.scrollTop = 0;
-
-  const filtered = channels.filter(ch => {
-    if (countryFlag && ch.flag !== countryFlag) return false;
-    return ch.displayName.toLowerCase().includes(filter.toLowerCase());
-  });
-
-  filtered.forEach((ch) => {
-    const div = document.createElement('div');
-    div.className = 'channel';
-    div.dataset.type = 'channel';
-    // store index to identify channel in main channels array
-    const idx = channels.indexOf(ch);
-    div.dataset.index = idx;
-
-    const spanFlag = document.createElement('span');
-    spanFlag.className = 'channel-flag';
-    spanFlag.textContent = ch.flag;
-
-    const spanText = document.createElement('span');
-    spanText.className = 'channel-text';
-    spanText.textContent = ch.displayName.replace(/[🕛🌐]/g, '').trim();
-
-    const spanEmoji = document.createElement('span');
-    spanEmoji.className = 'channel-emoji';
-    let emojis = '';
-    if (ch.name.includes('🕛')) emojis += '🕛';
-    if (ch.name.includes('🌐')) emojis += '🌐';
-    spanEmoji.textContent = emojis;
-
-    div.appendChild(spanFlag);
-    div.appendChild(spanText);
-    if (emojis) div.appendChild(spanEmoji);
-
-    div.onclick = () => {
-      playChannel(idx, div, ch);
-    };
-
-    list.appendChild(div);
-  });
-
-  if (window.twemoji) {
-    try { twemoji.parse(list, {folder: 'svg', ext: '.svg'}); } 
-    catch (e) { console.warn("twemoji parse error", e); }
-  }
-}
-
-/* Обновление верхней панели */
-function updateNowPlayingUI(channelObj) {
-  if (channelObj.logo) {
-    currentLogo.src = channelObj.logo;
-    currentLogo.style.visibility = 'visible';
-  } else {
-    currentLogo.removeAttribute('src');
-    currentLogo.style.visibility = 'hidden';
-  }
-  // пишем страну вместо названия канала
-  const countryName = countryMap[channelObj.flag]?.name || '';
-  currentTitle.textContent = countryName;
-}
-
-/* Воспроизведение */
-function playChannel(index, element, channelObj) {
-  document.querySelectorAll('.channel').forEach(el => el.classList.remove('active'));
-  if (element) element.classList.add('active');
-
-  const ch = (channelObj ? channelObj : channels[index]);
-  if (!ch || !ch.url) return;
-
-  updateNowPlayingUI(ch);
-
-  if (Hls.isSupported()) {
-    if (!hls) hls = new Hls();
-    else hls.detachMedia();
-    hls.loadSource(ch.url);
-    hls.attachMedia(player);
-    hls.on(Hls.Events.MANIFEST_PARSED, function() {
-      player.play().catch(()=>{});
-    });
-  } else if (player.canPlayType('application/vnd.apple.mpegurl')) {
-    player.src = ch.url;
-    player.play().catch(()=>{});
-  } else {
-    alert("Ваш браузер не поддерживает HLS");
-  }
-}
-
-/* Загрузка channels.json при старте */
-window.addEventListener('DOMContentLoaded', () => {
-  fetch("data/channels.json")
-    .then(r => r.json())
-    .then(data => {
-      // Преобразуем JSON под формат, который ждёт твой UI
-      channels = data
-        .filter(ch => ch.working) // отсекаем битые
-        .map(ch => {
-          const flag = getFlagByTvgId(ch.tvgId);
-          return {
-            name: ch.name,
-            displayName: stripQuality(cleanName(ch.name)),
-            url: ch.url,
-            tvgId: ch.tvgId,
-            logo: "", // в JSON пока нет
-            flag
-          };
-        });
-      
-      renderCountries();
-    })
-    .catch(e => {
-      console.error("Ошибка загрузки channels.json", e);
-    });
-});
-
-/* Кнопка возврата к списку стран */
-backBtn.addEventListener('click', () => {
-  // очищаем строку поиска каналов при возврате и показываем страны
-  searchInput.value = '';
-  renderCountries('');
-});
-
-/* Случайный выбор */
-randomBtn.onclick = () => {
-  // Обновляем видимые элементы
-  const visible = Array.from(document.querySelectorAll('#channelList .channel'));
-  if (visible.length === 0) return;
-
-  // Сначала ищем видимые каналы (если есть), иначе выбираем страну
-  const channelEls = visible.filter(el => el.dataset.type === 'channel');
-  if (channelEls.length > 0) {
-    const idxVisible = Math.floor(Math.random() * channelEls.length);
-    const el = channelEls[idxVisible];
-    // Прокрутка выбранного канала В САМЫХ ВЕРХУ списка
-    el.scrollIntoView({ behavior: 'auto', block: 'start' });
-
-    const chIndex = parseInt(el.dataset.index, 10);
-    const ch = channels[chIndex];
-    if (ch) {
-      playChannel(chIndex, el, ch);
-    }
-    return;
-  }
-
-  // Нет видимых каналов — выбираем случайную страну (и открываем её)
-  const countryEls = visible.filter(el => el.dataset.type === 'country');
-  if (countryEls.length === 0) return;
-  const idxCountry = Math.floor(Math.random() * countryEls.length);
-  const countryEl = countryEls[idxCountry];
-  countryEl.click();
-};
-
-/* Загрузка плейлиста при старте */
-window.addEventListener('DOMContentLoaded', () => {
-  fetch("data/channels.json")
-  .then(r => r.json())
-  .then(data => {
-    channels = data.filter(ch => ch.working); // сразу отсекаем битые
-    renderCountries();
-  });
-});
-</script>
-</body>
+		<script src="scripts/index.js"></script>
+	</body>
 </html>
