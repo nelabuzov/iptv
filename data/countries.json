@@ -55,19 +55,23 @@
 	"dependencies": {
 	  "🇨🇽": {
 		"domain": "cx",
-		"capital": "Christmas Island"
+		"capital": "Christmas Island",
+		"timezone": "UTC+07:00"
 	  },
 	  "🇨🇨": {
 		"domain": "cc",
-		"capital": "Cocos (Keeling) Islands"
+		"capital": "Cocos (Keeling) Islands",
+		"timezone": "UTC+06:30"
 	  },
 	  "🇭🇲": {
 		"domain": "hm",
-		"capital": "Heard & McDonald Islands"
+		"capital": "Heard & McDonald Islands",
+		"timezone": "UTC+05:00"
 	  },
 	  "🇳🇫": {
 		"domain": "nf",
-		"capital": "Norfolk Island"
+		"capital": "Norfolk Island",
+		"timezone": "UTC+11:00"
 	  }
 	}
   },
@@ -177,7 +181,7 @@
     "domain": "bf",
     "name": "Burkina Faso",
     "capital": "Ouagadougou",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇧🇮": {
     "domain": "bi",
@@ -235,11 +239,13 @@
 	"dependencies": {
 	  "🇭🇰": {
 		"domain": "hk",
-		"capital": "Hong Kong"
+		"capital": "Hong Kong",
+		"timezone": "UTC+08:00"
 	  },
 	  "🇲🇴": {
 		"domain": "mo",
-		"capital": "Macau"
+		"capital": "Macau",
+		"timezone": "UTC+08:00"
 	  }
 	}
   },
@@ -277,7 +283,7 @@
     "domain": "ci",
     "name": "Côte d’Ivoire",
     "capital": "Yamoussoukro",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇭🇷": {
     "domain": "hr",
@@ -317,7 +323,8 @@
 	"dependencies": {
 	  "🇫🇴": {
 		"domain": "fo",
-		"capital": "Faroe Islands"
+		"capital": "Faroe Islands",
+		"timezone": "UTC+01:00"
 	  }
 	}
   },
@@ -401,7 +408,8 @@
 	"dependencies": {
 	  "🇦🇽": {
 		"domain": "ax",
-		"capital": "Åland Islands"
+		"capital": "Åland Islands",
+		"timezone": "UTC+03:00"
 	  }
 	}
   },
@@ -413,31 +421,38 @@
 	"dependencies": {
 	  "🇨🇵": {
 		"domain": "cp",
-		"capital": "Clipperton Island"
+		"capital": "Clipperton Island",
+		"timezone": "UTC-08:00"
 	  },
 	  "🇬🇫": {
 		"domain": "gf",
-		"capital": "French Guiana"
+		"capital": "French Guiana",
+		"timezone": "UTC-03:00"
 	  },
 	  "🇹🇫": {
 		"domain": "tf",
-		"capital": "French Southern Territories"
+		"capital": "French Southern Territories",
+		"timezone": "UTC+05:00"
 	  },
 	  "🇬🇵": {
 		"domain": "gp",
-		"capital": "Guadeloupe"
+		"capital": "Guadeloupe",
+		"timezone": "UTC-04:00"
 	  },
 	  "🇲🇶": {
 		"domain": "mq",
-		"capital": "Martinique"
+		"capital": "Martinique",
+		"timezone": "UTC-04:00"
 	  },
 	  "🇳🇨": {
 		"domain": "nc",
-		"capital": "New Caledonia"
+		"capital": "New Caledonia",
+		"timezone": "UTC+11:00"
 	  },
 	  "🇼🇫": {
 		"domain": "wf",
-		"capital": "Wallis & Futuna"
+		"capital": "Wallis & Futuna",
+		"timezone": "UTC+12:00"
 	  }
 	}
   },
@@ -469,7 +484,7 @@
     "domain": "gh",
     "name": "Ghana",
     "capital": "Accra",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇬🇷": {
     "domain": "gr",
@@ -493,13 +508,13 @@
     "domain": "gn",
     "name": "Guinea",
     "capital": "Conakry",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇬🇼": {
     "domain": "gw",
     "name": "Guinea-Bissau",
     "capital": "Bissau",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇬🇾": {
     "domain": "gy",
@@ -529,7 +544,7 @@
     "domain": "is",
     "name": "Iceland",
     "capital": "Reykjavik",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇮🇳": {
     "domain": "in",
@@ -559,7 +574,7 @@
     "domain": "ie",
     "name": "Ireland",
     "capital": "Dublin",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇮🇱": {
     "domain": "il",
@@ -655,7 +670,7 @@
     "domain": "lr",
     "name": "Liberia",
     "capital": "Monrovia",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇱🇾": {
     "domain": "ly",
@@ -709,7 +724,7 @@
     "domain": "ml",
     "name": "Mali",
     "capital": "Bamako",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇲🇹": {
     "domain": "mt",
@@ -721,7 +736,7 @@
     "domain": "mr",
     "name": "Mauritania",
     "capital": "Nouakchott",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇲🇺": {
     "domain": "mu",
@@ -769,7 +784,7 @@
     "domain": "ma",
     "name": "Morocco",
     "capital": "Rabat",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇲🇿": {
     "domain": "mz",
@@ -809,15 +824,18 @@
 	"dependencies": {
 	  "🇦🇼": {
 		"domain": "aw",
-		"capital": "Aruba"
+		"capital": "Aruba",
+		"timezone": "UTC-04:00"
 	  },
 	  "🇧🇶": {
 		"domain": "bq",
-		"capital": "Caribbean Netherlands"
+		"capital": "Caribbean Netherlands",
+		"timezone": "UTC-04:00"
 	  },
 	  "🇸🇽": {
 		"domain": "sx",
-		"capital": "Sint Maarten"
+		"capital": "Sint Maarten",
+		"timezone": "UTC-04:00"
 	  }
 	}
   },
@@ -829,15 +847,18 @@
 	"dependencies": {
 	  "🇨🇰": {
 		"domain": "ck",
-		"capital": "Cook Islands"
+		"capital": "Cook Islands",
+		"timezone": "UTC-10:00"
 	  },
 	  "🇳🇺": {
 		"domain": "nu",
-		"capital": "Niue"
+		"capital": "Niue",
+		"timezone": "UTC-11:00"
 	  },
 	  "🇹🇰": {
 		"domain": "tk",
-		"capital": "Tokelau"
+		"capital": "Tokelau",
+		"timezone": "UTC+13:00"
 	  }
 	}
   },
@@ -879,7 +900,8 @@
 	"dependencies": {
 	  "🇧🇻": {
 		"domain": "bv",
-		"capital": "Bouvet Island"
+		"capital": "Bouvet Island",
+		"timezone": "UTC+02:00"
 	  }
 	}
   },
@@ -995,7 +1017,7 @@
     "domain": "st",
     "name": "Sao Tome & Principe",
     "capital": "São Tomé",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇸🇦": {
     "domain": "sa",
@@ -1007,7 +1029,7 @@
     "domain": "sn",
     "name": "Senegal",
     "capital": "Dakar",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇷🇸": {
     "domain": "rs",
@@ -1025,7 +1047,7 @@
     "domain": "sl",
     "name": "Sierra Leone",
     "capital": "Freetown",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇸🇬": {
     "domain": "sg",
@@ -1073,15 +1095,17 @@
     "domain": "es",
     "name": "Spain",
     "capital": "Madrid",
-    "timezone": "UTC",
+    "timezone": "UTC+00:00",
 	"dependencies": {
 	  "🇮🇨": {
 		"domain": "ic",
-		"capital": "Canary Islands"
+		"capital": "Canary Islands",
+		"timezone": "UTC+00:00"
 	  },
 	  "🇪🇦": {
 		"domain": "ea",
-		"capital": "Ceuta & Melilla"
+		"capital": "Ceuta & Melilla",
+		"timezone": "UTC+01:00"
 	  }
 	}
   },
@@ -1155,7 +1179,7 @@
     "domain": "tg",
     "name": "Togo",
     "capital": "Lomé",
-    "timezone": "UTC"
+    "timezone": "UTC+00:00"
   },
   "🇹🇴": {
     "domain": "to",
@@ -1219,43 +1243,53 @@
 	"dependencies": {
 	  "🇦🇮": {
 		"domain": "ai",
-		"capital": "Anguilla"
+		"capital": "Anguilla",
+		"timezone": "UTC-04:00"
 	  },
 	  "🇦🇨": {
 		"domain": "ac",
-		"capital": "Ascension Island"
+		"capital": "Ascension Island",
+		"timezone": "UTC+00:00"
 	  },
 	  "🇧🇲": {
 		"domain": "bm",
-		"capital": "Bermuda"
+		"capital": "Bermuda",
+		"timezone": "UTC-03:00"
 	  },
 	  "🇫🇰": {
 		"domain": "fk",
-		"capital": "Falkland Islands"
+		"capital": "Falkland Islands",
+		"timezone": "UTC-03:00"
 	  },
 	  "🇬🇬": {
 		"domain": "gg",
-		"capital": "Guernsey"
+		"capital": "Guernsey",
+		"timezone": "UTC+01:00"
 	  },
 	  "🇮🇲": {
 		"domain": "im",
-		"capital": "Isle of Man"
+		"capital": "Isle of Man",
+		"timezone": "UTC+00:00"
 	  },
 	  "🇯🇪": {
 		"domain": "je",
-		"capital": "Jersey"
+		"capital": "Jersey",
+		"timezone": "UTC+00:00"
 	  },
 	  "🇲🇸": {
 		"domain": "ms",
-		"capital": "Montserrat"
+		"capital": "Montserrat",
+		"timezone": "UTC-04:00"
 	  },
 	  "🇵🇳": {
 		"domain": "pn",
-		"capital": "Pitcairn Islands"
+		"capital": "Pitcairn Islands",
+		"timezone": "UTC-08:00"
 	  },
 	  "🇹🇨": {
 		"domain": "tc",
-		"capital": "Turks & Caicos Islands"
+		"capital": "Turks & Caicos Islands",
+		"timezone": "UTC-04:00"
 	  }
 	}
   },
@@ -1267,23 +1301,28 @@
 	"dependencies": {
 	  "🇦🇸": {
 		"domain": "as",
-		"capital": "American Samoa"
+		"capital": "American Samoa",
+		"timezone": "UTC-11:00"
 	  },
 	  "🇬🇺": {
 		"domain": "gu",
-		"capital": "Guam"
+		"capital": "Guam",
+		"timezone": "UTC+10:00"
 	  },
 	  "🇲🇭": {
 		"domain": "mh",
-		"capital": "Marshall Islands"
+		"capital": "Marshall Islands",
+		"timezone": "UTC+12:00"
 	  },
 	  "🇲🇵": {
 		"domain": "mp",
-		"capital": "Northern Mariana Islands"
+		"capital": "Northern Mariana Islands",
+		"timezone": "UTC+10:00"
 	  },
 	  "🇵🇷": {
 		"domain": "pr",
-		"capital": "Puerto Rico"
+		"capital": "Puerto Rico",
+		"timezone": "UTC-04:00"
 	  }
 	}
   },

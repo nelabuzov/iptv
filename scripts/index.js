@@ -1,5 +1,9 @@
-const list = document.getElementById('channelList');
-const player = document.getElementById('videoPlayer');
+const player = document.getElementById('player');
+const playerContainer = document.getElementById('playerContainer');
+const categoriesBtn = document.getElementById('categoriesBtn');
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const volumeSlider = document.getElementById('volumeSlider');
 const searchInput = document.getElementById('searchInput');
 const randomBtn = document.getElementById('randomBtn');
 const backBtn = document.getElementById('backBtn');
@@ -7,11 +11,15 @@ const currentLogo = document.getElementById('currentLogo');
 const currentTitle = document.getElementById('currentTitle');
 const currentCapital = document.getElementById('currentCapital');
 const currentTime = document.getElementById('currentTime');
+const list = document.getElementById('channelList');
 
 let countries = {};
 let channels = [];
 let hls = null;
-let currentCountry = undefined; // undefined => показываем список стран, иначе показываем каналы этой страны
+let currentTimezone = null;
+let currentChannelIndex = null;
+let currentCountry = undefined;
+let currentCategory = null;
 
 /* Очистка имени канала */
 function cleanName(name) {
@@ -70,87 +78,53 @@ function getFlagByTvgId(tvgId) {
   return undefined;
 }
 
-searchInput.addEventListener('input', () => {
-  const filter = searchInput.value.trim().toLowerCase();
-
-  if (currentCountry === undefined) {
-    // список стран
-    renderCountries(filter);
-  } else if (currentCountry === 'all') {
-    // все каналы
-    renderAllChannels(filter);
-  } else {
-    // каналы выбранной страны
-    renderChannels(currentCountry, filter);
-  }
-});
-
-function renderAllChannels(filter = '') {
-  currentCountry = 'all';
-  backBtn.style.display = 'block';
-  allChannelsBtn.style.display = 'none';
-  searchInput.placeholder = "Filter Channels";
+/* Загрузка channels.json при старте */
+window.addEventListener('DOMContentLoaded', () => {
+  searchInput.value = '';
   searchInput.focus();
-  list.innerHTML = '';
-  list.scrollTop = 0;
 
-  const sorted = channels
-    .filter(ch => ch.flag && ch.displayName.toLowerCase().includes(filter))
-    .sort((a, b) => a.displayName.localeCompare(b.displayName, 'en', {sensitivity: 'base'}));
+  fetch("data/countries.json")
+    .then(r => r.json())
+    .then(data => {
+      countries = data;
+	  
+	  // Теперь можно запускать setInterval для обновления времени
+      setInterval(() => {
+        if (currentTimezone) {
+          currentTime.textContent = getTimeByTimezone(currentTimezone);
+        }
+      }, 1000);
 
-  sorted.forEach(ch => {
-    const div = document.createElement('div');
-    div.className = 'channel';
-    div.dataset.type = 'channel';
-    div.dataset.index = channels.indexOf(ch);
+      // После того как countries загружены, можно грузить плейлист
+      fetch("data/channels.json")
+        .then(r => r.json())
+        .then(data => {
+          channels = data
+            .filter(ch => ch.working)
+            .map(ch => {
+              const flag = getFlagByTvgId(ch.tvgId);
+              return {
+                name: ch.name,
+                displayName: stripQuality(cleanName(ch.name)),
+                url: ch.url,
+                tvgId: ch.tvgId,
+                logo: ch.tvgLogo,
+				groupTitle: ch.groupTitle,
+                flag
+              };
+            });
+          
+          renderCountries();
+        })
+        .catch(e => {
+          console.error("Ошибка загрузки channels.json", e);
+        });
 
-    const spanFlag = document.createElement('span');
-    spanFlag.className = 'channel-flag';
-    spanFlag.textContent = ch.flag;
-
-    const spanText = document.createElement('span');
-    spanText.className = 'channel-text';
-    spanText.textContent = ch.displayName;
-
-    div.appendChild(spanFlag);
-    div.appendChild(spanText);
-
-    div.onclick = () => playChannel(channels.indexOf(ch), div, ch);
-
-    list.appendChild(div);
-  });
-
-  if (window.twemoji) {
-    try { twemoji.parse(list, {folder: 'svg', ext: '.svg'}); }
-    catch (e) { console.warn("twemoji parse error", e); }
-  }
-
-  // Случайный выбор канала из списка
-  const channelEls = Array.from(list.querySelectorAll('.channel[data-type="channel"]'));
-  if (channelEls.length > 0) {
-    const randomIdx = Math.floor(Math.random() * channelEls.length);
-    const el = channelEls[randomIdx];
-    el.scrollIntoView({ behavior: 'auto', block: 'start' }); // прокрутка в верх списка
-    const chIndex = parseInt(el.dataset.index, 10);
-    const ch = channels[chIndex];
-    if (ch) playChannel(chIndex, el, ch);
-  }
-}
-
-// и заменяем твой обработчик кнопки "All Channels" на:
-allChannelsBtn.onclick = () => renderAllChannels();
-
-/* Загрузка плейлиста */
-async function loadPlaylist(url) {
-  try {
-    const res = await fetch(url);
-    const text = await res.text();
-    parsePlaylist(text);
-  } catch (e) {
-    alert("Playlist Loading Error");
-    console.error(e);
-  }
-}
+    })
+    .catch(e => {
+      console.error("Ошибка загрузки countries.json", e);
+    });
+});
 
 /* Парсинг m3u */
 function parsePlaylist(text) {
@@ -191,6 +165,104 @@ function parsePlaylist(text) {
       currentTvgId = '';
       currentLogoUrl = '';
     }
+  }
+}
+
+// === Обработчик кнопки Categories ===
+categoriesBtn.onclick = () => {
+  currentCountry = 'categories';
+  backBtn.style.display = 'block';
+  categoriesBtn.style.display = 'none';
+  searchInput.placeholder = "Filter Categories";
+  searchInput.value = '';
+  searchInput.focus();
+  renderCategories();
+};
+
+function renderCategories(filter = '') {
+  list.innerHTML = '';
+  list.scrollTop = 0;
+  currentCategory = null;
+
+  // Добавляем пункт "All Channels" в начало
+  const allDiv = document.createElement('div');
+  allDiv.className = 'channel';
+  allDiv.dataset.type = 'all';
+  allDiv.textContent = 'All Channels';
+  allDiv.onclick = () => {
+    searchInput.value = '';
+    searchInput.focus();
+    renderAllChannels();
+  };
+  list.appendChild(allDiv);
+
+  const categorySet = new Set();
+  channels.forEach(ch => {
+    if (!ch.groupTitle) return;
+    ch.groupTitle.split(';').forEach(cat => {
+      const trimmed = cat.trim();
+      if (trimmed && trimmed.toLowerCase().includes(filter.toLowerCase())) {
+        categorySet.add(trimmed);
+      }
+    });
+  });
+
+  const categories = Array.from(categorySet).sort((a,b) => a.localeCompare(b, 'en', {sensitivity: 'base'}));
+
+  categories.forEach(cat => {
+    const div = document.createElement('div');
+    div.className = 'channel';
+    div.dataset.type = 'category';
+    div.textContent = cat;
+
+    div.onclick = () => {
+      currentCategory = cat;
+      renderChannelsByCategory(cat);
+	  searchInput.value = '';
+      searchInput.focus();
+    };
+
+    list.appendChild(div);
+  });
+}
+
+function renderChannelsByCategory(category, filter='') {
+  list.innerHTML = '';
+  list.scrollTop = 0;
+  currentCategory = category;
+
+  const filtered = channels.filter(ch =>
+    ch.groupTitle &&
+    ch.groupTitle.split(';').map(c => c.trim()).includes(category) &&
+    ch.displayName.toLowerCase().includes(filter)
+  );
+
+  filtered.forEach(ch => {
+    const div = document.createElement('div');
+    div.className = 'channel';
+    div.dataset.type = 'channel';
+    div.dataset.index = channels.indexOf(ch);
+
+    const spanFlag = document.createElement('span');
+    spanFlag.className = 'channel-flag';
+    spanFlag.textContent = ch.flag; // сначала ставим текст
+
+    const spanText = document.createElement('span');
+    spanText.className = 'channel-text';
+    spanText.textContent = ch.displayName;
+
+    div.appendChild(spanFlag);
+    div.appendChild(spanText);
+
+    div.onclick = () => playChannel(channels.indexOf(ch), div, ch);
+
+    list.appendChild(div);
+  });
+
+  if (window.twemoji) {
+    try {
+      twemoji.parse(list, { folder: 'svg', ext: '.svg' });
+    } catch (e) { console.warn("twemoji parse error", e); }
   }
 }
 
@@ -247,17 +319,11 @@ function renderCountries(filter = '') {
     div.appendChild(spanText);
 
     div.onclick = () => {
-      searchInput.value = '';
-      renderChannels(fObj.flag);
+	  renderChannels(fObj.flag);
 
-      const firstChannelEl = list.querySelector('.channel[data-type="channel"]');
-      if (firstChannelEl) {
-        const idx = parseInt(firstChannelEl.dataset.index, 10);
-        const ch = channels[idx];
-        if (ch) playChannel(idx, firstChannelEl, ch);
-      }
-      searchInput.focus();
-    };
+	  searchInput.value = '';
+	  searchInput.focus();
+	};
 
     list.appendChild(div);
   });
@@ -318,32 +384,44 @@ function renderChannels(countryFlag, filter = '') {
   }
 }
 
-function updateNowPlayingUI(channelObj) {
-  if (channelObj.logo) {
-    currentLogo.src = channelObj.logo;
-    currentLogo.style.visibility = 'visible';
-  } else {
-    currentLogo.removeAttribute('src');
-    currentLogo.style.visibility = 'hidden';
+function renderAllChannels(filter = '') {
+  currentCountry = 'all';
+  backBtn.style.display = 'block';
+  categoriesBtn.style.display = 'none';
+  searchInput.placeholder = "Filter Channels";
+  list.innerHTML = '';
+  list.scrollTop = 0;
+
+  const sorted = channels
+    .filter(ch => ch.flag && ch.displayName.toLowerCase().includes(filter))
+    .sort((a, b) => a.displayName.localeCompare(b.displayName, 'en', {sensitivity: 'base'}));
+
+  sorted.forEach(ch => {
+    const div = document.createElement('div');
+    div.className = 'channel';
+    div.dataset.type = 'channel';
+    div.dataset.index = channels.indexOf(ch);
+
+    const spanFlag = document.createElement('span');
+    spanFlag.className = 'channel-flag';
+    spanFlag.textContent = ch.flag;
+
+    const spanText = document.createElement('span');
+    spanText.className = 'channel-text';
+    spanText.textContent = ch.displayName;
+
+    div.appendChild(spanFlag);
+    div.appendChild(spanText);
+
+    div.onclick = () => playChannel(channels.indexOf(ch), div, ch);
+
+    list.appendChild(div);
+  });
+
+  if (window.twemoji) {
+    try { twemoji.parse(list, {folder: 'svg', ext: '.svg'}); }
+    catch (e) { console.warn("twemoji parse error", e); }
   }
-
-  // ищем родительскую страну
-  let parentCountry = countries[channelObj.flag];
-  let childCountry = parentCountry;
-
-  // если это зависимая территория, берем родителя
-  for (const flag in countries) {
-    if (countries[flag].dependencies && countries[flag].dependencies[channelObj.flag]) {
-      parentCountry = countries[flag];
-      childCountry = countries[flag].dependencies[channelObj.flag];
-      break;
-    }
-  }
-
-  // название страны (родителя) и столица / название вложенной страны
-  currentTitle.textContent = parentCountry?.name || '';
-  currentCapital.textContent = childCountry?.capital || '';
-  currentTime.textContent = getTimeByTimezone(parentCountry?.timezone);
 }
 
 /* Воспроизведение */
@@ -353,6 +431,10 @@ function playChannel(index, element, channelObj) {
 
   const ch = (channelObj ? channelObj : channels[index]);
   if (!ch || !ch.url) return;
+
+  // Надёжно определяем индекс и сохраняем его
+  const resolvedIndex = (typeof index === 'number' && index >= 0) ? index : channels.indexOf(ch);
+  currentChannelIndex = resolvedIndex;
 
   updateNowPlayingUI(ch);
 
@@ -372,57 +454,62 @@ function playChannel(index, element, channelObj) {
   }
 }
 
-/* Загрузка channels.json при старте */
-window.addEventListener('DOMContentLoaded', () => {
-  searchInput.value = '';
-  searchInput.focus();
+function updateNowPlayingUI(channelObj) {
+  if (channelObj.logo) {
+    currentLogo.src = channelObj.logo;
+    currentLogo.style.visibility = 'visible';
 
-  fetch("data/countries.json")
-    .then(r => r.json())
-    .then(data => {
-      countries = data;
-	  
-	  // Теперь можно запускать setInterval для обновления времени
-      setInterval(() => {
-        if (currentCountry) {
-          const country = countries[currentCountry];
-          if (country) currentTime.textContent = getTimeByTimezone(country.timezone);
-        }
-      }, 1000);
+    // если картинка не загрузится → подставляем дефолт
+    currentLogo.onerror = () => {
+      currentLogo.onerror = null; // чтобы не зациклиться
+      currentLogo.src = '../images/logo.svg'; // путь к твоему файлу
+    };
+  } else {
+    // если логотипа вообще нет, сразу ставим дефолт
+    currentLogo.src = '../images/logo.svg';
+    currentLogo.style.visibility = 'visible';
+  }
 
-      // После того как countries загружены, можно грузить плейлист
-      fetch("data/channels.json")
-        .then(r => r.json())
-        .then(data => {
-          channels = data
-            .filter(ch => ch.working)
-            .map(ch => {
-              const flag = getFlagByTvgId(ch.tvgId);
-              return {
-                name: ch.name,
-                displayName: stripQuality(cleanName(ch.name)),
-                url: ch.url,
-                tvgId: ch.tvgId,
-                logo: ch.tvgLogo,
-                flag
-              };
-            });
-          
-          renderCountries();
-        })
-        .catch(e => {
-          console.error("Ошибка загрузки channels.json", e);
-        });
+  // ищем родительскую страну
+  let parentCountry = countries[channelObj.flag];
+  let childCountry = parentCountry;
 
-    })
-    .catch(e => {
-      console.error("Ошибка загрузки countries.json", e);
-    });
+  for (const flag in countries) {
+    if (countries[flag].dependencies && countries[flag].dependencies[channelObj.flag]) {
+      parentCountry = countries[flag];
+      childCountry = countries[flag].dependencies[channelObj.flag];
+      break;
+    }
+  }
+
+  currentTitle.textContent = parentCountry?.name || '';
+  currentCapital.textContent = childCountry?.capital || '';
+
+  const tz = childCountry?.timezone || parentCountry?.timezone;
+  currentTime.textContent = getTimeByTimezone(tz);
+}
+
+searchInput.addEventListener('input', () => {
+  const filter = searchInput.value.trim().toLowerCase();
+
+  if (currentCountry === undefined) {
+    renderCountries(filter);
+  } else if (currentCountry === 'all') {
+    renderAllChannels(filter);
+  } else if (currentCountry === 'categories') {
+    if (currentCategory) {
+      renderChannelsByCategory(currentCategory, filter);
+    } else {
+      renderCategories(filter);
+    }
+  } else {
+    renderChannels(currentCountry, filter);
+  }
 });
 
 /* Кнопка возврата к списку стран */
 backBtn.addEventListener('click', () => {
-  allChannelsBtn.style.display = 'block';
+  categoriesBtn.style.display = 'block';
   searchInput.value = '';
   searchInput.focus();
   renderCountries('');
@@ -430,28 +517,29 @@ backBtn.addEventListener('click', () => {
 
 /* Случайный выбор */
 randomBtn.onclick = () => {
-  searchInput.focus();
-  // Обновляем видимые элементы
+
   const visible = Array.from(document.querySelectorAll('#channelList .channel'));
   if (visible.length === 0) return;
 
-  // Сначала ищем видимые каналы (если есть), иначе выбираем страну
   const channelEls = visible.filter(el => el.dataset.type === 'channel');
   if (channelEls.length > 0) {
-    const idxVisible = Math.floor(Math.random() * channelEls.length);
-    const el = channelEls[idxVisible];
-    // Прокрутка выбранного канала В САМЫХ ВЕРХУ списка
+    const pool = channelEls.filter(el => parseInt(el.dataset.index, 10) !== currentChannelIndex);
+    if (pool.length === 0) return; // нечего выбирать, единственный канал = текущий
+
+    const idxVisible = Math.floor(Math.random() * pool.length);
+    const el = pool[idxVisible];
     el.scrollIntoView({ behavior: 'auto', block: 'start' });
 
     const chIndex = parseInt(el.dataset.index, 10);
     const ch = channels[chIndex];
-    if (ch) {
-      playChannel(chIndex, el, ch);
-    }
+    if (ch) playChannel(chIndex, el, ch);
+
+	searchInput.value = '';
+    searchInput.focus();
     return;
   }
 
-  // Нет видимых каналов — выбираем случайную страну (и открываем её)
+  // если видимых каналов нет — как и раньше, случайная страна
   const countryEls = visible.filter(el => el.dataset.type === 'country');
   if (countryEls.length === 0) return;
   const idxCountry = Math.floor(Math.random() * countryEls.length);
@@ -461,3 +549,35 @@ randomBtn.onclick = () => {
   searchInput.value = '';
   searchInput.focus();
 };
+
+// Play / Pause
+playPauseBtn.onclick = () => {
+  if (player.paused) {
+    player.play();
+  } else {
+    player.pause();
+  }
+};
+player.onplay = () => playPauseBtn.textContent = '❚❚';
+player.onpause = () => playPauseBtn.textContent = '▶';
+
+// Volume
+volumeSlider.oninput = () => player.volume = volumeSlider.value;
+
+// Fullscreen
+function updateFullscreenIcon() {
+  const iconUrl = document.fullscreenElement ? '../images/fullscreen-exit.svg' : '../images/fullscreen-enter.svg';
+  fullscreenBtn.style.backgroundImage = `url('${iconUrl}')`;
+}
+
+fullscreenBtn.onclick = () => {
+  if (!document.fullscreenElement) {
+    playerContainer.requestFullscreen().catch(err => console.log(err));
+  } else {
+    document.exitFullscreen();
+  }
+  updateFullscreenIcon(); // на случай клика
+};
+
+// Событие для выхода/входа в fullscreen (включая ESC)
+document.addEventListener('fullscreenchange', updateFullscreenIcon);
