@@ -26,8 +26,8 @@ let savedVolume = 1;
 /* Очистка имени канала */
 function cleanName(name) {
   return name
-    .replace(/\[Not 24\/7\]/gi, '<img src="../images/time-lock.svg" alt="Not 24/7" class="icon">')
-    .replace(/\[Geo-blocked\]/gi, '<img src="../images/globe-lock.svg" alt="Geo-blocked" class="icon">')
+    .replace(/\[Not 24\/7\]/gi, '<img src="images/time-lock.svg" alt="Not 24/7" class="icon">')
+    .replace(/\[Geo-blocked\]/gi, '<img src="images/globe-lock.svg" alt="Geo-blocked" class="icon">')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -510,11 +510,11 @@ function updateNowPlayingUI(channelObj) {
     // если картинка не загрузится → подставляем дефолт
     currentLogo.onerror = () => {
       currentLogo.onerror = null; // чтобы не зациклиться
-      currentLogo.src = '../images/logo.svg'; // путь к твоему файлу
+      currentLogo.src = 'images/logo.svg'; // путь к твоему файлу
     };
   } else {
     // если логотипа вообще нет, сразу ставим дефолт
-    currentLogo.src = '../images/logo.svg';
+    currentLogo.src = 'images/logo.svg';
     currentLogo.style.visibility = 'visible';
   }
 
@@ -642,7 +642,7 @@ volumeSlider.oninput = () => {
 
 // Fullscreen
 function updateFullscreenIcon() {
-  const iconUrl = document.fullscreenElement ? '../images/fullscreen-exit.svg' : '../images/fullscreen-enter.svg';
+  const iconUrl = document.fullscreenElement ? 'images/fullscreen-exit.svg' : 'images/fullscreen-enter.svg';
   fullscreenBtn.style.backgroundImage = `url('${iconUrl}')`;
 }
 

@@ -52,7 +52,7 @@ function parseM3U(text) {
       // group-title
       const mGroup = line.match(/group-title="([^"]*)"/i);
       currentGroup = mGroup ? mGroup[1] : "";
-    } else if (line.startsWith("http") && currentName && currentTvgId) {
+    } else if (line.startsWith("http") && currentName) {
       channels.push({
         name: currentName,
         tvgId: currentTvgId,
@@ -73,8 +73,8 @@ function parseM3U(text) {
 async function checkStream(ch) {
   try {
 	await execPromise(
-	  `ffmpeg -v error -rw_timeout 5000000 -i "${ch.url}" -c copy -t 1 -f null -`,
-	  { timeout: 15000, maxBuffer: 10 * 1024 } // 15 сек на команду
+	  `ffmpeg -v error -rw_timeout 10000000 -i "${ch.url}" -c copy -t 1 -f null -`,
+	  { timeout: 10000, maxBuffer: 10 * 1024 } // 10 сек на команду
 	);
     ch.working = true;
     console.log(`✅ ${ch.name}`);

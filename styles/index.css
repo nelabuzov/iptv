@@ -10,6 +10,7 @@ body {
   display: flex;
   font-size: 14px;
   align-items: center;
+  margin: 10px;
 }
 #currentInfo {
   display: flex;
@@ -20,9 +21,9 @@ body {
   height: 60px;
 }
 #currentLogo {
-  width: 60px;
   height: 60px;
-  margin: 10px 20px 10px 10px;
+  max-width: 140px;
+  margin-right: 20px;
 }
 #currentTitle {
   font-weight: 600;
@@ -120,6 +121,8 @@ video {
   flex: 1;
   overflow-y: auto;
   background: #181818;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, .5);
 }
 .channel {
   display: flex;
@@ -167,11 +170,10 @@ video {
   width: 8px;
 }
 #channelList::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, .5);
 }
 #channelList::-webkit-scrollbar-track {
-  background: transparent;
+  background: #212121;
 }
 #volumeSlider{
   -webkit-appearance: none;
