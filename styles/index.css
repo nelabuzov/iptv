@@ -117,13 +117,6 @@ video {
 #backBtn {
   display: none;
 }
-#channelList {
-  flex: 1;
-  overflow-y: auto;
-  background: #181818;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, .5);
-}
 .channel {
   display: flex;
   align-items: center;
@@ -166,14 +159,22 @@ video {
   justify-content: space-between;
   word-break: break-word;
 }
+@-moz-document url-prefix() {
+  #channelList {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, .5);
+  }
+}
+#channelList {
+  flex: 1;
+  overflow-y: auto;
+  background: #181818;
+}
 #channelList::-webkit-scrollbar {
   width: 8px;
 }
 #channelList::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, .5);
-}
-#channelList::-webkit-scrollbar-track {
-  background: #212121;
 }
 #volumeSlider{
   -webkit-appearance: none;
