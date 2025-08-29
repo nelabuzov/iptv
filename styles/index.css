@@ -45,7 +45,7 @@ body {
   bottom: 10px;
   left: 50%;
   width: 175px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   transform: translateX(-50%);
@@ -53,6 +53,9 @@ body {
   border-radius: 12px;
   padding: 5px;
   z-index: 10;
+}
+#controls.visible {
+  display: flex;
 }
 #playPauseBtn,
 #fullscreenBtn {
@@ -121,7 +124,7 @@ video {
 .channel {
   display: flex;
   align-items: center;
-  padding: 12px;
+  padding: 12px 25px 12px 12px;
   cursor: pointer;
   gap: 8px;
   margin: 0;
@@ -146,9 +149,12 @@ video {
   align-items: center;
   justify-content: center;
 }
-.channel-flag img,
-.channel-text img {
+.channel-flag img {
   width: 28px;
+}
+.channel-text img {
+	width: 18px;
+	opacity: .5;
 }
 .channel-text {
   flex: 1;

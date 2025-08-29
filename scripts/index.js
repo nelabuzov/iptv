@@ -12,6 +12,7 @@ const currentTitle = document.getElementById('currentTitle');
 const currentCapital = document.getElementById('currentCapital');
 const currentTime = document.getElementById('currentTime');
 const list = document.getElementById('channelList');
+const controls = document.getElementById('controls');
 
 let countries = {};
 let channels = [];
@@ -20,12 +21,13 @@ let currentTimezone = null;
 let currentChannelIndex = null;
 let currentCountry = undefined;
 let currentCategory = null;
+let savedVolume = 1;
 
 /* Очистка имени канала */
 function cleanName(name) {
   return name
-    .replace(/\[Not 24\/7\]/gi, '🕛')
-    .replace(/\[Geo-blocked\]/gi, '🌐')
+    .replace(/\[Not 24\/7\]/gi, '<img src="../images/time-lock.svg" alt="Not 24/7" class="icon">')
+    .replace(/\[Geo-blocked\]/gi, '<img src="../images/globe-lock.svg" alt="Geo-blocked" class="icon">')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -80,6 +82,19 @@ function getFlagByTvgId(tvgId) {
 
 /* Загрузка channels.json при старте */
 window.addEventListener('DOMContentLoaded', () => {
+  const storedVolume = localStorage.getItem('playerVolume');
+  if (storedVolume !== null) {
+    savedVolume = parseFloat(storedVolume);
+    player.volume = savedVolume;
+    volumeSlider.value = savedVolume;
+  } else {
+    savedVolume = 1; // дефолтная громкость
+    player.volume = savedVolume;
+    volumeSlider.value = savedVolume;
+  }
+
+  volumeSlider.value = savedVolume; // устанавливаем ползунок
+
   searchInput.value = '';
   searchInput.focus();
 
@@ -125,6 +140,12 @@ window.addEventListener('DOMContentLoaded', () => {
       console.error("Ошибка загрузки countries.json", e);
     });
 });
+
+// При изменении ползунка
+volumeSlider.oninput = () => {
+  player.volume = volumeSlider.value;
+  localStorage.setItem('playerVolume', volumeSlider.value);
+};
 
 /* Парсинг m3u */
 function parsePlaylist(text) {
@@ -184,17 +205,19 @@ function renderCategories(filter = '') {
   list.scrollTop = 0;
   currentCategory = null;
 
-  // Добавляем пункт "All Channels" в начало
-  const allDiv = document.createElement('div');
-  allDiv.className = 'channel';
-  allDiv.dataset.type = 'all';
-  allDiv.textContent = 'All Channels';
-  allDiv.onclick = () => {
-    searchInput.value = '';
-    searchInput.focus();
-    renderAllChannels();
-  };
-  list.appendChild(allDiv);
+  // Добавляем пункт "All Channels" только если фильтр его включает
+  if ('all channels'.toLowerCase().includes(filter.toLowerCase())) {
+    const allDiv = document.createElement('div');
+    allDiv.className = 'channel';
+    allDiv.dataset.type = 'all';
+    allDiv.textContent = 'All Channels';
+    allDiv.onclick = () => {
+      searchInput.value = '';
+      searchInput.focus();
+      renderAllChannels();
+    };
+    list.appendChild(allDiv);
+  }
 
   const categorySet = new Set();
   channels.forEach(ch => {
@@ -218,7 +241,7 @@ function renderCategories(filter = '') {
     div.onclick = () => {
       currentCategory = cat;
       renderChannelsByCategory(cat);
-	  searchInput.value = '';
+      searchInput.value = '';
       searchInput.focus();
     };
 
@@ -249,7 +272,7 @@ function renderChannelsByCategory(category, filter='') {
 
     const spanText = document.createElement('span');
     spanText.className = 'channel-text';
-    spanText.textContent = ch.displayName;
+    spanText.innerHTML = ch.displayName;
 
     div.appendChild(spanFlag);
     div.appendChild(spanText);
@@ -368,7 +391,7 @@ function renderChannels(countryFlag, filter = '') {
 
     const spanText = document.createElement('span');
     spanText.className = 'channel-text';
-    spanText.textContent = ch.displayName;
+    spanText.innerHTML = ch.displayName;
 
     div.appendChild(spanFlag);
     div.appendChild(spanText);
@@ -408,7 +431,7 @@ function renderAllChannels(filter = '') {
 
     const spanText = document.createElement('span');
     spanText.className = 'channel-text';
-    spanText.textContent = ch.displayName;
+    spanText.innerHTML = ch.displayName;
 
     div.appendChild(spanFlag);
     div.appendChild(spanText);
@@ -424,34 +447,59 @@ function renderAllChannels(filter = '') {
   }
 }
 
-/* Воспроизведение */
+let currentChannel = null; // глобально
+
 function playChannel(index, element, channelObj) {
+  currentChannel = channelObj ? channelObj : channels[index];
+  if (!currentChannel || !currentChannel.url) return;
+
   document.querySelectorAll('.channel').forEach(el => el.classList.remove('active'));
   if (element) element.classList.add('active');
+  currentChannelIndex = index;
 
-  const ch = (channelObj ? channelObj : channels[index]);
-  if (!ch || !ch.url) return;
+  updateNowPlayingUI(currentChannel);
 
-  // Надёжно определяем индекс и сохраняем его
-  const resolvedIndex = (typeof index === 'number' && index >= 0) ? index : channels.indexOf(ch);
-  currentChannelIndex = resolvedIndex;
-
-  updateNowPlayingUI(ch);
+  // Слушатель для отключения всех субтитров (один раз)
+  if (!player.hasTrackListener) {
+    player.textTracks.addEventListener("addtrack", e => e.track.mode = "disabled");
+    player.hasTrackListener = true;
+  }
 
   if (Hls.isSupported()) {
-    if (!hls) hls = new Hls();
+    if (!hls) hls = new Hls({ enableWebVTT: false });
     else hls.detachMedia();
-    hls.loadSource(ch.url);
+
+    hls.loadSource(currentChannel.url);
     hls.attachMedia(player);
-    hls.on(Hls.Events.MANIFEST_PARSED, function() {
-      player.play().catch(()=>{});
-    });
+
+	if (Hls.isSupported()) {
+	  if (!hls) hls = new Hls({ enableWebVTT: false });
+	  else hls.detachMedia();
+
+	  hls.loadSource(currentChannel.url);
+	  hls.attachMedia(player);
+
+	  // Сразу после attachMedia задаём сохранённую громкость
+	  player.volume = savedVolume;
+
+	  player.play().catch(() => {});
+	}
+
+    player.play().catch(() => {});
+
   } else if (player.canPlayType('application/vnd.apple.mpegurl')) {
-    player.src = ch.url;
-    player.play().catch(()=>{});
-  } else {
-    alert("Ваш браузер не поддерживает HLS");
-  }
+	  player.src = currentChannel.url;
+
+	  player.addEventListener('loadedmetadata', () => {
+	    // громкость задаём уже после загрузки метаданных
+	    player.volume = savedVolume;
+	    player.play().catch(() => {});
+	  });
+    } else {
+        alert("Ваш браузер не поддерживает HLS");
+    }
+
+  controls.classList.add("visible");
 }
 
 function updateNowPlayingUI(channelObj) {
@@ -517,14 +565,26 @@ backBtn.addEventListener('click', () => {
 
 /* Случайный выбор */
 randomBtn.onclick = () => {
-
   const visible = Array.from(document.querySelectorAll('#channelList .channel'));
   if (visible.length === 0) return;
 
-  const channelEls = visible.filter(el => el.dataset.type === 'channel');
+  let channelEls;
+
+  if (currentCountry === 'categories' && currentCategory) {
+    // Каналы только в текущей категории
+    channelEls = visible.filter(el => el.dataset.type === 'channel');
+    channelEls = channelEls.filter(el => {
+      const ch = channels[parseInt(el.dataset.index, 10)];
+      return ch && ch.groupTitle && ch.groupTitle.split(';').map(c => c.trim()).includes(currentCategory);
+    });
+  } else {
+    // Каналы для стран или "All Channels"
+    channelEls = visible.filter(el => el.dataset.type === 'channel');
+  }
+
   if (channelEls.length > 0) {
     const pool = channelEls.filter(el => parseInt(el.dataset.index, 10) !== currentChannelIndex);
-    if (pool.length === 0) return; // нечего выбирать, единственный канал = текущий
+    if (pool.length === 0) return; // если один канал, ничего не делаем
 
     const idxVisible = Math.floor(Math.random() * pool.length);
     const el = pool[idxVisible];
@@ -534,20 +594,32 @@ randomBtn.onclick = () => {
     const ch = channels[chIndex];
     if (ch) playChannel(chIndex, el, ch);
 
-	searchInput.value = '';
+    searchInput.value = '';
     searchInput.focus();
     return;
   }
 
-  // если видимых каналов нет — как и раньше, случайная страна
-  const countryEls = visible.filter(el => el.dataset.type === 'country');
-  if (countryEls.length === 0) return;
-  const idxCountry = Math.floor(Math.random() * countryEls.length);
-  const countryEl = countryEls[idxCountry];
-  countryEl.click();
+  // Если видимых каналов нет — случайный выбор страны/категории
+  if (currentCountry === 'categories') {
+    const categoryEls = visible.filter(el => el.dataset.type === 'category');
+    if (categoryEls.length === 0) return;
+    const idxCategory = Math.floor(Math.random() * categoryEls.length);
+    const categoryEl = categoryEls[idxCategory];
+    categoryEl.click();
 
-  searchInput.value = '';
-  searchInput.focus();
+    searchInput.value = '';
+    searchInput.focus();
+  } else {
+    // Старый функционал: случайная страна
+    const countryEls = visible.filter(el => el.dataset.type === 'country');
+    if (countryEls.length === 0) return;
+    const idxCountry = Math.floor(Math.random() * countryEls.length);
+    const countryEl = countryEls[idxCountry];
+    countryEl.click();
+
+    searchInput.value = '';
+    searchInput.focus();
+  }
 };
 
 // Play / Pause
@@ -562,7 +634,11 @@ player.onplay = () => playPauseBtn.textContent = '❚❚';
 player.onpause = () => playPauseBtn.textContent = '▶';
 
 // Volume
-volumeSlider.oninput = () => player.volume = volumeSlider.value;
+volumeSlider.oninput = () => {
+  player.volume = volumeSlider.value;
+  localStorage.setItem('playerVolume', volumeSlider.value);
+  savedVolume = parseFloat(volumeSlider.value);
+};
 
 // Fullscreen
 function updateFullscreenIcon() {
@@ -581,3 +657,17 @@ fullscreenBtn.onclick = () => {
 
 // Событие для выхода/входа в fullscreen (включая ESC)
 document.addEventListener('fullscreenchange', updateFullscreenIcon);
+
+// Горячие клавиши
+document.addEventListener("keydown", (e) => {
+  // для Ctrl+F / Ctrl+P
+  if (e.ctrlKey) {
+    switch (e.code) {
+      case "KeyP": // Ctrl+P
+        e.preventDefault();
+        if (player.paused) player.play();
+        else player.pause();
+        break;
+    }
+  }
+});
