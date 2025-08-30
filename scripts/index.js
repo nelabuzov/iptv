@@ -241,8 +241,11 @@ function renderChannelsByCategory(category, filter='') {
   list.scrollTop = 0;
   currentCategory = category;
   categoriesBtn.style.display = 'block';
-  
-  currentTitle.setAttribute('data-category', category);
+
+  currentTitle.removeAttribute('data-category');
+  currentCapital.textContent = 'TV Around';
+  currentTime.textContent = 'The World';
+  currentTitle.textContent = 'Internet Protocol TV';
 
   const filtered = channels.filter(ch =>
     ch.groupTitle &&
@@ -288,9 +291,6 @@ function renderCountries(filter = '') {
   list.scrollTop = 0;
 
   currentTitle.removeAttribute('data-category');
-  currentCapital.textContent = 'TV Around';
-  currentTime.textContent = 'The World';
-  currentTitle.textContent = 'Internet Protocol TV';
 
   const flagSet = new Set();
   channels.forEach(c => {
@@ -505,6 +505,14 @@ function playChannel(index, element, channelObj) {
 }
 
 function updateNowPlayingUI(channelObj) {
+  // 🏴‍☠️ особый случай — каналы без страны
+  if (channelObj.flag === "🏴‍☠️") {
+    currentCapital.textContent = "No";
+    currentTime.textContent = "Country";
+    currentTitle.textContent = "Undefined";
+    return;
+  }
+
   // ищем родительскую страну
   let parentCountry = countries[channelObj.flag];
   let childCountry = parentCountry;
@@ -563,9 +571,14 @@ function updateVideoOverlay(channelObj) {
   document.getElementById('channelOverlay').style.display = 'flex';
 
   const logoEl = document.getElementById('currentLogoVideo');
-  logoEl.src = channelObj.logo && channelObj.logo.trim() !== "" 
+
+  logoEl.src = channelObj.logo && channelObj.logo.trim() !== ""
     ? channelObj.logo
     : "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='48'>❔</text></svg>";
+
+  logoEl.onerror = () => {
+    logoEl.src = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='48'>❔</text></svg>";
+  };
 
   if (flag === "🏴‍☠️") {
     document.getElementById('currentNameVideo').innerHTML = channelObj.displayName;
