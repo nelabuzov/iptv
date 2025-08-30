@@ -9,7 +9,6 @@ body {
 #nowPlaying {
   display: flex;
   font-size: 14px;
-  align-items: center;
   margin: 10px;
 }
 #currentInfo {
@@ -18,10 +17,10 @@ body {
   justify-content: space-between;
   text-transform: uppercase;
   align-items: start;
-  height: 60px;
+  height: 55px;
 }
 #currentLogo {
-  height: 60px;
+  height: 80px;
   max-width: 140px;
   margin-right: 20px;
 }
@@ -33,7 +32,16 @@ body {
   padding: 6px;
   color: #212121;
   background: #444;
-  border-radius: 12px;
+  border-radius: 12px 0;
+  position: relative;
+}
+#currentTitle::after {
+  content: attr(data-category);
+  position: absolute;
+  left: 0;
+  top: 115%;
+  color: #444;
+  white-space: nowrap;
 }
 #playerContainer {
   flex: 3;
@@ -45,7 +53,7 @@ body {
   position: absolute;
   bottom: 10px;
   left: 50%;
-  width: 175px;
+  width: 200px;
   display: none;
   align-items: center;
   justify-content: space-between;
@@ -58,7 +66,12 @@ body {
 #controls.visible {
   display: flex;
 }
+#controls div {
+	display: flex;
+	align-items: center;
+}
 #playPauseBtn,
+#volumeBtn,
 #fullscreenBtn {
   width: 30px;
   height: 30px;
@@ -67,7 +80,9 @@ body {
   background: transparent;
   color: white;
   cursor: pointer;
+  padding: 0;
 }
+#volumeBtn,
 #fullscreenBtn {
   background-image: url('../images/fullscreen-enter.svg');
   background-repeat: no-repeat;
@@ -151,12 +166,10 @@ video {
 .channel-text img {
 	width: 18px;
 	opacity: .5;
+	margin-left: 10px;
 }
 .channel-text {
-  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   word-break: break-word;
 }
 @-moz-document url-prefix() {
@@ -183,17 +196,18 @@ video {
   height: 4px;
   cursor: pointer;
   border-radius: 12px;
+  margin-right: 10px;
 }
 #volumeSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #fff !important;
 }
 #volumeSlider::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #fff !important;
   border: none !important;

@@ -1,25 +1,26 @@
-const player = document.getElementById('player');
 const playerContainer = document.getElementById('playerContainer');
-const categoriesBtn = document.getElementById('categoriesBtn');
-const fullscreenBtn = document.getElementById('fullscreenBtn');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const volumeSlider = document.getElementById('volumeSlider');
+const player = document.getElementById('player');
 const searchInput = document.getElementById('searchInput');
 const randomBtn = document.getElementById('randomBtn');
+const categoriesBtn = document.getElementById('categoriesBtn');
 const backBtn = document.getElementById('backBtn');
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const volumeBtn = document.getElementById('volumeBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+const controls = document.getElementById('controls');
 const currentLogo = document.getElementById('currentLogo');
 const currentTitle = document.getElementById('currentTitle');
 const currentCapital = document.getElementById('currentCapital');
 const currentTime = document.getElementById('currentTime');
 const list = document.getElementById('channelList');
-const controls = document.getElementById('controls');
 
+let currentCountry = undefined;
 let countries = {};
 let channels = [];
 let hls = null;
 let currentTimezone = null;
 let currentChannelIndex = null;
-let currentCountry = undefined;
 let currentCategory = null;
 let savedVolume = 1;
 
@@ -82,18 +83,9 @@ function getFlagByTvgId(tvgId) {
 
 /* Загрузка channels.json при старте */
 window.addEventListener('DOMContentLoaded', () => {
-  const storedVolume = localStorage.getItem('playerVolume');
-  if (storedVolume !== null) {
-    savedVolume = parseFloat(storedVolume);
-    player.volume = savedVolume;
-    volumeSlider.value = savedVolume;
-  } else {
-    savedVolume = 1; // дефолтная громкость
-    player.volume = savedVolume;
-    volumeSlider.value = savedVolume;
-  }
-
-  volumeSlider.value = savedVolume; // устанавливаем ползунок
+  const stored = localStorage.getItem('playerVolume');
+  const v = stored !== null ? parseFloat(stored) : 1;
+  setVolume(v);
 
   searchInput.value = '';
   searchInput.focus();
@@ -117,14 +109,21 @@ window.addEventListener('DOMContentLoaded', () => {
           channels = data
             .filter(ch => ch.working)
             .map(ch => {
-              const flag = getFlagByTvgId(ch.tvgId);
+              let flag = getFlagByTvgId(ch.tvgId);
+			  let groupTitle = ch.groupTitle;
+
+			  if (!ch.tvgId || !flag) {
+			    flag = "🏴‍☠️";
+			    groupTitle = "Undefined";
+			  }
+
               return {
                 name: ch.name,
                 displayName: stripQuality(cleanName(ch.name)),
                 url: ch.url,
                 tvgId: ch.tvgId,
                 logo: ch.tvgLogo,
-				groupTitle: ch.groupTitle,
+				groupTitle,
                 flag
               };
             });
@@ -205,6 +204,11 @@ function renderCategories(filter = '') {
   list.scrollTop = 0;
   currentCategory = null;
 
+  currentTitle.textContent = "Internet Protocol TV";
+  currentTitle.removeAttribute('data-category');
+  currentCapital.textContent = "TV Around";
+  currentTime.textContent = "The World";
+
   // Добавляем пункт "All Channels" только если фильтр его включает
   if ('all channels'.toLowerCase().includes(filter.toLowerCase())) {
     const allDiv = document.createElement('div');
@@ -253,6 +257,9 @@ function renderChannelsByCategory(category, filter='') {
   list.innerHTML = '';
   list.scrollTop = 0;
   currentCategory = category;
+  categoriesBtn.style.display = 'block';
+  
+  currentTitle.setAttribute('data-category', category);
 
   const filtered = channels.filter(ch =>
     ch.groupTitle &&
@@ -297,9 +304,16 @@ function renderCountries(filter = '') {
   list.innerHTML = '';
   list.scrollTop = 0;
 
+  currentTitle.textContent = "Internet Protocol TV";
+  currentTitle.removeAttribute('data-category');
+  currentCapital.textContent = "TV Around";
+  currentTime.textContent = "The World";
+
   const flagSet = new Set();
   channels.forEach(c => {
     if (!c.flag) return;
+	if (c.flag === "🏴‍☠️") return;
+
     let parentFlag = c.flag;
 
     // если это зависимая территория — берём её родителя
@@ -363,9 +377,14 @@ function renderChannels(countryFlag, filter = '') {
   searchInput.placeholder = "Filter Channels";
   list.innerHTML = '';
   list.scrollTop = 0;
-
-  // список флагов, которые относятся к выбранной стране
+  
   let validFlags = [countryFlag];
+  const parentCountry = countries[countryFlag];
+  currentTitle.textContent = parentCountry?.name || '';
+
+  currentCapital.textContent = parentCountry?.capital || '';
+  const tz = parentCountry?.timezone;
+  currentTime.textContent = getTimeByTimezone(tz);
 
   // если у страны есть зависимости — добавляем их
   if (countries[countryFlag]?.dependencies) {
@@ -408,15 +427,16 @@ function renderChannels(countryFlag, filter = '') {
 }
 
 function renderAllChannels(filter = '') {
+  currentTitle.setAttribute('data-category', 'All Channels');
   currentCountry = 'all';
   backBtn.style.display = 'block';
-  categoriesBtn.style.display = 'none';
+  categoriesBtn.style.display = 'block';
   searchInput.placeholder = "Filter Channels";
   list.innerHTML = '';
   list.scrollTop = 0;
 
   const sorted = channels
-    .filter(ch => ch.flag && ch.displayName.toLowerCase().includes(filter))
+    .filter(ch => ch.displayName.toLowerCase().includes(filter))
     .sort((a, b) => a.displayName.localeCompare(b.displayName, 'en', {sensitivity: 'base'}));
 
   sorted.forEach(ch => {
@@ -503,6 +523,17 @@ function playChannel(index, element, channelObj) {
 }
 
 function updateNowPlayingUI(channelObj) {
+  // 🏴‍☠️ особый случай — каналы без страны
+  if (channelObj.flag === "🏴‍☠️") {
+    currentLogo.src = channelObj.logo || 'images/logo.svg';
+    currentLogo.style.visibility = 'visible';
+
+    currentTitle.textContent = "Undefined";
+    currentCapital.textContent = "No Country";
+    currentTime.textContent = "Channel";
+    return;
+  }
+
   if (channelObj.logo) {
     currentLogo.src = channelObj.logo;
     currentLogo.style.visibility = 'visible';
@@ -634,11 +665,31 @@ player.onplay = () => playPauseBtn.textContent = '❚❚';
 player.onpause = () => playPauseBtn.textContent = '▶';
 
 // Volume
-volumeSlider.oninput = () => {
-  player.volume = volumeSlider.value;
-  localStorage.setItem('playerVolume', volumeSlider.value);
-  savedVolume = parseFloat(volumeSlider.value);
-};
+function updateVolumeIcon() {
+  const iconUrl = player.volume === 0 ? 'images/volume-off.svg' : 'images/volume-on.svg';
+  volumeBtn.style.backgroundImage = `url('${iconUrl}')`;
+}
+
+function setVolume(v) {
+  v = Math.max(0, Math.min(1, v));
+  if (v > 0) savedVolume = v;
+  player.volume = v;
+  volumeSlider.value = v;
+  updateVolumeIcon();
+  localStorage.setItem('playerVolume', v);
+}
+
+volumeSlider.addEventListener('input', (e) => {
+  setVolume(parseFloat(e.target.value));
+});
+
+volumeBtn.addEventListener('click', () => {
+  if (player.volume === 0) {
+    setVolume(savedVolume || 0.05);
+  } else {
+    setVolume(0); // mute
+  }
+});
 
 // Fullscreen
 function updateFullscreenIcon() {
@@ -660,14 +711,33 @@ document.addEventListener('fullscreenchange', updateFullscreenIcon);
 
 // Горячие клавиши
 document.addEventListener("keydown", (e) => {
-  // для Ctrl+F / Ctrl+P
   if (e.ctrlKey) {
     switch (e.code) {
-      case "KeyP": // Ctrl+P
+      case "KeyP":
         e.preventDefault();
         if (player.paused) player.play();
         else player.pause();
         break;
+
+	  case "KeyF":
+        e.preventDefault();
+        if (!document.fullscreenElement) {
+          playerContainer.requestFullscreen().catch(err => console.log(err));
+        } else {
+          document.exitFullscreen();
+        }
+        updateFullscreenIcon();
+        break;
+		
+	  case "ArrowLeft":
+	    e.preventDefault();
+		setVolume(player.volume - 0.05);
+		break;
+
+	  case "ArrowRight":
+	    e.preventDefault();
+		setVolume(player.volume + 0.05);
+		break;
     }
   }
 });
