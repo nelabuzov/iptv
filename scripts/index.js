@@ -9,20 +9,20 @@ const playPauseBtn = document.getElementById('playPauseBtn');
 const volumeBtn = document.getElementById('volumeBtn');
 const volumeSlider = document.getElementById('volumeSlider');
 const controls = document.getElementById('controls');
-const currentLogo = document.getElementById('currentLogo');
 const currentTitle = document.getElementById('currentTitle');
 const currentCapital = document.getElementById('currentCapital');
 const currentTime = document.getElementById('currentTime');
 const list = document.getElementById('channelList');
 
 let currentCountry = undefined;
+let savedVolume = 1;
 let countries = {};
 let channels = [];
 let hls = null;
+let currentChannel = null;
 let currentTimezone = null;
-let currentChannelIndex = null;
 let currentCategory = null;
-let savedVolume = 1;
+let currentChannelIndex = null;
 
 /* Очистка имени канала */
 function cleanName(name) {
@@ -140,12 +140,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// При изменении ползунка
-volumeSlider.oninput = () => {
-  player.volume = volumeSlider.value;
-  localStorage.setItem('playerVolume', volumeSlider.value);
-};
-
 /* Парсинг m3u */
 function parsePlaylist(text) {
   const lines = text.split(/\r?\n/);
@@ -188,26 +182,15 @@ function parsePlaylist(text) {
   }
 }
 
-// === Обработчик кнопки Categories ===
-categoriesBtn.onclick = () => {
-  currentCountry = 'categories';
-  backBtn.style.display = 'block';
-  categoriesBtn.style.display = 'none';
-  searchInput.placeholder = "Filter Categories";
-  searchInput.value = '';
-  searchInput.focus();
-  renderCategories();
-};
-
 function renderCategories(filter = '') {
   list.innerHTML = '';
   list.scrollTop = 0;
   currentCategory = null;
 
-  currentTitle.textContent = "Internet Protocol TV";
   currentTitle.removeAttribute('data-category');
-  currentCapital.textContent = "TV Around";
-  currentTime.textContent = "The World";
+  currentCapital.textContent = 'TV Around';
+  currentTime.textContent = 'The World';
+  currentTitle.textContent = 'Internet Protocol TV';
 
   // Добавляем пункт "All Channels" только если фильтр его включает
   if ('all channels'.toLowerCase().includes(filter.toLowerCase())) {
@@ -304,10 +287,10 @@ function renderCountries(filter = '') {
   list.innerHTML = '';
   list.scrollTop = 0;
 
-  currentTitle.textContent = "Internet Protocol TV";
   currentTitle.removeAttribute('data-category');
-  currentCapital.textContent = "TV Around";
-  currentTime.textContent = "The World";
+  currentCapital.textContent = 'TV Around';
+  currentTime.textContent = 'The World';
+  currentTitle.textContent = 'Internet Protocol TV';
 
   const flagSet = new Set();
   channels.forEach(c => {
@@ -467,8 +450,6 @@ function renderAllChannels(filter = '') {
   }
 }
 
-let currentChannel = null; // глобально
-
 function playChannel(index, element, channelObj) {
   currentChannel = channelObj ? channelObj : channels[index];
   if (!currentChannel || !currentChannel.url) return;
@@ -478,6 +459,7 @@ function playChannel(index, element, channelObj) {
   currentChannelIndex = index;
 
   updateNowPlayingUI(currentChannel);
+  updateVideoOverlay(currentChannel);
 
   // Слушатель для отключения всех субтитров (один раз)
   if (!player.hasTrackListener) {
@@ -523,32 +505,6 @@ function playChannel(index, element, channelObj) {
 }
 
 function updateNowPlayingUI(channelObj) {
-  // 🏴‍☠️ особый случай — каналы без страны
-  if (channelObj.flag === "🏴‍☠️") {
-    currentLogo.src = channelObj.logo || 'images/logo.svg';
-    currentLogo.style.visibility = 'visible';
-
-    currentTitle.textContent = "Undefined";
-    currentCapital.textContent = "No Country";
-    currentTime.textContent = "Channel";
-    return;
-  }
-
-  if (channelObj.logo) {
-    currentLogo.src = channelObj.logo;
-    currentLogo.style.visibility = 'visible';
-
-    // если картинка не загрузится → подставляем дефолт
-    currentLogo.onerror = () => {
-      currentLogo.onerror = null; // чтобы не зациклиться
-      currentLogo.src = 'images/logo.svg'; // путь к твоему файлу
-    };
-  } else {
-    // если логотипа вообще нет, сразу ставим дефолт
-    currentLogo.src = 'images/logo.svg';
-    currentLogo.style.visibility = 'visible';
-  }
-
   // ищем родительскую страну
   let parentCountry = countries[channelObj.flag];
   let childCountry = parentCountry;
@@ -586,6 +542,54 @@ searchInput.addEventListener('input', () => {
   }
 });
 
+function updateVideoOverlay(channelObj) {
+  if (!channelObj) {
+    document.getElementById('channelOverlay').style.display = 'none';
+    return;
+  }
+
+  const flag = channelObj.flag;
+  let parentCountry = countries[flag];
+  let childCountry = parentCountry;
+
+  for (const f in countries) {
+    if (countries[f].dependencies && countries[f].dependencies[flag]) {
+      parentCountry = countries[f];
+      childCountry = countries[f].dependencies[flag];
+      break;
+    }
+  }
+
+  document.getElementById('channelOverlay').style.display = 'flex';
+
+  const logoEl = document.getElementById('currentLogoVideo');
+  logoEl.src = channelObj.logo && channelObj.logo.trim() !== "" 
+    ? channelObj.logo
+    : "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='48'>❔</text></svg>";
+
+  if (flag === "🏴‍☠️") {
+    document.getElementById('currentNameVideo').innerHTML = channelObj.displayName;
+    document.getElementById('currentFlagVideo').textContent = flag;
+    document.getElementById('currentTitleVideo').textContent = "Undefined";
+    document.getElementById('currentCapitalVideo').textContent = "No";
+    document.getElementById('currentTimeVideo').textContent = "Country";
+  } else {
+    document.getElementById('currentNameVideo').innerHTML = channelObj.displayName;
+    document.getElementById('currentFlagVideo').textContent = flag || '';
+    document.getElementById('currentTitleVideo').textContent = parentCountry?.name || '';
+    document.getElementById('currentCapitalVideo').textContent = childCountry?.capital || '';
+    document.getElementById('currentTimeVideo').textContent = getTimeByTimezone(childCountry?.timezone || parentCountry?.timezone);
+  }
+
+  // прогоняем через twemoji, чтобы превратить буквенный код в графический флаг
+  if (window.twemoji) {
+    try {
+      twemoji.parse(document.getElementById('currentFlagVideo'), { folder: 'svg', ext: '.svg' });
+    } catch (e) { console.warn("twemoji parse error", e); }
+  }
+}
+
+
 /* Кнопка возврата к списку стран */
 backBtn.addEventListener('click', () => {
   categoriesBtn.style.display = 'block';
@@ -593,6 +597,17 @@ backBtn.addEventListener('click', () => {
   searchInput.focus();
   renderCountries('');
 });
+
+/* Обработчик кнопки Categories */
+categoriesBtn.onclick = () => {
+  currentCountry = 'categories';
+  backBtn.style.display = 'block';
+  categoriesBtn.style.display = 'none';
+  searchInput.placeholder = "Filter Categories";
+  searchInput.value = '';
+  searchInput.focus();
+  renderCategories();
+};
 
 /* Случайный выбор */
 randomBtn.onclick = () => {

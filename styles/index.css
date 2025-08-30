@@ -16,15 +16,41 @@ body {
   flex-direction: column;
   justify-content: space-between;
   text-transform: uppercase;
-  align-items: start;
   height: 55px;
 }
-#currentLogo {
+#channelOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  font-size: 12px;
+  border-radius: 0 0 12px 0;
+  background: #212121;
+  padding: 10px;
+}
+#channelOverlay div {
+  display: flex;
+}
+#currentInfoVideo {
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+#currentInfoVideo div {
+	align-items: center;
+}
+#currentInfoVideo div * + * {
+	margin-left: 5px;
+}
+#currentLogo,
+#currentLogoVideo {
   height: 80px;
   max-width: 140px;
   margin-right: 20px;
 }
-#currentTitle {
+#currentTitle,
+#currentTitleVideo {
   font-weight: 600;
   white-space: nowrap;
   text-align: center;
@@ -61,7 +87,6 @@ body {
   background: #212121;
   border-radius: 12px;
   padding: 5px;
-  z-index: 10;
 }
 #controls.visible {
   display: flex;
@@ -163,10 +188,24 @@ video {
 .channel-flag img {
   width: 28px;
 }
+#currentFlagVideo {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
 .channel-text img {
-	width: 18px;
-	opacity: .5;
 	margin-left: 10px;
+	width: 16px;
+}
+#currentNameVideo {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	text-transform: none;
+}
+#currentNameVideo img {
+	margin-left: 5px;
+	width: 14px;
 }
 .channel-text {
   display: flex;
