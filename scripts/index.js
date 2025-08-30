@@ -291,6 +291,9 @@ function renderCountries(filter = '') {
   list.scrollTop = 0;
 
   currentTitle.removeAttribute('data-category');
+  currentCapital.textContent = 'TV Around';
+  currentTime.textContent = 'The World';
+  currentTitle.textContent = 'Internet Protocol TV';
 
   const flagSet = new Set();
   channels.forEach(c => {
