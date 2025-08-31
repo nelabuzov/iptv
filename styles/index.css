@@ -45,9 +45,8 @@ body {
 }
 #currentLogo,
 #currentLogoVideo {
-  height: 80px;
-  max-width: 140px;
   margin-right: 20px;
+  height: 80px;
 }
 #currentTitle,
 #currentTitleVideo {
@@ -58,7 +57,6 @@ body {
   padding: 6px;
   color: #212121;
   background: #444;
-  border-radius: 12px 0;
   position: relative;
 }
 #currentTitle::after {
@@ -79,7 +77,7 @@ body {
   position: absolute;
   bottom: 10px;
   left: 50%;
-  width: 200px;
+  width: 220px;
   display: none;
   align-items: center;
   justify-content: space-between;
@@ -97,7 +95,9 @@ body {
 }
 #playPauseBtn,
 #volumeBtn,
-#fullscreenBtn {
+#favoriteBtn,
+#fullscreenBtn,
+.channel button {
   width: 30px;
   height: 30px;
   border: none;
@@ -106,6 +106,18 @@ body {
   color: white;
   cursor: pointer;
   padding: 0;
+}
+.channel #favoriteIcon {
+  fill: #a2a2a2;
+  height: 18.4px;
+  width: 16px;
+}
+.channel button:hover #favoriteIcon {
+	fill: #fc0;
+}
+#favoriteBtn svg {
+	height: 13px;
+	width: 13px;
 }
 #volumeBtn,
 #fullscreenBtn {
@@ -117,7 +129,7 @@ body {
 #fullscreenBtn.fullscreen {
   background-image: url('../images/fullscreen-exit.svg');
 }
-video {
+#player {
   width: 100%;
   height: 100%;
   background: black;
@@ -163,7 +175,6 @@ video {
   padding: 12px 25px 12px 12px;
   cursor: pointer;
   gap: 8px;
-  margin: 0;
 }
 .channel:hover {
   background: #333;
@@ -177,16 +188,10 @@ video {
   box-sizing: border-box;
 }
 .channel-flag {
-  flex-shrink: 0;
-  font-size: 16px;
-  line-height: 1;
   width: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.channel-flag img {
-  width: 28px;
 }
 #currentFlagVideo {
   display: block;
@@ -207,14 +212,16 @@ video {
 	margin-left: 5px;
 	width: 14px;
 }
+.channel:has(button),
 .channel-text {
+  width: 100%;
   display: flex;
   word-break: break-word;
+  justify-content: space-between;
 }
 @-moz-document url-prefix() {
   #channelList {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, .5);
   }
 }
 #channelList {

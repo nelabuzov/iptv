@@ -1,6 +1,8 @@
 const playerContainer = document.getElementById('playerContainer');
 const player = document.getElementById('player');
 const searchInput = document.getElementById('searchInput');
+const favoriteIcon = document.getElementById("favoriteIcon");
+const favoriteBtn = document.getElementById("favoriteBtn");
 const randomBtn = document.getElementById('randomBtn');
 const categoriesBtn = document.getElementById('categoriesBtn');
 const backBtn = document.getElementById('backBtn');
@@ -16,13 +18,17 @@ const list = document.getElementById('channelList');
 
 let currentCountry = undefined;
 let savedVolume = 1;
+let favorites = {};
 let countries = {};
 let channels = [];
+let preview = null;
 let hls = null;
 let currentChannel = null;
 let currentTimezone = null;
 let currentCategory = null;
 let currentChannelIndex = null;
+
+loadFavorites();
 
 /* Очистка имени канала */
 function cleanName(name) {
@@ -81,6 +87,24 @@ function getFlagByTvgId(tvgId) {
   return undefined;
 }
 
+function saveFavorites() {
+  const obj = {};
+  for (const cat in favorites) {
+    obj[cat] = [...favorites[cat]];
+  }
+  localStorage.setItem("favorites", JSON.stringify(obj));
+}
+
+function loadFavorites() {
+  const data = localStorage.getItem("favorites");
+  if (data) {
+    const obj = JSON.parse(data);
+    for (const cat in obj) {
+      favorites[cat] = new Set(obj[cat]);
+    }
+  }
+}
+
 /* Загрузка channels.json при старте */
 window.addEventListener('DOMContentLoaded', () => {
   const stored = localStorage.getItem('playerVolume');
@@ -133,7 +157,6 @@ window.addEventListener('DOMContentLoaded', () => {
         .catch(e => {
           console.error("Ошибка загрузки channels.json", e);
         });
-
     })
     .catch(e => {
       console.error("Ошибка загрузки countries.json", e);
@@ -192,17 +215,33 @@ function renderCategories(filter = '') {
   currentTime.textContent = 'The World';
   currentTitle.textContent = 'Internet Protocol TV';
 
-  // Добавляем пункт "All Channels" только если фильтр его включает
+  // Добавляем пункт "All Channels"
   if ('all channels'.toLowerCase().includes(filter.toLowerCase())) {
     const allDiv = document.createElement('div');
     allDiv.className = 'channel';
     allDiv.dataset.type = 'all';
     allDiv.textContent = 'All Channels';
+
+    // Клик по самой категории — обычный рендер
     allDiv.onclick = () => {
       searchInput.value = '';
       searchInput.focus();
       renderAllChannels();
     };
+
+    const favBtn = document.createElement("button");
+
+	favBtn.innerHTML = `
+	<svg id="favoriteIcon" width="800px" height="800px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+	  <path d="M1915.918 737.475c-10.955-33.543-42.014-56.131-77.364-56.131h-612.029l-189.063-582.1v-.112C1026.394 65.588 995.335 43 959.984 43c-35.237 0-66.41 22.588-77.365 56.245L693.443 681.344H81.415c-35.35 0-66.41 22.588-77.365 56.131-10.955 33.544.79 70.137 29.478 91.03l495.247 359.831-189.177 582.212c-10.955 33.657 1.13 70.25 29.817 90.918 14.23 10.278 30.946 15.487 47.66 15.487 16.716 0 33.432-5.21 47.775-15.6l495.134-359.718 495.021 359.718c28.574 20.781 67.087 20.781 95.662.113 28.687-20.668 40.658-57.261 29.703-91.03l-189.176-582.1 495.36-359.83c28.574-20.894 40.433-57.487 29.364-91.03" fill-rule="evenodd"/>
+	</svg>`;
+
+    favBtn.onclick = (e) => {
+      e.stopPropagation(); // чтобы не сработал переход в All Channels
+      renderFavoritesByCategory("All Channels");
+    };
+    allDiv.appendChild(favBtn);
+
     list.appendChild(allDiv);
   }
 
@@ -231,6 +270,19 @@ function renderCategories(filter = '') {
       searchInput.value = '';
       searchInput.focus();
     };
+
+    const favBtn = document.createElement("button");
+
+	favBtn.innerHTML = `
+	<svg id="favoriteIcon" width="800px" height="800px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+	  <path d="M1915.918 737.475c-10.955-33.543-42.014-56.131-77.364-56.131h-612.029l-189.063-582.1v-.112C1026.394 65.588 995.335 43 959.984 43c-35.237 0-66.41 22.588-77.365 56.245L693.443 681.344H81.415c-35.35 0-66.41 22.588-77.365 56.131-10.955 33.544.79 70.137 29.478 91.03l495.247 359.831-189.177 582.212c-10.955 33.657 1.13 70.25 29.817 90.918 14.23 10.278 30.946 15.487 47.66 15.487 16.716 0 33.432-5.21 47.775-15.6l495.134-359.718 495.021 359.718c28.574 20.781 67.087 20.781 95.662.113 28.687-20.668 40.658-57.261 29.703-91.03l-189.176-582.1 495.36-359.83c28.574-20.894 40.433-57.487 29.364-91.03" fill-rule="evenodd"/>
+	</svg>`;
+
+    favBtn.onclick = (e) => {
+      e.stopPropagation();
+      renderFavoritesByCategory(cat);
+    };
+    div.appendChild(favBtn);
 
     list.appendChild(div);
   });
@@ -454,6 +506,11 @@ function renderAllChannels(filter = '') {
 }
 
 function playChannel(index, element, channelObj) {
+  const preview = document.getElementById('previewSite');
+  if (preview) {
+    preview.style.display = 'none';
+  }
+
   currentChannel = channelObj ? channelObj : channels[index];
   if (!currentChannel || !currentChannel.url) return;
 
@@ -463,6 +520,7 @@ function playChannel(index, element, channelObj) {
 
   updateNowPlayingUI(currentChannel);
   updateVideoOverlay(currentChannel);
+  updateFavoriteBtn(currentChannel);
 
   // Слушатель для отключения всех субтитров (один раз)
   if (!player.hasTrackListener) {
@@ -506,6 +564,87 @@ function playChannel(index, element, channelObj) {
 
   controls.classList.add("visible");
 }
+
+function updateFavoriteBtn(channelObj) {
+  if (!channelObj) return;
+
+  const isFav = favorites["All Channels"]?.has(channelObj.url); // проверка через Set.has
+
+  favoriteIcon.setAttribute("fill", isFav ? "#fc0" : "#fff");
+}
+
+favoriteBtn.addEventListener("click", () => {
+  if (!currentChannel) return;
+
+  const channelId = currentChannel.url;
+  const categories = currentChannel.groupTitle ? currentChannel.groupTitle.split(";").map(c => c.trim()) : [];
+
+  const isFav = favorites["All Channels"]?.has(channelId);
+
+  if (isFav) {
+    favorites["All Channels"].delete(channelId);
+    categories.forEach(cat => favorites[cat]?.delete(channelId));
+  } else {
+    if (!favorites["All Channels"]) favorites["All Channels"] = new Set();
+    favorites["All Channels"].add(channelId);
+
+    categories.forEach(cat => {
+      if (!favorites[cat]) favorites[cat] = new Set();
+      favorites[cat].add(channelId);
+    });
+  }
+
+  saveFavorites();
+  updateFavoriteBtn(currentChannel);
+
+  // ---- Обновляем только иконку у текущего элемента, не перерисовываем список ----
+  const el = document.querySelector(`.channel[data-index="${currentChannelIndex}"]`);
+  if (el) {
+    const favIcon = el.querySelector("#favoriteIcon");
+    if (favIcon) favIcon.setAttribute("fill", favorites["All Channels"]?.has(channelId) ? "#fc0" : "#fff");
+  }
+});
+
+function renderFavoritesByCategory(category) {
+  categoriesBtn.style.display = 'block';
+  currentCountry = 'categories'; // <-- чтобы логика фильтрации работала правильно
+  currentCategory = category; // <-- важно, чтобы знало, какая категория активна
+  list.innerHTML = '';
+  list.scrollTop = 0;
+
+  currentTitle.setAttribute('data-category', category + " ⭐");
+
+  const favIds = favorites[category] ? [...favorites[category]] : [];
+  const favChannels = channels.filter(ch => favIds.includes(ch.url));
+
+  favChannels.forEach(ch => {
+    const div = document.createElement('div');
+    div.className = 'channel';
+    div.dataset.type = 'channel';
+    div.dataset.index = channels.indexOf(ch);
+
+    const spanFlag = document.createElement('span');
+    spanFlag.className = 'channel-flag';
+    spanFlag.textContent = ch.flag;
+	if (window.twemoji) {
+      try {
+        twemoji.parse(spanFlag, { folder: 'svg', ext: '.svg' });
+      } catch (e) { console.warn("twemoji parse error", e); }
+    }
+
+    const spanText = document.createElement('span');
+    spanText.className = 'channel-text';
+    spanText.innerHTML = ch.displayName;
+
+    div.appendChild(spanFlag);
+    div.appendChild(spanText);
+
+    div.onclick = () => playChannel(channels.indexOf(ch), div, ch);
+
+    list.appendChild(div);
+  });
+}
+
 
 function updateNowPlayingUI(channelObj) {
   // 🏴‍☠️ особый случай — каналы без страны
@@ -692,8 +831,38 @@ playPauseBtn.onclick = () => {
     player.pause();
   }
 };
-player.onplay = () => playPauseBtn.textContent = '❚❚';
-player.onpause = () => playPauseBtn.textContent = '▶';
+
+function createSite() {
+  if (preview) return;
+  preview = document.createElement('iframe');
+  preview.id = 'previewSite';
+  preview.src = 'https://radio.garden';
+  preview.style.cssText = 'width:100%; height:100%; border:none; position:absolute;';
+  playerContainer.appendChild(preview);
+}
+
+function removeSite() {
+  if (preview) {
+    playerContainer.removeChild(preview);
+    preview = null;
+  }
+}
+
+createSite();
+
+// когда видео запускается
+player.onplay = () => {
+  playPauseBtn.textContent = '❚❚';
+  removeSite();
+};
+
+// когда видео ставят на паузу
+player.onpause = () => {
+  playPauseBtn.textContent = '▶';
+  createSite();
+};
+
+player.onended = () => createSite();
 
 // Volume
 function updateVolumeIcon() {
