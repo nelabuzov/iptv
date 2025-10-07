@@ -1,0 +1,30 @@
+{
+  "name": "iptv",
+  "version": "0.0.1",
+  "main": "scripts/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:ia32": "npm install electron@22 --save-dev --save-exact && electron-builder --win --ia32",
+    "build:x64": "npm install electron@37 --save-dev --save-exact && electron-builder --win --x64",
+    "build:all": "npm run build:ia32 && npm run build:x64"
+  },
+  "devDependencies": {
+    "electron": "37.4.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "productName": "Internet Protocol TV",
+    "directories": {
+      "output": "dist_build"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "images/logo.ico",
+      "artifactName": "Internet Protocol TV Setup-${arch}-${version}.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
