@@ -829,7 +829,7 @@
     "url": "https://live-20minutestv.digiteka.com/1961167769/index.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/20_Minutes_TV_IDF_logo_%282023%29.png/320px-20_Minutes_TV_IDF_logo_%282023%29.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "21 Jump Street",
@@ -1353,11 +1353,11 @@
   },
   {
     "name": "&prive HD",
-    "tvgId": "AndpriveHD.in@SD",
-    "url": "https://playyonogames.in/z5/stream.m3u8?id=0-9-9z5543514",
+    "tvgId": "AndpriveHD.in",
+    "url": "http://87.255.35.150:18494/",
     "tvgLogo": "https://i.imgur.com/qyyUlg3.png",
     "groupTitle": "Movies",
-    "working": false
+    "working": true
   },
   {
     "name": "&TV",
@@ -1976,19 +1976,19 @@
     "working": false
   },
   {
+    "name": "ABC Entertains",
+    "tvgId": "ABCEntertains.au@Sydney",
+    "url": "https://c.mjh.nz/abc-me.m3u8",
+    "tvgLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/ABC_Entertains_logo.svg/512px-ABC_Entertains_logo.svg.png",
+    "groupTitle": "Education;Kids",
+    "working": true
+  },
+  {
     "name": "ABC Kids",
     "tvgId": "ABCKids.au@Sydney",
     "url": "https://c.mjh.nz/abc-kids.m3u8",
     "tvgLogo": "https://static.wikia.nocookie.net/logopedia/images/2/29/ABC_Kids_%282020%29.svg/revision/latest/scale-to-width-down/512",
     "groupTitle": "Kids",
-    "working": true
-  },
-  {
-    "name": "ABC Me",
-    "tvgId": "ABCME.au@Sydney",
-    "url": "https://c.mjh.nz/abc-me.m3u8",
-    "tvgLogo": "https://i.imgur.com/6NyFLAm.png",
-    "groupTitle": "Education;Kids",
     "working": true
   },
   {
@@ -2189,7 +2189,7 @@
     "url": "http://116.90.120.149:8000/play/a01r/index.m3u8",
     "tvgLogo": "https://www.lyngsat.com/logo/tv/aa/abn-news-pk.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "ABN Son of God",
@@ -2621,7 +2621,7 @@
     "url": "https://mediagh.us:19360/deliverancetv/deliverancetv.m3u8",
     "tvgLogo": "https://i.imgur.com/c1gnTho.jpg",
     "groupTitle": "Religious",
-    "working": true
+    "working": false
   },
   {
     "name": "ACTV [Geo-blocked]",
@@ -2685,7 +2685,7 @@
     "url": "https://cdn.jmvstream.com/w/LVW-9715/LVW9715_12B26T62tm/playlist.m3u8",
     "tvgLogo": "https://i.postimg.cc/3J4hysL3/adessotv.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Adinkra TV",
@@ -3221,7 +3221,7 @@
     "url": "https://livetv.tvait.com:1935/hls/stream1.m3u8",
     "tvgLogo": "https://i.imgur.com/xtrs7ej.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "Ajman TV",
@@ -5179,7 +5179,7 @@
     "name": "Andorra TV",
     "tvgId": "AndorraTV.ad@Web",
     "url": "https://live-edge-eu-1.cdn.enetres.net/56495F77FD124FECA75590A906965F2C022/live-3000/index.m3u8",
-    "tvgLogo": "https://i.imgur.com/CnhTn8i.png",
+    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/3/32/Logo_Andorra_Televisi%C3%B3.png",
     "groupTitle": "General",
     "working": false
   },
@@ -5589,7 +5589,7 @@
     "url": "https://tvdatta.com:3578/live/antenaunolive.m3u8",
     "tvgLogo": "https://i.imgur.com/PCN6iZJ.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "AntenaSport [Not 24/7]",
@@ -6107,7 +6107,7 @@
     "name": "Arise & Shine TV",
     "tvgId": "AriseShineTV.tz@SD",
     "url": "https://uvotv-aniview.global.ssl.fastly.net/hls/live/2119692/ariseandshine/playlist.m3u8",
-    "tvgLogo": "https://www.lyngsat.com/logo/tv/aa/arise-and-shine-tv-tz.png",
+    "tvgLogo": "https://i.imgur.com/umGHkag.png",
     "groupTitle": "Religious",
     "working": false
   },
@@ -6426,10 +6426,10 @@
   {
     "name": "Asianet HD",
     "tvgId": "Asianet.in@HD",
-    "url": "https://live.dinesh29.com.np/stream/jiotvplus/asianethd/master.m3u8",
+    "url": "http://217.20.112.199/asianet/index.m3u8",
     "tvgLogo": "https://i.imgur.com/Wv7MOzg.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Asianet Movies HD",
@@ -6464,14 +6464,6 @@
     "working": false
   },
   {
-    "name": "Asianet Plus",
-    "tvgId": "AsianetPlus.in@SD",
-    "url": "http://217.20.112.199/asianet/index.m3u8",
-    "tvgLogo": "https://i.imgur.com/qg1IhV8.png",
-    "groupTitle": "Entertainment",
-    "working": true
-  },
-  {
     "name": "Asil TV",
     "tvgId": "AsilTV.ir@SD",
     "url": "https://live.asil.tv/asiltv/index.m3u8",
@@ -6493,7 +6485,7 @@
     "url": "https://ss5.domint.net:3034/astv_str/asmartv/playlist.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Asomavisión",
@@ -6661,7 +6653,7 @@
     "url": "http://122.248.43.242:1935/ATAMBUATV/_definst_/myStream/playlist.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/7/72/Atambua_TV.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "ATB La Paz [Not 24/7]",
@@ -6811,7 +6803,7 @@
     "name": "ATV",
     "tvgId": "AndorraTV.ad@SD",
     "url": "https://livesg1.rtva.hiway.media/aa2d69af-76a0-4077-a57e-0445c4061f86/manifest.m3u8",
-    "tvgLogo": "https://i.imgur.com/CnhTn8i.png",
+    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/3/32/Logo_Andorra_Televisi%C3%B3.png",
     "groupTitle": "General",
     "working": true
   },
@@ -7013,7 +7005,7 @@
     "url": "https://cdn.streamhispanatv.net:3417/live/auroramflive.m3u8",
     "tvgLogo": "https://i.imgur.com/DVC5w6H.png",
     "groupTitle": "Movies",
-    "working": true
+    "working": false
   },
   {
     "name": "AuroraTV",
@@ -7389,7 +7381,7 @@
     "url": "https://str.yodacdn.net/aztv/index.m3u8",
     "tvgLogo": "https://i.postimg.cc/Vkbmrxkj/aztv.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "AZA TV HD",
@@ -8077,7 +8069,7 @@
     "url": "http://122.248.43.242:1935/BATAMTV/_definst_/myStream/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/lo7YXnW.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Baynounah TV",
@@ -9101,7 +9093,7 @@
     "url": "https://television.essastream.com:3502/live/bebetotelevisionlive.m3u8",
     "tvgLogo": "https://www.lyngsat.com/logo/tv/bb/bebeto-tv-do.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Becker",
@@ -10049,19 +10041,19 @@
   },
   {
     "name": "BIZ Cinema",
-    "tvgId": "BIZCinema.uz@SD",
-    "url": "https://st.biztv.uz/hls/c_hi/index.m3u8",
+    "tvgId": "BIZCinema.uz",
+    "url": "https://fl.biztv.media/cinema_720_EMfSyXgoRdiIHgldXTZICucKTIeCKO/index.m3u8",
     "tvgLogo": "https://biztv.uz/static/media/biz-cinema.286b83dc.png",
     "groupTitle": "Movies",
-    "working": false
+    "working": true
   },
   {
     "name": "BIZ Music",
-    "tvgId": "BIZMusic.uz@SD",
-    "url": "https://st.biztv.uz/hls/m_hi/index.m3u8",
+    "tvgId": "BIZMusic.uz",
+    "url": "https://fl.biztv.media/music_720_QAKpGmVUjaPApCNjpsgBxrdqNihAkl/index.m3u8",
     "tvgLogo": "https://i.ibb.co/DfsCJwk/Uz-biz-music-5462.jpg",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Biz Talk Today TV",
@@ -10081,11 +10073,11 @@
   },
   {
     "name": "BIZ TV",
-    "tvgId": "BIZTV.uz@SD",
-    "url": "https://st.biztv.uz/hls/stream_hi/index.m3u8",
+    "tvgId": "BIZTV.uz",
+    "url": "https://fl.biztv.media/biz_tv_720_uni8jhub4h8fub4idejswh8dh3j94finbu4nidj39inwsj92in3d/index.m3u8",
     "tvgLogo": "https://biztv.uz/static/media/logo.5f993187.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Bizimev TV",
@@ -11301,7 +11293,7 @@
     "url": "https://live-evg2.tv360.metfone.com.kh/livetest/bayontest.stream/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/sUHiRj3.png",
     "groupTitle": "News",
-    "working": true
+    "working": false
   },
   {
     "name": "BTV Panamá [Not 24/7]",
@@ -11501,7 +11493,7 @@
     "url": "https://cdnapisec.kaltura.com/p/2184561/sp/218456100/playManifest/entryId/1_68qxw4eu/format/applehttp/a.m3u8",
     "tvgLogo": "https://i.imgur.com/Iv1Fe67.png",
     "groupTitle": "Education",
-    "working": false
+    "working": true
   },
   {
     "name": "Buzzfeed Unsolved",
@@ -11965,7 +11957,7 @@
     "url": "https://59ef525c24caa.streamlock.net/canal1cr/canal1cr/playlist.m3u8",
     "tvgLogo": "https://i.ibb.co/KhNS8Dy/cropped-logoo-1.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Canal 1 Mar Menor-Torre Pacheco",
@@ -12160,6 +12152,14 @@
     "working": false
   },
   {
+    "name": "Canal 4 Jujuy",
+    "tvgId": "Canal4Jujuy.ar@SD",
+    "url": "https://5cd577a3dd8ec.streamlock.net/CANAL4/smil:CANAL4.smil/playlist.m3u8",
+    "tvgLogo": "https://i.imgur.com/qB6I274.png",
+    "groupTitle": "Undefined",
+    "working": true
+  },
+  {
     "name": "Canal 4 Mallorca",
     "tvgId": "Canal4Mallorca.es@SD",
     "url": "https://limited35.todostreaming.es/live/mitjans-livestream1.m3u8",
@@ -12312,12 +12312,20 @@
     "working": false
   },
   {
+    "name": "Canal 7 Jujuy",
+    "tvgId": "Canal7Jujuy.ar@SD",
+    "url": "https://stream.arcast.live/canal7jujuy/ngrp:canal7jujuy_all/playlist.m3u8",
+    "tvgLogo": "https://i.imgur.com/K0jk8p4.png",
+    "groupTitle": "Undefined",
+    "working": true
+  },
+  {
     "name": "Canal 7 Neuquén",
     "tvgId": "Canal7Neuquen.ar@SD",
     "url": "https://stream.arcast.com.ar/c7nq/ngrp:c7nq_all/playlist.m3u8",
     "tvgLogo": "https://i.ibb.co/BrvQsWm/C7neuquenlogo2023.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Canal 7 Salta",
@@ -12461,7 +12469,7 @@
     "url": "https://acceso.radiosportstv.online:3285/live/canal10costaricalive.m3u8",
     "tvgLogo": "https://i.imgur.com/TO6WQbW.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Canal 10",
@@ -12662,6 +12670,14 @@
     "tvgLogo": "https://i.imgur.com/SlycKgZ.png",
     "groupTitle": "General",
     "working": false
+  },
+  {
+    "name": "Canal 13 San Luis",
+    "tvgId": "Canal13SanLuis.ar@SD",
+    "url": "https://stream.radiosmundiales.com:19360/sanluismas/sanluismas.m3u8",
+    "tvgLogo": "https://i.imgur.com/NcfMC29.png",
+    "groupTitle": "Undefined",
+    "working": true
   },
   {
     "name": "Canal 13 Tabasco [Not 24/7]",
@@ -12877,7 +12893,7 @@
     "url": "https://stream01.msolutionbrasil.com.br/hls/canal25/live.m3u8",
     "tvgLogo": "https://i.imgur.com/7igGMwH.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Canal 25 Regional",
@@ -13109,7 +13125,7 @@
     "url": "https://eu1.servers10.com:8081/8050/index.m3u8",
     "tvgLogo": "https://i.imgur.com/WRYsbjX.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Canal 79 La Costa",
@@ -13933,7 +13949,7 @@
     "url": "https://cnn.hostlagarto.com/canelatv/index.m3u8",
     "tvgLogo": "https://imgur.com/TRCvLdz.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "CanelaTV",
@@ -14213,7 +14229,7 @@
     "url": "https://rds3.desdeparaguay.net/caritastv/caritastv/playlist.m3u8",
     "tvgLogo": "https://i.ibb.co/rwkpQx6/unnamed-2.png",
     "groupTitle": "General;Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "Carivision [Geo-blocked]",
@@ -14245,7 +14261,7 @@
     "url": "https://acceso.radiosportstv.online:3368/live/cartagomediostvlive.m3u8",
     "tvgLogo": "https://i.imgur.com/Vcd40AL.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Carthage+",
@@ -16032,6 +16048,14 @@
     "working": true
   },
   {
+    "name": "Chardikla Time TV",
+    "tvgId": "ChardiklaTimeTV.in@SD",
+    "url": "https://chardikalagurbanitv.gigabitcdn.net/in-chardikala/chardikala-timetv/playlist.m3u8",
+    "tvgLogo": "https://i.imgur.com/tvoIZ3o.png",
+    "groupTitle": "News",
+    "working": true
+  },
+  {
     "name": "Chardikla Time TV North America",
     "tvgId": "ChardiklaTimeTVNorthAmerica.in@SD",
     "url": "https://chardikalanorthamerica.gigabitcdn.net/in-chardikala/chardikala-north-usa/playlist.m3u8",
@@ -16213,7 +16237,7 @@
     "url": "https://vivo.solumedia.com:19360/grupoemail/grupoemail.m3u8",
     "tvgLogo": "https://i.imgur.com/zGubmgZ.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "ChileVision",
@@ -16374,14 +16398,6 @@
     "tvgLogo": "",
     "groupTitle": "Undefined",
     "working": true
-  },
-  {
-    "name": "Chumbak TV",
-    "tvgId": "ChumbakTV.in@SD",
-    "url": "https://cdn-1.pishow.tv/live/1451/master.m3u8",
-    "tvgLogo": "https://upload.wikimedia.org/wikipedia/hi/7/77/Chumbak-TV.png",
-    "groupTitle": "Entertainment",
-    "working": false
   },
   {
     "name": "Chutti TV",
@@ -16693,7 +16709,7 @@
     "url": "https://cdn.mycloudstream.io/hls/live/broadcast/etyetihk/index.m3u8",
     "tvgLogo": "https://i.imgur.com/mJN2XNm.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Cira TV",
@@ -16861,7 +16877,7 @@
     "url": "https://cloudvideo.servers10.com:8081/8024/index.m3u8",
     "tvgLogo": "https://i.imgur.com/CTQgqsM.png",
     "groupTitle": "Entertainment",
-    "working": true
+    "working": false
   },
   {
     "name": "CJ OnStyle",
@@ -17205,7 +17221,7 @@
     "url": "https://live.creacast.com/cna/smil:cna.smil/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/Ki3ySUE.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "CNA International",
@@ -17529,11 +17545,11 @@
   },
   {
     "name": "Colors Bangla",
-    "tvgId": "ColorsBangla.in@SD",
-    "url": "https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsBanglaHD/JCHLS/index.m3u8",
+    "tvgId": "ColorsBangla.in",
+    "url": "http://87.255.35.150:18236/",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/en/7/7b/Colors_Bangla.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Colors Cineplex",
@@ -17561,11 +17577,11 @@
   },
   {
     "name": "Colors Gujarati",
-    "tvgId": "ColorsGujarati.in@SD",
-    "url": "https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsGujarati/JCHLS/index.m3u8",
+    "tvgId": "ColorsGujarati.in",
+    "url": "http://87.255.35.150:18230/",
     "tvgLogo": "https://i.imgur.com/ZWMyR3j.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Colors Infinity",
@@ -17577,11 +17593,11 @@
   },
   {
     "name": "Colors Kannada",
-    "tvgId": "ColorsKannada.in@SD",
-    "url": "https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaHD/JCHLS/index.m3u8",
+    "tvgId": "ColorsKannada.in",
+    "url": "http://87.255.35.150:18219",
     "tvgLogo": "https://i.imgur.com/CFUn43Z.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Colors Kannada Cinema",
@@ -17593,11 +17609,11 @@
   },
   {
     "name": "Colors Marathi",
-    "tvgId": "ColorsMarathi.in@SD",
-    "url": "https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsMarathiHD/JCHLS/index.m3u8",
+    "tvgId": "ColorsMarathi.in",
+    "url": "http://87.255.35.150:18233/",
     "tvgLogo": "https://i.imgur.com/q43P31H.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Colors Rishtey Asia",
@@ -17617,11 +17633,11 @@
   },
   {
     "name": "Colors Tamil",
-    "tvgId": "ColorsTamil.in@SD",
-    "url": "https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsTamilHD/JCHLS/index.m3u8",
+    "tvgId": "ColorsTamil.in",
+    "url": "http://87.255.35.150:18225/",
     "tvgLogo": "https://i.imgur.com/zZXCFqF.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Colosal TV [Not 24/7]",
@@ -17981,7 +17997,7 @@
     "url": "https://congresodirecto.akamaized.net/hls/live/2038276/canal3/master.m3u8",
     "tvgLogo": "https://i.imgur.com/2LAzcH8.jpg",
     "groupTitle": "Legislative",
-    "working": false
+    "working": true
   },
   {
     "name": "Congreso de los Diputados 4 [Not 24/7]",
@@ -17997,7 +18013,7 @@
     "url": "https://congresodirecto.akamaized.net/hls/live/2038278/canal5/master.m3u8",
     "tvgLogo": "https://i.imgur.com/2LAzcH8.jpg",
     "groupTitle": "Legislative",
-    "working": false
+    "working": true
   },
   {
     "name": "Congreso TV",
@@ -18525,7 +18541,7 @@
     "url": "http://cdn.credonet.tv:1935/ctv/livecredo/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/RD4TgcM.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "Creta [Not 24/7]",
@@ -19661,7 +19677,7 @@
     "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/64b67f0424ade50008a3be17/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1d3ca3-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=172fcc6d-73c3-48c9-86a8-04885a2af742",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "DAZN Darts x Pluto TV",
@@ -19669,7 +19685,7 @@
     "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/64b67f0424ade50008a3be17/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc83a562-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=8196e267-fdcf-4f05-bb8e-8f1ec0e504ea",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "DAZN Darts x Pluto TV",
@@ -19677,7 +19693,7 @@
     "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/64b67f0424ade50008a3be17/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=84acf2d5-4b92-11ef-aece-533610f1ea34&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=9e449819-d189-42df-8e7a-17486c6d68aa",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "DAZN Fights x Pluto TV",
@@ -19709,7 +19725,7 @@
     "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/64afe50c5dc16600087f3227/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1d3ca5-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=69be0114-52dc-4eed-b6e7-c907f1b51e64",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "DAZN Heldinnen x Pluto TV",
@@ -19717,7 +19733,7 @@
     "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/64afe50c5dc16600087f3227/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc83a564-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=7df37b22-f6f1-45dd-9620-5945bfeea73a",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "DAZN Heldinnen x Pluto TV",
@@ -19725,7 +19741,7 @@
     "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/64afe50c5dc16600087f3227/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=84acf2d7-4b92-11ef-aece-533610f1ea34&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=0334507c-ce21-4017-8651-7c2bf9912782",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "DAZN INTL Football x Pluto TV",
@@ -19757,7 +19773,7 @@
     "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/649b6898f2ec0000081a9460/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c287c43-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=a1e2a534-715c-495d-a4f3-2d56a6177548",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Dazn Ringside",
@@ -20605,7 +20621,7 @@
     "url": "https://diadoratv.stream/live/diadora/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/qZzsASl.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Diagnosis Murder",
@@ -21360,6 +21376,14 @@
     "working": true
   },
   {
+    "name": "DNews",
+    "tvgId": "DNews.us@SD",
+    "url": "http://gama-mx.com:8085/live/wGKe4xRuXwKc/7XBua8aHeJAK/700943.m3u8",
+    "tvgLogo": "https://i.imgur.com/jF2BabI.png",
+    "groupTitle": "News",
+    "working": true
+  },
+  {
     "name": "DniproTV",
     "tvgId": "DniproTV.ua@SD",
     "url": "http://vcdn1.produck.company:1935/out/dtv/playlist.m3u8",
@@ -21669,7 +21693,7 @@
     "url": "http://epg.112114.xyz/douyu/4332",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "douyu9",
@@ -21877,7 +21901,7 @@
     "url": "https://streamfi-dreamtv1.zettawiseroutes.com:8181/hls/stream.m3u8",
     "tvgLogo": "https://i.imgur.com/XRUDhqQ.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "DreamWorks Channel Asia Vietnam",
@@ -24040,12 +24064,12 @@
     "working": true
   },
   {
-    "name": "ESPN Deportes [Not 24/7]",
-    "tvgId": "ESPNDeportes.us@SD",
-    "url": "https://stream.mux.com/DyxPGQOWJuWUxJ7uY2lhrnI0102Z3lo3qUxlaW01zQ2Ozs.m3u8",
+    "name": "ESPN Deportes",
+    "tvgId": "ESPNDeportes.us",
+    "url": "https://e3.thetvapp.to/hls/espn-deportes/index.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/ESPN_Deportes.svg/512px-ESPN_Deportes.svg.png",
     "groupTitle": "Sports",
-    "working": false
+    "working": true
   },
   {
     "name": "ESPN U",
@@ -24469,7 +24493,7 @@
     "url": "https://euronews-live-fra-fr.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6564/bitok/eyJzdGlkIjoiYjA1ZmVmMzAtYjhkZC00Y2E5LThkM2ItMTRkNjE1MjdmYjE0IiwibWt0IjoiZnIiLCJjaCI6NjU2NCwicHRmIjo1fQ==/26032/euronews-fr.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Euronews French HD",
@@ -24829,7 +24853,7 @@
     "url": "https://www.streaming507.net:19360/videofabulosa/videofabulosa.m3u8",
     "tvgLogo": "https://i.imgur.com/YFmzkOp.png",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Faculty TV",
@@ -25197,7 +25221,7 @@
     "url": "https://s1.cystream.net/live/faros1/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/X19638q.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Faros TV2 [Geo-blocked]",
@@ -25205,7 +25229,7 @@
     "url": "https://s1.cystream.net/live/faros2/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/7xtz1Jo.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Farovisión",
@@ -25293,7 +25317,7 @@
     "url": "https://dvrfl06.bozztv.com/astv-fassotv/index.m3u8",
     "tvgLogo": "https://i.imgur.com/xrV3Qrr.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Fateh TV",
@@ -27037,7 +27061,7 @@
     "url": "https://livevideo.infomaniak.com/streaming/livecast/funradiovisionhd/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/wgxuYsQ.png",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Fun Roads",
@@ -27769,11 +27793,11 @@
   },
   {
     "name": "Gemini Life",
-    "tvgId": "GeminiLife.in@SD",
-    "url": "https://live.dinesh29.com.np/stream/jiotvplus/geminilife/master.m3u8",
-    "tvgLogo": "https://i.imgur.com/ypok7q5.png",
-    "groupTitle": "Lifestyle",
-    "working": false
+    "tvgId": "Gemini Life",
+    "url": "http://87.255.35.150:18457/",
+    "tvgLogo": "",
+    "groupTitle": "Undefined",
+    "working": true
   },
   {
     "name": "Gemini Movies",
@@ -28477,7 +28501,7 @@
     "url": "https://ktismaservers.in:3086/live/goa365live.m3u8",
     "tvgLogo": "https://www.goa365.tv/images/GOA-365-Logo.jpg",
     "groupTitle": "News",
-    "working": true
+    "working": false
   },
   {
     "name": "Goal TV",
@@ -29381,7 +29405,7 @@
     "url": "http://91.220.221.60/gtv_hls/gtv_03.m3u8",
     "tvgLogo": "https://i.imgur.com/LHChpid.png",
     "groupTitle": "Culture",
-    "working": false
+    "working": true
   },
   {
     "name": "GTV Sports +",
@@ -29509,7 +29533,7 @@
     "url": "https://live.gulistannews.in/hls/gul.m3u8",
     "tvgLogo": "https://i.imgur.com/q5z6ycZ.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "Gulli",
@@ -29925,7 +29949,7 @@
     "url": "http://clive.malisresidences.com:1935/hm_hdtv/_definst_/smil:HMHDTV.smil/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/P8oOR8I.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Hangulat TV",
@@ -30365,7 +30389,7 @@
     "url": "https://cnn.essastream.com:3091/live/hmtvlive.m3u8",
     "tvgLogo": "https://i.imgur.com/cbKgcGh.png",
     "groupTitle": "News",
-    "working": true
+    "working": false
   },
   {
     "name": "Hesper TV",
@@ -30397,7 +30421,7 @@
     "url": "https://cdn-us-east-prod-ingest-infra-dacast-com.akamaized.net/8424fb7f-99a9-87ae-3861-f0620849d11c/source/index.m3u8",
     "tvgLogo": "https://i.imgur.com/0aIH6V5.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Hi Dost!",
@@ -30445,7 +30469,7 @@
     "url": "https://highmedia.livebox.co.in/HIGHNEWShls/LIVE.m3u8",
     "tvgLogo": "https://pbs.twimg.com/profile_images/1104268476858937351/USUT4ykS_400x400.png",
     "groupTitle": "News",
-    "working": true
+    "working": false
   },
   {
     "name": "High TV [Not 24/7]",
@@ -30789,7 +30813,7 @@
     "url": "http://streaming.zaytonatube.com:8080/holyquran/holyquran/video.m3u8",
     "tvgLogo": "https://quran-radio.com/assets/images/site/quran-radio-logo-h-rtl.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "Home & Shopping",
@@ -31205,7 +31229,7 @@
     "url": "https://webtvstream.bhtelecom.ba/hrt1.m3u8",
     "tvgLogo": "https://i.imgur.com/lDSctzX.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "HRT 1 HD",
@@ -31221,7 +31245,7 @@
     "url": "https://webtvstream.bhtelecom.ba/hrt2.m3u8",
     "tvgLogo": "https://i.imgur.com/yyePcl1.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "HRT 2 HD",
@@ -31237,7 +31261,7 @@
     "url": "https://webtvstream.bhtelecom.ba/hrt3.m3u8",
     "tvgLogo": "https://i.imgur.com/4OrOJRx.png",
     "groupTitle": "Culture;Documentary",
-    "working": true
+    "working": false
   },
   {
     "name": "HRT 3 HD",
@@ -31421,7 +31445,7 @@
     "url": "http://cdn12.henico.net:8080/live/jbani/index.m3u8",
     "tvgLogo": "https://i.imgur.com/LvkdhRw.png",
     "groupTitle": "Culture",
-    "working": true
+    "working": false
   },
   {
     "name": "Hum TV",
@@ -31437,7 +31461,7 @@
     "url": "https://v3.siar.us/humabetangtv/live/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/xBTqOEu.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "Humor Mill [Not 24/7]",
@@ -31581,6 +31605,14 @@
     "url": "https://bcovlive-a.akamaihd.net/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/playlist.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
+    "working": true
+  },
+  {
+    "name": "i24NEWS Hebrew",
+    "tvgId": "i24NEWSHebrew.il@SD",
+    "url": "https://bcovlive-a.akamaihd.net/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/profile_0/chunklist.m3u8",
+    "tvgLogo": "https://www.i24news.tv/images/favicon.png",
+    "groupTitle": "News",
     "working": true
   },
   {
@@ -32205,7 +32237,7 @@
     "url": "https://live.creacast.com/iltv/smil:iltv.smil/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/fVhrJHK.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Imagen Universal TV",
@@ -32565,7 +32597,7 @@
     "url": "https://stream.e2is.in/hls/indoztv.m3u8",
     "tvgLogo": "https://i.imgur.com/4LECwDh.png",
     "groupTitle": "Entertainment",
-    "working": true
+    "working": false
   },
   {
     "name": "Indonesiana.TV",
@@ -32965,7 +32997,7 @@
     "url": "http://tv1.intv.mk:1935/live/intv/index.m3u8",
     "tvgLogo": "https://i.imgur.com/1nJl0Pv.png",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Investiga",
@@ -33285,7 +33317,7 @@
     "url": "http://80.241.215.175:1935/isangostar/isangostar/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/EfsHaMQ.png",
     "groupTitle": "Music",
-    "working": true
+    "working": false
   },
   {
     "name": "Isfahan",
@@ -33925,7 +33957,7 @@
     "url": "http://122.248.43.242:1935/JAWAPOSTVMAGELANG/_definst_/myStream/playlist.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Jawa_Pos_TV_2024.svg/2560px-Jawa_Pos_TV_2024.svg.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Jawa Pos TV Semarang",
@@ -34173,7 +34205,7 @@
     "url": "https://play-live-hls.jxtvcn.com.cn/live-city/tv_jxtv4.m3u8",
     "tvgLogo": "https://www.tvchinese.net/uploads/tv/jiangxi.jpg",
     "groupTitle": "Movies",
-    "working": true
+    "working": false
   },
   {
     "name": "Jiangxi Public & Agriculture Channel",
@@ -34261,7 +34293,7 @@
     "url": "https://live.gulistannews.in/hls/jk.m3u8",
     "tvgLogo": "https://i.imgur.com/VIPPB6t.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "JKN 18",
@@ -34379,7 +34411,7 @@
     "name": "Jogja TV [Not 24/7]",
     "tvgId": "JogjaTV.id@SD",
     "url": "https://stream.jogjatv.co.id/jtvlive/stream/index.m3u8",
-    "tvgLogo": "https://i.imgur.com/m9ezMUz.png",
+    "tvgLogo": "https://static.wikia.nocookie.net/logopedia/images/4/40/Jogjatvnew.png",
     "groupTitle": "General",
     "working": true
   },
@@ -34645,7 +34677,7 @@
     "url": "http://122.248.43.242:1935/JTVKEDIRI/_definst_/myStream/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/mIDWIQk.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Júbilo TV",
@@ -34877,7 +34909,7 @@
     "url": "https://guineetvdirect.online:3842/live/kabacktvlive.m3u8",
     "tvgLogo": "https://i.imgur.com/oIe98p4.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Kabbalah for the People [Not 24/7]",
@@ -35229,7 +35261,7 @@
     "url": "https://live.artidijitalmedya.com/artidijital_kanal68/kanal68/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/5y7K9SS.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Kanal A",
@@ -35274,10 +35306,10 @@
   {
     "name": "Kanal D",
     "tvgId": "KanalD.tr@SD",
-    "url": "https://demiroren-live.daioncdn.net/kanald/kanald.m3u8",
+    "url": "https://demiroren.daioncdn.net/kanald/kanald.m3u8?app=kanald_web&ce=3",
     "tvgLogo": "https://i.imgur.com/9o1atM6.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Kanal Dom",
@@ -35357,7 +35389,7 @@
     "url": "https://streamtv.intervenhosting.net:3718/live/kandelamedioslive.m3u8",
     "tvgLogo": "https://i.imgur.com/cCFxyIp.jpg",
     "groupTitle": "Music",
-    "working": true
+    "working": false
   },
   {
     "name": "Kanizsa TV",
@@ -35568,90 +35600,10 @@
     "working": false
   },
   {
-    "name": "KBS 1TV [Not 24/7]",
-    "tvgId": "KBS1TV.kr@SD",
-    "url": "http://mytv.dothome.co.kr/ch/public/1.php",
-    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/KBS_1_logo.svg/512px-KBS_1_logo.svg.png",
-    "groupTitle": "General",
-    "working": false
-  },
-  {
-    "name": "KBS 2TV [Not 24/7]",
-    "tvgId": "KBS2TV.kr@SD",
-    "url": "http://mytv.dothome.co.kr/ch/public/3.php",
-    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/KBS_2_logo.svg/512px-KBS_2_logo.svg.png",
-    "groupTitle": "Entertainment",
-    "working": false
-  },
-  {
-    "name": "KBS Drama",
-    "tvgId": "KBSDrama.kr@SD",
-    "url": "http://mytv.dothome.co.kr/ch/catv/2.php",
-    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/KBS_DRAMA.svg/512px-KBS_DRAMA.svg.png",
-    "groupTitle": "Entertainment",
-    "working": false
-  },
-  {
-    "name": "KBS Joy",
-    "tvgId": "KBSJoy.kr@SD",
-    "url": "http://mytv.dothome.co.kr/ch/catv/3.php",
-    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/KBS_JOY.svg/512px-KBS_JOY.svg.png",
-    "groupTitle": "Entertainment",
-    "working": false
-  },
-  {
-    "name": "KBS Kids",
-    "tvgId": "KBSKids.kr@SD",
-    "url": "http://mytv.dothome.co.kr/ch/catv/6.php",
-    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/KBS_kids.svg/512px-KBS_kids.svg.png",
-    "groupTitle": "Kids",
-    "working": false
-  },
-  {
-    "name": "KBS Life",
-    "tvgId": "KBSLife.kr@SD",
-    "url": "http://mytv.dothome.co.kr/ch/catv/5.php",
-    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/KBS_Life.svg/512px-KBS_Life.svg.png",
-    "groupTitle": "Lifestyle",
-    "working": false
-  },
-  {
-    "name": "KBS LiveCam DokDo",
-    "tvgId": "KBSLiveCamDokDo.kr@SD",
-    "url": "http://kbs-dokdo.gscdn.com/dokdo_300/dokdo_300.stream/playlist.m3u8",
-    "tvgLogo": "https://i.imgur.com/7mZnPO5.png",
-    "groupTitle": "Undefined",
-    "working": true
-  },
-  {
-    "name": "KBS Story",
-    "tvgId": "KBSStory.kr@SD",
-    "url": "http://mytv.dothome.co.kr/ch/catv/4.php",
-    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/KBS_Story.svg/512px-KBS_Story.svg.png",
-    "groupTitle": "Entertainment",
-    "working": false
-  },
-  {
     "name": "KBS TV",
     "tvgId": "KBSTV.ug@SD",
     "url": "https://uvotv-aniview.global.ssl.fastly.net/hls/live/2119695/kbstv/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/yOBbuCg.png",
-    "groupTitle": "General",
-    "working": false
-  },
-  {
-    "name": "KBS World [Geo-blocked]",
-    "tvgId": "KBSWorld.kr@SD",
-    "url": "https://live.fptplay53.net/epzhd2/kbs_hls.smil/chunklist.m3u8",
-    "tvgLogo": "https://i.imgur.com/7DqgELX.png",
-    "groupTitle": "General",
-    "working": false
-  },
-  {
-    "name": "KBS World HD",
-    "tvgId": "KBSWorld.kr@HD",
-    "url": "https://hls.mskycdn.online/tv/kbsworld/index.m3u8",
-    "tvgLogo": "https://i.imgur.com/7DqgELX.png",
     "groupTitle": "General",
     "working": false
   },
@@ -36361,11 +36313,11 @@
   },
   {
     "name": "Kochu TV",
-    "tvgId": "KochuTV.in@SD",
-    "url": "https://live.dinesh29.com.np/stream/jiotvplus/kochutv/master.m3u8",
+    "tvgId": "KochuTV.in",
+    "url": "http://87.255.35.150:18212",
     "tvgLogo": "https://i.imgur.com/OSKUQHW.png",
     "groupTitle": "Kids",
-    "working": false
+    "working": true
   },
   {
     "name": "Kohavision",
@@ -36731,7 +36683,7 @@
     "name": "KSTV Uganda",
     "tvgId": "KSTVUganda.ug@SD",
     "url": "https://kstv48.fra1.cdn.digitaloceanspaces.com/hls/0/stream.m3u8",
-    "tvgLogo": "https://i.imgur.com/jOx4Cmh.png",
+    "tvgLogo": "https://i.imgur.com/MMPzPSl.png",
     "groupTitle": "Religious",
     "working": false
   },
@@ -37141,7 +37093,7 @@
     "url": "https://live.kringvarp.fo/kvf-2_utland/720/playlist.m3u8",
     "tvgLogo": "https://www.lyngsat.com/logo/tv/kk/kvf-sjonvarp-fo.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "KVIE-DT2",
@@ -37205,6 +37157,14 @@
     "url": "https://content.uplynk.com/channel/d1f868588ae5476dadaeff450170a183.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/CBS_logo_%282020%29.svg/512px-CBS_logo_%282020%29.svg.png",
     "groupTitle": "General",
+    "working": true
+  },
+  {
+    "name": "L1",
+    "tvgId": "L1.pe@SD",
+    "url": "http://148.72.155.144:8000/play/a01i/index.m3u8",
+    "tvgLogo": "https://i.imgur.com/eRmXneK.png",
+    "groupTitle": "Sports",
     "working": true
   },
   {
@@ -37429,7 +37389,7 @@
     "url": "https://live.fptplay53.net/epzsd1/tayninh01_hls.smil/chunklist_b1800000.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "La 98.1 TV [Not 24/7]",
@@ -37813,7 +37773,7 @@
     "url": "https://lbl.netmedya.net/hls/lalegultv.m3u8",
     "tvgLogo": "https://i.imgur.com/wwCysFs.png",
     "groupTitle": "Religious",
-    "working": true
+    "working": false
   },
   {
     "name": "Lam Dong TV",
@@ -38749,7 +38709,7 @@
     "url": "https://streamer1.streamhost.org/salive/GMIlcbgM/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/S3Fbf8T.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "Light Channel [Not 24/7]",
@@ -38773,7 +38733,7 @@
     "url": "http://streamer1.streamhost.org:1935/salive/GMIlcbgM/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/S3Fbf8T.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Lighting Lives Blessing Nations His Light",
@@ -38917,7 +38877,7 @@
     "url": "https://ms7.mx-cd.net/dtv-09/246-2090022/Linq_Media_TV.smil/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/0DgP3vu.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Liptako TV",
@@ -39917,7 +39877,7 @@
     "url": "http://ares.mnet.mk/hls/mnet.m3u8",
     "tvgLogo": "https://i.imgur.com/HDYqWuR.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "M-Net Info",
@@ -39933,7 +39893,7 @@
     "url": "http://ares.mnet.mk/hls/mnet-kids.m3u8",
     "tvgLogo": "https://i.imgur.com/SbKkpuH.png",
     "groupTitle": "Kids",
-    "working": true
+    "working": false
   },
   {
     "name": "M-Net Sport",
@@ -39941,7 +39901,7 @@
     "url": "http://ares.mnet.mk/hls/mnet-sport.m3u8",
     "tvgLogo": "https://i.imgur.com/7k8ar1Z.png",
     "groupTitle": "Sports",
-    "working": true
+    "working": false
   },
   {
     "name": "Maah TV",
@@ -40957,7 +40917,7 @@
     "url": "https://inliveserver.com:1936/8078/8078/playlist.m3u8",
     "tvgLogo": "https://gia.tv/streams/pstream/209851.png",
     "groupTitle": "Entertainment",
-    "working": true
+    "working": false
   },
   {
     "name": "MaxTV/Dieu TV",
@@ -41696,6 +41656,14 @@
     "working": false
   },
   {
+    "name": "Meganoticias",
+    "tvgId": "Meganoticias.cl@SD",
+    "url": "https://ythls.armelin.one/channel/UCkccyEbqhhM3uKOI6Shm-4Q.m3u8",
+    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Meganoticias2019.png/512px-Meganoticias2019.png",
+    "groupTitle": "News",
+    "working": false
+  },
+  {
     "name": "Meganoticias MX",
     "tvgId": "MeganoticiasMX.mx@SD",
     "url": "https://pctv-meganoticias-1-mx.tcl.wurl.tv/playlist.m3u8",
@@ -41957,7 +41925,7 @@
     "url": "https://dvrfl03.bozztv.com/hdirect/hdirect-telemetrolple2/index.m3u8",
     "tvgLogo": "https://i.imgur.com/Ei1Su4V.png",
     "groupTitle": "Music",
-    "working": true
+    "working": false
   },
   {
     "name": "Metropoli Medios TV",
@@ -42081,11 +42049,11 @@
   },
   {
     "name": "MH One Shraddha",
-    "tvgId": "MHOneShraddha.in@SD",
-    "url": "https://mhoneshaddha.com/hls/1/stream.m3u8",
+    "tvgId": "MHOneShraddha.in",
+    "url": "https://paramount.jswk.online/shraddhamhone/index.m3u8",
     "tvgLogo": "https://i.imgur.com/Lrm8qTO.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "MHZ",
@@ -42285,7 +42253,7 @@
     "url": "https://videostream.shockmedia.com.ar:19360/milenniotv/milenniotv.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Military History",
@@ -42349,7 +42317,7 @@
     "url": "https://sosyoapp-live.cdnnew.com/sosyo/buraya-bir-isim-verin.m3u8",
     "tvgLogo": "https://i.imgur.com/lEIFDwo.png",
     "groupTitle": "Entertainment",
-    "working": true
+    "working": false
   },
   {
     "name": "Mindanow Network TV",
@@ -42981,7 +42949,7 @@
     "url": "https://live-stream.utkalbongo.com/utkalbongo/stream7/hls/montvlivestream.m3u8",
     "tvgLogo": "https://i.imgur.com/8eftKdr.jpeg",
     "groupTitle": "Entertainment",
-    "working": true
+    "working": false
   },
   {
     "name": "Monaco Info",
@@ -43757,7 +43725,7 @@
     "url": "https://hms.pfs.gdn/v1/broadcast/mtv/playlist.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/7/75/Murr_tv.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "MTV2",
@@ -44181,7 +44149,7 @@
     "url": "https://live.streaming.a2d.tv/asset/20025962.isml/.m3u8",
     "tvgLogo": "https://i.imgur.com/ZO8ShOK.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "mtvU",
@@ -44277,6 +44245,14 @@
     "url": "https://stream.digitalgt.com:3136/live/multivisionlive.m3u8",
     "tvgLogo": "https://i.imgur.com/6bdj2BV.jpg",
     "groupTitle": "General",
+    "working": false
+  },
+  {
+    "name": "Multivision Federal",
+    "tvgId": "MultivisionFederal.ar@SD",
+    "url": "https://panel.host-live.com:19360/8250/8250.m3u8",
+    "tvgLogo": "https://i.imgur.com/jX0lqy3.png",
+    "groupTitle": "News",
     "working": true
   },
   {
@@ -44461,7 +44437,7 @@
     "url": "https://43.100.9.67/api/streams/live/cs325/1080p/mpegts",
     "tvgLogo": "https://yt3.googleusercontent.com/ytc/AIdro_kdcYIm5yr8WAlzKzYv26qs00tUYyeriALfSOts3H0q8A=s512-c-k-c0x00ffffff-no-rj",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Mutant X Italy",
@@ -45853,7 +45829,7 @@
     "url": "https://tvpass.org/live/nbc-sports-boston/hd",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/NBC_Sports_Boston.png/512px-NBC_Sports_Boston.png",
     "groupTitle": "Sports",
-    "working": false
+    "working": true
   },
   {
     "name": "NBC Sports Philadelphia [Not 24/7]",
@@ -45861,7 +45837,7 @@
     "url": "https://tvpass.org/live/nbc-sports-philadelphia/hd",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/NBC_Sports_Philadelphia.png/512px-NBC_Sports_Philadelphia.png",
     "groupTitle": "Sports",
-    "working": true
+    "working": false
   },
   {
     "name": "NBC TV [Not 24/7]",
@@ -46685,7 +46661,7 @@
     "url": "https://5cb1ee4d59ac0.streamlock.net/ngradiotv/ngradiotv/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/KsNI3vQ.jpg",
     "groupTitle": "Religious",
-    "working": true
+    "working": false
   },
   {
     "name": "Nghe An TV",
@@ -47016,6 +46992,14 @@
     "working": false
   },
   {
+    "name": "Nicktoons",
+    "tvgId": "Nicktoons.ru@SD",
+    "url": "http://94.232.127.28:8080/nicktoons/index.m3u8",
+    "tvgLogo": "https://i.postimg.cc/mZjCjNc5/nicktoons.png",
+    "groupTitle": "Kids",
+    "working": true
+  },
+  {
     "name": "NickToons",
     "tvgId": "Nicktoons.us@East",
     "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/654ca7f92c1d3300086b608c/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c7b6610-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=359ee837-a829-4fe0-9d99-8dc36018ced2",
@@ -47261,7 +47245,7 @@
     "url": "https://nogoumtv.nrpstream.com/hls/stream.m3u8",
     "tvgLogo": "https://i.imgur.com/krp3kgv.png",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Nolan Nanton Productions [Not 24/7]",
@@ -47517,7 +47501,7 @@
     "url": "https://ss2.tvrdomi.com:1936/notisur/notisur/playlist.m3u8",
     "tvgLogo": "https://rdomint.com/images/station/300.jpg",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "NotiUno TV [Not 24/7]",
@@ -47573,7 +47557,7 @@
     "url": "https://cdn.bestream.io:19360/elfaro4/elfaro4.m3u8",
     "tvgLogo": "https://i.postimg.cc/zXRDvq1F/nourtv.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "NourSAT",
@@ -48021,6 +48005,14 @@
     "url": "https://amg17596-ntdtv-amg17596c1-rakuten-gb-6741.playouts.now.amagi.tv/playlist/amg17596-newtangdynastytelevision-ntdtv-rakutengb/playlist.m3u8",
     "tvgLogo": "https://i.postimg.cc/XYGstDdJ/ntdtv.png",
     "groupTitle": "General",
+    "working": true
+  },
+  {
+    "name": "NTD TV English",
+    "tvgId": "NTDTVEnglish.us@USA",
+    "url": "https://amg17596-amg17596c1-ntdtv-worldwide-3276.playouts.now.amagi.tv/playlist/amg17596-newtangdynastytelevision-ntdtv-ntdtvworldwide/playlist.m3u8",
+    "tvgLogo": "https://i.imgur.com/26uv1ww.png",
+    "groupTitle": "General;News",
     "working": true
   },
   {
@@ -48925,7 +48917,7 @@
     "url": "https://5caf24a595d94.streamlock.net:1937/8142/8142/playlist.m3u8",
     "tvgLogo": "https://i.ibb.co/nfJhQMx/Bj7qf5-Tb-Z9.jpg",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Omid",
@@ -48941,7 +48933,7 @@
     "url": "http://livestream.5centscdn.com/shaditv/23abe62a446fc05ce0a6c810f4045308.sdp/index.m3u8",
     "tvgLogo": "https://i.imgur.com/K7502YG.png",
     "groupTitle": "Religious",
-    "working": true
+    "working": false
   },
   {
     "name": "Omide Iran",
@@ -49213,7 +49205,7 @@
     "url": "https://edge1.socialsmart.tv/oncurtv/bant1/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/TGPNYrD.jpg",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Onda 15 TV",
@@ -49381,7 +49373,7 @@
     "url": "https://hms.pfs.gdn/v1/broadcast/one/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/O4DuR9G.png",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "One TV Asia [Geo-blocked]",
@@ -49405,7 +49397,7 @@
     "url": "https://hms.pfs.gdn/v1/broadcast/onefm/playlist.m3u8",
     "tvgLogo": "https://imgur.com/O4DuR9G",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Online TV Nusantara [Not 24/7]",
@@ -49989,7 +49981,7 @@
     "url": "https://5790d294af2dc.streamlock.net/8042/8042/playlist.m3u8",
     "tvgLogo": "https://www.vivalivetv.com/public/files/shows/0/1/3449-294x165-FFFFFF.jpg",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Pac12 Insider",
@@ -50053,7 +50045,7 @@
     "url": "http://122.248.43.242:1935/PADANGTV/_definst_/myStream/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/EL2BfxY.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Padre Pio TV",
@@ -50237,7 +50229,7 @@
     "url": "https://livetv.streams.ovh:1936/paniktv/paniktv/playlist.m3u8",
     "tvgLogo": "https://i.postimg.cc/DmVdQxNp/paniktv.png",
     "groupTitle": "Music",
-    "working": true
+    "working": false
   },
   {
     "name": "Pannon RTV",
@@ -50245,7 +50237,7 @@
     "url": "https://stream.nmih.hu:4102/live.m3u8",
     "tvgLogo": "https://i.imgur.com/xQa2idL.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Panorama FM",
@@ -55381,7 +55373,7 @@
     "url": "https://5db313b643fd8.streamlock.net/PrimaTV/PrimaTV/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/HE9c8Sk.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "PrimAntenna TV",
@@ -55509,7 +55501,7 @@
     "url": "https://ss3.domint.net:3140/ptv_str/prodoteltv/playlist.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "PROFI 24 TV",
@@ -55837,7 +55829,7 @@
     "url": "https://royalstarindia.co.in/pularitv_hls/pularitv.m3u8",
     "tvgLogo": "https://i.imgur.com/v5urG30.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Puls 2",
@@ -55933,7 +55925,7 @@
     "url": "https://vdo1.streamgato.us:3599/live/puntotvlive.m3u8",
     "tvgLogo": "https://imgur.com/vfvN6ox.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Punto TV Digital 40 [Geo-blocked]",
@@ -56205,7 +56197,7 @@
     "url": "http://video10.qtv.com.cn/drm/qtv1at/manifest.m3u8",
     "tvgLogo": "https://www.tvchinese.net/uploads/tv/qdtv1.jpg",
     "groupTitle": "News",
-    "working": true
+    "working": false
   },
   {
     "name": "QTV-2",
@@ -56213,7 +56205,7 @@
     "url": "http://video10.qtv.com.cn/drm/qtv2at/manifest.m3u8",
     "tvgLogo": "https://www.tvchinese.net/uploads/tv/qdtv2.jpg",
     "groupTitle": "Lifestyle",
-    "working": true
+    "working": false
   },
   {
     "name": "QTV-3",
@@ -56221,7 +56213,7 @@
     "url": "http://video10.qtv.com.cn/drm/qtv3at/manifest.m3u8",
     "tvgLogo": "https://www.tvchinese.net/uploads/tv/qdtv3.jpg",
     "groupTitle": "Movies",
-    "working": true
+    "working": false
   },
   {
     "name": "QTV-4",
@@ -56229,7 +56221,7 @@
     "url": "http://video10.qtv.com.cn/drm/qtv4at/manifest.m3u8",
     "tvgLogo": "https://www.tvchinese.net/uploads/tv/qdtv4.jpg",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "QTV-5",
@@ -56237,7 +56229,7 @@
     "url": "http://video10.qtv.com.cn/drm/qtv5at/manifest.m3u8",
     "tvgLogo": "https://www.tvchinese.net/uploads/tv/qdtv5.jpg",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "QTV-6",
@@ -56245,7 +56237,7 @@
     "url": "http://video10.qtv.com.cn/drm/qtv6at/manifest.m3u8",
     "tvgLogo": "https://www.tvchinese.net/uploads/tv/qdtv6.jpg",
     "groupTitle": "Kids;Lifestyle",
-    "working": true
+    "working": false
   },
   {
     "name": "Qu4tre",
@@ -56773,7 +56765,7 @@
     "url": "https://57068da1deb21.streamlock.net/radiorbs/radiorbs/playlist.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Radio Carnaval TV [Not 24/7]",
@@ -56845,7 +56837,7 @@
     "url": "http://45.63.116.205/hls2/stream1.m3u8",
     "tvgLogo": "https://cdn-profiles.tunein.com/s142626/images/logod.jpg",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Radio Fantástica 98.9 FM",
@@ -56997,6 +56989,14 @@
     "url": "https://videoserver.tmcreativos.com:19360/radiomaster/radiomaster.m3u8",
     "tvgLogo": "https://i.imgur.com/AUoxyzP.png",
     "groupTitle": "Music",
+    "working": false
+  },
+  {
+    "name": "Radio Mitre",
+    "tvgId": "RadioMitre.ar@SD",
+    "url": "https://live-05-13-mitre.vodgc.net/live-05-13-mitre/index.m3u8",
+    "tvgLogo": "https://i.imgur.com/uvck4Vj.png",
+    "groupTitle": "Undefined",
     "working": true
   },
   {
@@ -57181,7 +57181,7 @@
     "url": "https://dvrfl03.bozztv.com/hdirect/hdirect-teleginen/index.m3u8",
     "tvgLogo": "https://i.imgur.com/ESlt16G.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Radio Télé Hit",
@@ -57205,7 +57205,7 @@
     "url": "https://5dcab9aed5331.streamlock.net/mrcompas1/livestream/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/ddb4lsa.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Radio Télé Prince",
@@ -57229,7 +57229,7 @@
     "url": "https://dvrfl03.bozztv.com/hdirect/hdirect-telecaraibes/index.m3u8",
     "tvgLogo": "https://i.imgur.com/GoaeyVV.png",
     "groupTitle": "Entertainment",
-    "working": true
+    "working": false
   },
   {
     "name": "Radio Télé Wisdom [Not 24/7]",
@@ -57665,19 +57665,19 @@
   },
   {
     "name": "Raj Digital Plus",
-    "tvgId": "RajDigitalPlus.in@SD",
-    "url": "https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8",
+    "tvgId": "RajDigitalPlus.in",
+    "url": "http://87.255.35.150:18478/",
     "tvgLogo": "https://i.imgur.com/m7lm99w.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Raj Musix Tamil",
-    "tvgId": "RajMusixTamil.in@SD",
-    "url": "https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/Raj_Musix/master_1.m3u8",
+    "tvgId": "RajMusixTamil.in",
+    "url": "http://87.255.35.150:18477/",
     "tvgLogo": "https://i.imgur.com/hZVa8eQ.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Raj Musix Telugu",
@@ -57688,17 +57688,25 @@
     "working": true
   },
   {
+    "name": "Raj News Kannada",
+    "tvgId": "RajNewsKannada.in@SD",
+    "url": "http://87.255.35.150:18446",
+    "tvgLogo": "https://i.imgur.com/aGCUokJ.png",
+    "groupTitle": "News",
+    "working": true
+  },
+  {
     "name": "Raj News Malayalam",
-    "tvgId": "RajNewsMalayalam.in@SD",
-    "url": "https://rajnewsmalayalam.ylivestream.com/rajnewsmalayalam/index.m3u8",
+    "tvgId": "RajNewsMalayalam.in",
+    "url": "http://87.255.35.150:18485/",
     "tvgLogo": "https://i.imgur.com/6JVLzaa.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "Raj News Telugu [Not 24/7]",
-    "tvgId": "RajNewsTelugu.in@SD",
-    "url": "https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Raj_News_Telugu/master_1.m3u8",
+    "tvgId": "RajNewsTelugu.in",
+    "url": "http://87.255.35.150:18479/",
     "tvgLogo": "https://i.imgur.com/vGl0Zrj.png",
     "groupTitle": "News",
     "working": true
@@ -57773,7 +57781,7 @@
     "url": "https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/master.m3u8",
     "tvgLogo": "https://i.imgur.com/Meew6eX.png",
     "groupTitle": "Movies",
-    "working": true
+    "working": false
   },
   {
     "name": "Rakuten TV Action Movies Austria",
@@ -57893,7 +57901,7 @@
     "url": "https://71db867f03ce4d71a29e92155f07ab87.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6180/master.m3u8",
     "tvgLogo": "https://i.imgur.com/Meew6eX.png",
     "groupTitle": "Movies",
-    "working": false
+    "working": true
   },
   {
     "name": "Rakuten TV Comedy Movies UK",
@@ -58181,7 +58189,7 @@
     "url": "https://sci-fi-rakuten-tv-uk.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6241/master.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Rakuten TV Séries Crime",
@@ -58533,7 +58541,7 @@
     "url": "https://cdn.live.br1.jmvstream.com/w/LVW-15748/LVW15748_Yed7yzLuRC/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/ZWFxlU1.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "RBB Berlin [Geo-blocked]",
@@ -59277,7 +59285,7 @@
     "url": "http://highvolume04.streampartner.nl/regiomedia/regiomedia/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/BG7zrsC.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Regio TV Schwaben",
@@ -60437,7 +60445,7 @@
     "url": "https://rotv.romediavalencia.com:3839/live/rotvlive.m3u8",
     "tvgLogo": "https://i.imgur.com/0TDnVQ4.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "ROV TV",
@@ -60829,7 +60837,7 @@
     "url": "https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8",
     "tvgLogo": "https://i.imgur.com/kf818kM.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "RTHK TV 32 [Geo-blocked]",
@@ -60902,14 +60910,6 @@
     "tvgLogo": "https://i.postimg.cc/wjHH0JS7/rtk1.png",
     "groupTitle": "Undefined",
     "working": true
-  },
-  {
-    "name": "RTK 2",
-    "tvgId": "RTK2.xk@SD",
-    "url": "https://gjirafa-video-live.gjirafa.net/gjvideo-livestream/rtk2/index.m3u8",
-    "tvgLogo": "https://i.postimg.cc/nhkx5rJT/rtk2.png",
-    "groupTitle": "Undefined",
-    "working": false
   },
   {
     "name": "RTK 3",
@@ -61157,7 +61157,7 @@
     "url": "https://5f22d76e220e1.streamlock.net/rtm/rtm/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/w9Twxsi.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "RTN [Not 24/7]",
@@ -61541,7 +61541,7 @@
     "url": "https://lstv.duckdns.org:449/hls/rtchirripo.m3u8",
     "tvgLogo": "https://i.imgur.com/XWmwwbj.jpg",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "RTV Drenthe",
@@ -61637,7 +61637,7 @@
     "url": "https://streaming.rtvmarbella.tv/hls/streamingweb.m3u8",
     "tvgLogo": "https://i.imgur.com/o9Ro8TR.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "RTV Meppel",
@@ -62941,7 +62941,7 @@
     "url": "https://goliveafrica.media:9998/live/636dedfa327d7/index.m3u8",
     "tvgLogo": "https://i.imgur.com/M2Fnxj7.png",
     "groupTitle": "Religious",
-    "working": true
+    "working": false
   },
   {
     "name": "SAYHi",
@@ -63077,7 +63077,7 @@
     "url": "http://122.155.12.107:1935/live/sbt_tv_aac_300/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/rmNDylW.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "SBTV [Not 24/7]",
@@ -63253,7 +63253,7 @@
     "url": "https://live.fptplay53.net/epzhd2/film360_vhls.smil/chunklist.m3u8",
     "tvgLogo": "https://i.imgur.com/2oOVS42.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "SCTV7",
@@ -63397,7 +63397,7 @@
     "url": "https://tv91.hostingnuclear.com:19360/xhunestv/xhunestv.m3u8",
     "tvgLogo": "https://i.imgur.com/LbZkdca.png",
     "groupTitle": "Education",
-    "working": false
+    "working": true
   },
   {
     "name": "Señal Perú TV [Not 24/7]",
@@ -63445,7 +63445,7 @@
     "url": "https://stream.sen-gt.com/senjeunestv/myStream/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/MeCSPsI.jpg",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Sensación TV",
@@ -63853,7 +63853,7 @@
     "url": "http://tv.sheffieldlive.org/hls/main.m3u8",
     "tvgLogo": "https://i.imgur.com/p0QzCFs.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Shekinah TV",
@@ -63880,6 +63880,14 @@
     "working": true
   },
   {
+    "name": "Shemaroo Josh",
+    "tvgId": "ShemarooJosh.in@SD",
+    "url": "https://cdn-1.pishow.tv/live/1451/master.m3u8",
+    "tvgLogo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSutWZzQySLPpaZvaSHq1SnpV0dXNSFZimyag&s",
+    "groupTitle": "Movies",
+    "working": false
+  },
+  {
     "name": "Shemaroo Marathi Bana",
     "tvgId": "ShemarooMarathiBana.in@SD",
     "url": "https://livetv-channels.b-cdn.net/8042/chunklist0.m3u8",
@@ -63901,7 +63909,7 @@
     "url": "https://livepull-tcms.sztv.com.cn/live/sz4Kpgm.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Shifu TV",
@@ -64133,7 +64141,7 @@
     "url": "https://streamunoapp.com:3809/live/siembratvlive.m3u8",
     "tvgLogo": "https://www.vivalivetv.com/public/files/shows/0/1/3226-294x165-FFFFFF.jpg",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Siembra TV [Not 24/7]",
@@ -64141,7 +64149,7 @@
     "url": "https://cloud2.streaminglivehd.com:1936/siembratv/siembratv/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/zRX91Xr.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Siena TV",
@@ -64173,7 +64181,7 @@
     "url": "https://cdn12.henico.net:8443/live/ssct/index.m3u8",
     "tvgLogo": "https://i.imgur.com/YKXoIsr.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Silk Universal",
@@ -64253,7 +64261,7 @@
     "url": "https://stream717.duckdns.org/hls/stream1.m3u8",
     "tvgLogo": "https://i.imgur.com/izpeOsx.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Sindh TV News",
@@ -64757,7 +64765,7 @@
     "url": "https://s1.cystream.net/live/smile/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/IAb4Gbf.png",
     "groupTitle": "Kids",
-    "working": false
+    "working": true
   },
   {
     "name": "Smithsonian Channel East",
@@ -64989,7 +64997,7 @@
     "url": "https://stream.arcast.com.ar/somosnoticias/somosnoticias/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/BUNvyTY.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Somos Topo Point TV [Not 24/7]",
@@ -65021,7 +65029,7 @@
     "url": "https://songtv.hls.iptvdc.com/web-armenia/index.m3u8",
     "tvgLogo": "https://i.imgur.com/nM7LbmV.png",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "SONGTV Russia",
@@ -65029,7 +65037,7 @@
     "url": "https://songtv.hls.iptvdc.com/web-russia/index.m3u8",
     "tvgLogo": "https://i.imgur.com/nM7LbmV.png",
     "groupTitle": "Music",
-    "working": false
+    "working": true
   },
   {
     "name": "Sonic",
@@ -65128,14 +65136,6 @@
     "working": false
   },
   {
-    "name": "Sony Max 2",
-    "tvgId": "SonyMax2.in@SD",
-    "url": "https://tv.bdixtv24.com/toffee/live.php?e=.m3u8&id=420510be5c17",
-    "tvgLogo": "https://i.imgur.com/gqUYk6C.png",
-    "groupTitle": "Undefined",
-    "working": false
-  },
-  {
     "name": "Sony Pal",
     "tvgId": "SonyPal.in@SD",
     "url": "https://nxtlive.net/sliv/stream.php?e=.m3u8&id=985663255656",
@@ -65145,11 +65145,11 @@
   },
   {
     "name": "Sony Pix",
-    "tvgId": "SonyPix.in@SD",
-    "url": "https://tv.bdixtv24.com/toffee/live.php?e=.m3u8&id=ea02096b0fbc",
+    "tvgId": "SonyPix.in",
+    "url": "http://87.255.35.150:18495/",
     "tvgLogo": "https://i.postimg.cc/Z5G8j67L/PIX-HD-WHITE.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Sony SAB",
@@ -65229,7 +65229,7 @@
     "url": "http://188.237.212.16:8888/live/cameraFeed.m3u8",
     "tvgLogo": "https://i.imgur.com/BcfZgD8.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Sorozat+",
@@ -66080,14 +66080,6 @@
     "working": true
   },
   {
-    "name": "Star Bharat HD",
-    "tvgId": "StarBharat.in@HD",
-    "url": "https://live.dinesh29.com.np/stream/jiotvplus/starbharathd/master.m3u8",
-    "tvgLogo": "https://i.imgur.com/Q8ajPij.png",
-    "groupTitle": "Entertainment",
-    "working": false
-  },
-  {
     "name": "Star Channel",
     "tvgId": "StarChannel.gr@SD",
     "url": "http://livestar.siliconweb.com/media/star1/star1mediumhd.m3u8",
@@ -66154,10 +66146,10 @@
   {
     "name": "Star Gold Select HD",
     "tvgId": "StarGoldSelect.in@HD",
-    "url": "https://live.dinesh29.com.np/stream/jiotvplus/stargoldselecthd/master.m3u8",
+    "url": "http://87.255.35.150:18429",
     "tvgLogo": "https://i.imgur.com/U7eiuqv.png",
     "groupTitle": "Movies",
-    "working": false
+    "working": true
   },
   {
     "name": "Star Gold Thrills",
@@ -66312,12 +66304,12 @@
     "working": true
   },
   {
-    "name": "Star Suvarna",
-    "tvgId": "StarSuvarna.in@SD",
-    "url": "https://live.dinesh29.com.np/stream/jiotvplus/suvarna/master.m3u8",
+    "name": "Star Suvarna HD",
+    "tvgId": "StarSuvarna.in@HD",
+    "url": "http://87.255.35.150:18545/",
     "tvgLogo": "https://i.imgur.com/U9FA4Gs.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Star Suvarna Plus",
@@ -67180,6 +67172,14 @@
     "tvgId": "SuldTV.mn@SD",
     "url": "https://cdn4.skygo.mn/live/disk1/SuldTV/HLSv3-FTA/SuldTV.m3u8",
     "tvgLogo": "https://i.imgur.com/CnLxehv.png",
+    "groupTitle": "Undefined",
+    "working": true
+  },
+  {
+    "name": "Sultra TV [Not 24/7]",
+    "tvgId": "SultraTV.id@SD",
+    "url": "http://122.248.43.242:1935/SULTRATV/_definst_/myStream/playlist.m3u8",
+    "tvgLogo": "https://i.imgur.com/cmpbNJz.png",
     "groupTitle": "Undefined",
     "working": true
   },
@@ -68261,7 +68261,7 @@
     "url": "https://tv.webtuya.com:3726/hybrid/play.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/5/56/Logo_TAM.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Tamadon TV",
@@ -68388,14 +68388,6 @@
     "tvgId": "Taroteame.es@SD",
     "url": "https://5d2733224ac48.streamlock.net/taroteame/tarot_web/playlist.m3u8",
     "tvgLogo": "",
-    "groupTitle": "Religious",
-    "working": true
-  },
-  {
-    "name": "TarotVisión",
-    "tvgId": "TarotVision.es@SD",
-    "url": "https://stream.andalhost.com/hls/tarotvision.m3u8",
-    "tvgLogo": "https://i.imgur.com/yOQ9e3a.png",
     "groupTitle": "Religious",
     "working": true
   },
@@ -68581,7 +68573,7 @@
     "url": "http://dc.tbnbaltia.eu:8088/dvr/rewind-21600.m3u8",
     "tvgLogo": "https://i.imgur.com/rKBaK56.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "TBN España",
@@ -68621,7 +68613,7 @@
     "url": "https://live.suricloud.com/hls/tbntv/index.m3u8",
     "tvgLogo": "https://i.imgur.com/Fhl1dtY.jpg",
     "groupTitle": "Culture",
-    "working": false
+    "working": true
   },
   {
     "name": "TBN UK",
@@ -68677,7 +68669,7 @@
     "url": "https://live.tcm10.com.br/tcm10hd/stream.m3u8",
     "tvgLogo": "https://i.imgur.com/aMuMVvB.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "TCS+ [Not 24/7]",
@@ -69397,7 +69389,7 @@
     "url": "https://ss5.domint.net:3180/tbt_str/telebendicion/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/nh4sNVI.png",
     "groupTitle": "Religious",
-    "working": false
+    "working": true
   },
   {
     "name": "TeleBielingue",
@@ -69429,7 +69421,7 @@
     "url": "https://59ef525c24caa.streamlock.net/telebrunca/telebrunca/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/m3xu6Ms.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Telecadena 7 y 4",
@@ -69784,6 +69776,14 @@
     "working": false
   },
   {
+    "name": "Telelima",
+    "tvgId": "Telelima.pe@SD",
+    "url": "https://live.telelima.net/TL_GRUPO-MVCE/index.m3u8",
+    "tvgLogo": "https://i.imgur.com/HzWRvXc.png",
+    "groupTitle": "General",
+    "working": true
+  },
+  {
     "name": "TeleM",
     "tvgId": "TeleM.md@SD",
     "url": "https://tv.streambox.ro/hls/telem/index.m3u8",
@@ -69901,7 +69901,7 @@
     "url": "https://mlb.essastream.com:8081/telemediodigital/tracks-v1a1/mono.m3u8",
     "tvgLogo": "https://www.vivalivetv.com/public/files/shows/0/1/3869-294x165-FFFFFF.jpg",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Telemetro TV [Not 24/7]",
@@ -70141,7 +70141,7 @@
     "url": "https://rdn.essastream.com:3170/live/telenord8live.m3u8",
     "tvgLogo": "https://i.imgur.com/1Ei0kB8.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Telenord 10 [Not 24/7]",
@@ -70821,7 +70821,7 @@
     "url": "https://viewhn.com/canal30/live/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/8LnLEQz.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Televisión Tarapoto [Not 24/7]",
@@ -70837,7 +70837,7 @@
     "url": "https://cloud.fastchannel.es/manifiest/hls/prog9/tvo.m3u8",
     "tvgLogo": "https://i.imgur.com/wFC6Xxq.png",
     "groupTitle": "Music",
-    "working": true
+    "working": false
   },
   {
     "name": "Televízia Močenok",
@@ -73197,7 +73197,7 @@
     "url": "https://live.artidijitalmedya.com/artidijital_trakyaturk/trakyaturk/playlist.m3u8",
     "tvgLogo": "https://i.postimg.cc/PqskSYD9/trakyaturk.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Trans7",
@@ -73669,7 +73669,7 @@
     "url": "https://tv-e-okul02.medya.trt.com.tr/master.m3u8",
     "tvgLogo": "https://i.imgur.com/vj2L2L2.png",
     "groupTitle": "Education",
-    "working": true
+    "working": false
   },
   {
     "name": "TRT EBA Ortaokul",
@@ -74149,7 +74149,7 @@
     "url": "https://frn.rtsp.me/jDzHciIUzTOuXiUaI-Vg1w/1738881610/hls/BtBbfbnK.m3u8",
     "tvgLogo": "https://i.imgur.com/wk59tHA.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "TV 1",
@@ -75157,7 +75157,7 @@
     "url": "https://5ad482a77183d.streamlock.net/operacaotbomt.com/operacaotbomt.com/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/noqGfuy.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "TV Brezová",
@@ -75485,7 +75485,7 @@
     "url": "https://5f1af61612fb5.streamlock.net/tv4/tv4.smil/.m3u8",
     "tvgLogo": "https://i.imgur.com/Of044Jx.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "TV Cuatro 4.2",
@@ -75662,6 +75662,14 @@
     "tvgLogo": "https://i.imgur.com/ds0uf7A.png",
     "groupTitle": "Entertainment",
     "working": false
+  },
+  {
+    "name": "TV Estacion Mix",
+    "tvgId": "TVEstacionMix.ar@SD",
+    "url": "https://streamingtv.masplay.x10.mx/proxy/mixtv/playlist.m3u8",
+    "tvgLogo": "https://image.jimcdn.com/app/cms/image/transf/dimension=512x512:format=png/path/sc40a039d49acf98a/image/icbe12cae2b3da2d2/version/1628894274/image.png",
+    "groupTitle": "Music",
+    "working": true
   },
   {
     "name": "TV Estrella",
@@ -76637,7 +76645,7 @@
     "url": "https://gjirafa-video-live.gjirafa.net/gjvideo-live/5m0-cok-g5z-1xi/index.m3u8",
     "tvgLogo": "https://i.imgur.com/hvtJwOO.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "TV PRO",
@@ -77109,7 +77117,7 @@
     "url": "http://flash.softhost.com.br:1935/ufg/tvufgweb/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/Yp3dbJo.png",
     "groupTitle": "Education",
-    "working": false
+    "working": true
   },
   {
     "name": "TV UJAT [Not 24/7]",
@@ -78621,7 +78629,7 @@
     "url": "https://vcp10.myplaytv.com/tvs/tvs/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/J8ztiAN.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "TVS Bowling Network",
@@ -78845,7 +78853,7 @@
     "url": "https://rpn.bozztv.com/gusa/gusa-tvstn/index.m3u8",
     "tvgLogo": "",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "TVS Travel Network [Not 24/7]",
@@ -78949,7 +78957,7 @@
     "url": "http://69.64.57.208/tvt/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/WtXonN9.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "TVT Tabasco [Not 24/7]",
@@ -79069,7 +79077,7 @@
     "url": "https://livestream.tweedekamer.nl/live/tilanuskamer/73/prog_index.m3u8",
     "tvgLogo": "https://i.imgur.com/X9fezZ8.png",
     "groupTitle": "Legislative",
-    "working": true
+    "working": false
   },
   {
     "name": "Tweede Kamer: Troelstrazaal [Not 24/7]",
@@ -79365,7 +79373,7 @@
     "url": "https://umbriatv.stream.rubidia.it:8083/live/umbriatv/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/olJIJ7c.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Umm TV",
@@ -79637,7 +79645,7 @@
     "url": "https://sitetv.brasilstream.com.br/hls/sitetv/index.m3u8?token=",
     "tvgLogo": "https://i.imgur.com/N0TvAFz.png",
     "groupTitle": "Culture;Education",
-    "working": true
+    "working": false
   },
   {
     "name": "United TV",
@@ -79669,7 +79677,7 @@
     "url": "https://vivo.solumedia.com:19360/uniteve/uniteve.m3u8",
     "tvgLogo": "https://pbs.twimg.com/profile_images/720276300888453120/a_SDOmBc_400x400.jpg",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "UniTV",
@@ -80205,7 +80213,7 @@
     "url": "https://sincerecloud.stream/loadbalancer/public/J9EmQQGf.m3u8",
     "tvgLogo": "https://i.imgur.com/CD1PffA.png",
     "groupTitle": "Music",
-    "working": true
+    "working": false
   },
   {
     "name": "Vamisa TV",
@@ -80301,7 +80309,7 @@
     "url": "https://5a1178b42cc03.streamlock.net/8200/8200/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/SvXCjha.png",
     "groupTitle": "News",
-    "working": false
+    "working": true
   },
   {
     "name": "VBS TV [Not 24/7]",
@@ -80429,7 +80437,7 @@
     "url": "https://rds3gen.desdeparaguay.net/venusmedia/venusmedia/.m3u8",
     "tvgLogo": "https://i.imgur.com/XwmUbfp.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Veo7",
@@ -80797,7 +80805,7 @@
     "url": "https://live.creacast.com/mirabelletv/smil:mirabelletv.smil/playlist.m3u8",
     "tvgLogo": "https://i.postimg.cc/8km61C52/moselletv.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "viàOccitanie [Not 24/7]",
@@ -81093,7 +81101,7 @@
     "url": "https://5ff3d9babae13.streamlock.net/jwagpqxehu/jwagpqxehu/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/mpNcG5F.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Visión Sur TV [Not 24/7]",
@@ -81245,7 +81253,7 @@
     "url": "http://192.144.113.132:1935/live/ViveTV/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/25CFHpB.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "VIVO TV",
@@ -81277,7 +81285,7 @@
     "url": "https://tringliveviz.akamaized.net/delta/105/out/u/qwaszxerdfcvrtryuy.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Vizion_Plus.svg/512px-Vizion_Plus.svg.png",
     "groupTitle": "General",
-    "working": false
+    "working": true
   },
   {
     "name": "Vizyon 58 TV [Geo-blocked]",
@@ -81677,7 +81685,7 @@
     "url": "https://live.fptplay53.net/fnxhd1/vtv7hd_vhls.smil/chunklist.m3u8",
     "tvgLogo": "https://i.imgur.com/ZwoP823.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "VTV8 HD",
@@ -82109,7 +82117,7 @@
     "url": "https://wazobia.live:8333/channel/wmaxph.m3u8",
     "tvgLogo": "https://rndcdn.dstv.com/dstvcms/2016/10/20/WazobiaMaz_new4-4logo_001_xlrg.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "WBBJ",
@@ -82517,7 +82525,7 @@
     "url": "https://5cb1ee4d59ac0.streamlock.net/enlacepr1/enlacepr1/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/B7lqYZe.png",
     "groupTitle": "Religious",
-    "working": true
+    "working": false
   },
   {
     "name": "We One Kerala [Geo-blocked]",
@@ -83288,6 +83296,14 @@
     "working": true
   },
   {
+    "name": "WJLP-DT2",
+    "tvgId": "WJLPDT2.us@SD",
+    "url": "https://e3.thetvapp.to/hls/metv-toons/index.m3u8",
+    "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/1/1e/LAFF_logo.png",
+    "groupTitle": "Undefined",
+    "working": true
+  },
+  {
     "name": "WJXT News4JAX",
     "tvgId": "WJXTDT1.us@SD",
     "url": "https://dai.google.com/linear/hls/event/RDmbn03GRCOLNG1eetEKhg/master.m3u8",
@@ -83437,7 +83453,7 @@
     "url": "https://e5.thetvapp.to/hls/WNET/index.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/8/89/PBS_logo_2019.svg",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "WNJU-DT1",
@@ -83445,7 +83461,7 @@
     "url": "https://e5.thetvapp.to/hls/TelemundoEast/index.m3u8",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Telemundo_logo_2018.svg/512px-Telemundo_logo_2018.svg.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "WOFL-DT1",
@@ -83805,7 +83821,7 @@
     "url": "http://68.251.105.81:5004/auto/v11.1",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/8/89/PBS_logo_2019.svg",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "WTTW-DT2",
@@ -83813,7 +83829,7 @@
     "url": "http://68.251.105.81:5004/auto/v11.2",
     "tvgLogo": "https://upload.wikimedia.org/wikipedia/commons/8/89/PBS_logo_2019.svg",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "WTTW-DT3",
@@ -84637,7 +84653,7 @@
     "url": "https://stream.ztv.zp.ua/hls/live.m3u8",
     "tvgLogo": "https://i.imgur.com/E5aV5aa.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Z Nation",
@@ -84765,7 +84781,7 @@
     "url": "https://server.zillarbarta.com/zbbhakti/index.m3u8",
     "tvgLogo": "https://i.imgur.com/MBaKNPC.jpeg",
     "groupTitle": "Religious",
-    "working": true
+    "working": false
   },
   {
     "name": "ZB Cartoon",
@@ -84872,6 +84888,14 @@
     "working": true
   },
   {
+    "name": "Zee Action",
+    "tvgId": "ZeeAction.in@SD",
+    "url": "http://87.255.35.150:18507/",
+    "tvgLogo": "https://i.imgur.com/MIzc3I1.png",
+    "groupTitle": "Movies",
+    "working": true
+  },
+  {
     "name": "Zee Aflam",
     "tvgId": "ZeeAflam.ae@SD",
     "url": "http://213.57.91.138:8000/play/a05s",
@@ -84905,11 +84929,11 @@
   },
   {
     "name": "Zee Bangla",
-    "tvgId": "ZeeBangla.in@SD",
-    "url": "https://playyonogames.in/z5/stream.m3u8?id=0-9-zeebangla",
+    "tvgId": "ZeeBangla.in",
+    "url": "http://87.255.35.150:18238/",
     "tvgLogo": "https://i.imgur.com/zTGTWa8.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "Zee Bihar Jharkhand",
@@ -84977,11 +85001,11 @@
   },
   {
     "name": "Zee Kannada",
-    "tvgId": "ZeeKannada.in@SD",
-    "url": "https://playyonogames.in/z5/stream.m3u8?id=0-9-zeekannada",
+    "tvgId": "ZeeKannada.in",
+    "url": "http://87.255.35.150:18226/",
     "tvgLogo": "https://i.imgur.com/aHLRen7.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Zee Kannada News",
@@ -84993,11 +85017,11 @@
   },
   {
     "name": "Zee Keralam",
-    "tvgId": "ZeeKeralam.in@SD",
-    "url": "https://playyonogames.in/z5/stream.m3u8?id=0-9-129",
+    "tvgId": "ZeeKeralam.in",
+    "url": "http://87.255.35.150:18502/",
     "tvgLogo": "https://i.imgur.com/NileYZz.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Zee Madhya Pradesh Chhattisgarh",
@@ -85009,11 +85033,11 @@
   },
   {
     "name": "Zee Marathi",
-    "tvgId": "ZeeMarathi.in@SD",
-    "url": "https://playyonogames.in/z5/stream.m3u8?id=0-9-zeemarathi",
+    "tvgId": "ZeeMarathi.in",
+    "url": "http://87.255.35.150:18234/",
     "tvgLogo": "https://i.imgur.com/vv9ysD3.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Zee News",
@@ -85089,19 +85113,19 @@
   },
   {
     "name": "Zee Tamil",
-    "tvgId": "ZeeTamil.in@SD",
-    "url": "https://playyonogames.in/z5/stream.m3u8?id=0-9-zeetamil",
+    "tvgId": "ZeeTamil.in",
+    "url": "http://87.255.35.150:18553/",
     "tvgLogo": "https://i.imgur.com/KwTVqSe.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Zee Telugu",
-    "tvgId": "ZeeTelugu.in@SD",
-    "url": "https://playyonogames.in/z5/stream.m3u8?id=0-9-zeetelugu",
+    "tvgId": "ZeeTelugu.in",
+    "url": "http://87.255.35.150:18222",
     "tvgLogo": "https://i.imgur.com/YSc3G9d.png",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "Zee Thirai",
@@ -85181,7 +85205,7 @@
     "url": "https://5790d294af2dc.streamlock.net/zincnombreradiotv24@gmail.com/zincnombreradiotv24@gmail.com/playlist.m3u8",
     "tvgLogo": "https://www.vivalivetv.com/public/files/shows/0/1/3751-294x165-FFFFFF.jpg",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "Zindagi TV [Not 24/7]",
@@ -85213,7 +85237,7 @@
     "url": "https://zjarr.future.al/hls/playlist.m3u8",
     "tvgLogo": "https://i.imgur.com/hNuWZWe.png",
     "groupTitle": "General",
-    "working": true
+    "working": false
   },
   {
     "name": "ZNBC TV 1",
@@ -85261,7 +85285,7 @@
     "url": "https://video.uitzending.tv:19360/zo34/zo34.m3u8",
     "tvgLogo": "https://i.imgur.com/yiihDg6.png",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "Zo'r TV",
@@ -85392,9 +85416,9 @@
     "working": false
   },
   {
-    "name": "Zoy TV Sports 1",
+    "name": "Zoy TV Sports 1 [Not 24/7]",
     "tvgId": "ZoyTVSports1.bo@SD",
-    "url": "https://ssh101stream.ssh101.com/akamaissh101/ssh101/zoytvsports/playlist.m3u8",
+    "url": "https://mio.zoymilton.com/ZoyEventos/index.m3u8",
     "tvgLogo": "https://i.imgur.com/0YHztGq.png",
     "groupTitle": "Sports",
     "working": false
@@ -85405,7 +85429,7 @@
     "url": "https://mio.zoymilton.com/ZoyTurcas/index.m3u8",
     "tvgLogo": "https://i.imgur.com/0YHztGq.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "ZoyTV Plus",
@@ -85413,7 +85437,7 @@
     "url": "https://mio.zoymilton.com/ZoyPlus/index.m3u8",
     "tvgLogo": "https://i.imgur.com/JPNPH3x.png",
     "groupTitle": "Entertainment",
-    "working": false
+    "working": true
   },
   {
     "name": "ZTV [Not 24/7]",
@@ -86232,7 +86256,7 @@
     "working": true
   },
   {
-    "name": "Магнат Т��",
+    "name": "Магнат ТВ",
     "tvgId": "Magnat.ru@SD",
     "url": "https://s1.tv-nano.com/Magnat_HD_5119705/video.m3u8",
     "tvgLogo": "https://i.imgur.com/r485aZL.png",
@@ -87205,7 +87229,7 @@
     "url": "https://cityeden.catcast.tv/content/41331/index.m3u8",
     "tvgLogo": "https://i.imgur.com/Aga2XVA.png",
     "groupTitle": "Movies",
-    "working": false
+    "working": true
   },
   {
     "name": "Сити Эдем КиноМистика [Not 24/7]",
@@ -88141,7 +88165,7 @@
     "url": "http://183.207.248.71/gitv/live1/G_NEIMENGGU/G_NEIMENGGU",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "内蒙古卫视",
@@ -88541,7 +88565,7 @@
     "url": "http://scgctvshow.sctv.com/hdlive/sctv4/index.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": true
+    "working": false
   },
   {
     "name": "四川 Ⅰ 巴中综合台 [Not 24/7]",
@@ -88973,7 +88997,7 @@
     "url": "https://www.sgmsw.cn/videos/tv/201805/1308/SB05RIYZOU8JR418AUQOF62CAJQ08D0E/hls/live.m3u8",
     "tvgLogo": "",
     "groupTitle": "Undefined",
-    "working": false
+    "working": true
   },
   {
     "name": "广东卫视",
@@ -90240,7 +90264,7 @@
     "working": false
   },
   {
-    "name": "立法院IVOD直播經濟委員會",
+    "name": "立法院IVOD直播經濟委員���",
     "tvgId": "",
     "url": "https://lylive-videorent.cdn.hinet.net/out/u/live/gop4/ly/ly-Live5/hls-cl-tv/index.m3u8",
     "tvgLogo": "",
@@ -90824,7 +90848,7 @@
     "working": false
   },
   {
-    "name": "��西卫视",
+    "name": "陕西卫视",
     "tvgId": "",
     "url": "http://112.25.48.68/live/program/live/sxws/1300000/mnf.m3u8",
     "tvgLogo": "",
